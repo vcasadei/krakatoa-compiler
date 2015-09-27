@@ -119,10 +119,9 @@ public class Compiler {
 	
 	/** classDec()				- DEVE SER ALTERADA */	
 	private void classDec() {
-		// Note que os m�todos desta classe n�o correspondem exatamente �s
-		// regras
-		// da gram�tica. Este m�todo classDec, por exemplo, implementa
-		// a produ��o KraClass (veja abaixo) e partes de outras produ��es.
+		// Note que os métodos desta classe não correspondem exatamente às
+		// regras da gramática. Este método classDec, por exemplo, implementa
+		// a produção KraClass (veja abaixo) e partes de outras produções.
 
 		/*
 		 * KraClass		::= ``class'' Id [ ``extends'' Id ] "{" MemberList "}"
@@ -355,7 +354,7 @@ public class Compiler {
 			break;
 		case IDENT:
 			
-			// # corrija: fa�a uma busca na TS para buscar a classe
+			// # corrija: faça uma busca na TS para buscar a classe
 			// IDENT deve ser uma classe.
 			
 			/** DEVEMOS USAR A FUNÇÃO isType() DISPONÍVEL MAIS ABAIXO? */
@@ -462,8 +461,8 @@ public class Compiler {
 	
 	/** isType()				- OK */
 	/*
-	 * retorne true se 'name' � uma classe declarada anteriormente. � necess�rio
-	 * fazer uma busca na tabela de s�mbolos para isto.
+	 * retorne true se 'name' é uma classe declarada anteriormente. É necessário
+	 * fazer uma busca na tabela de símbolos para isto.
 	 */
 	private boolean isType(String name) {
 		return this.symbolTable.getInGlobal(name) != null;
@@ -819,7 +818,7 @@ public class Compiler {
 				signalError.show("Identifier expected");
 			messageName = lexer.getStringValue();
 			/*
-			 * para fazer as confer�ncias sem�nticas, procure por 'messageName'
+			 * para fazer as conferências semânticas, procure por 'messageName'
 			 * na superclasse/superclasse da superclasse etc
 			 */
 			lexer.nextToken();
@@ -854,10 +853,10 @@ public class Compiler {
 					if ( lexer.token == Symbol.DOT ) {
 						// Id "." Id "." Id "(" [ ExpressionList ] ")"
 						/*
-						 * se o compilador permite vari�veis est�ticas, � poss�vel
-						 * ter esta op��o, como
+						 * se o compilador permite variáveis estáticas, é possível
+						 * ter esta opçãoo, como
 						 *     Clock.currentDay.setDay(12);
-						 * Contudo, se vari�veis est�ticas n�o estiver nas especifica��es,
+						 * Contudo, se variáveis estáticas não estiver nas especificações,
 						 * sinalize um erro neste ponto.
 						 */
 						lexer.nextToken();
@@ -877,8 +876,8 @@ public class Compiler {
 						// Id "." Id "(" [ ExpressionList ] ")"
 						exprList = this.realParameters();
 						/*
-						 * para fazer as confer�ncias sem�nticas, procure por
-						 * m�todo 'ident' na classe de 'firstId'
+						 * para fazer as conferências semânticas, procure por
+						 * método 'ident' na classe de 'firstId'
 						 */
 					}
 					else {
@@ -901,7 +900,7 @@ public class Compiler {
 			if ( lexer.token != Symbol.DOT ) {
 				// only 'this'
 				// retorne um objeto da ASA que representa 'this'
-				// confira se n�o estamos em um m�todo est�tico
+				// confira se não estamos em um método estático
 				return null;
 			}
 			else {
@@ -910,12 +909,12 @@ public class Compiler {
 					signalError.show("Identifier expected");
 				ident = lexer.getStringValue();
 				lexer.nextToken();
-				// j� analisou "this" "." Id
+				// já analisou "this" "." Id
 				if ( lexer.token == Symbol.LEFTPAR ) {
 					// "this" "." Id "(" [ ExpressionList ] ")"
 					/*
-					 * Confira se a classe corrente possui um m�todo cujo nome �
-					 * 'ident' e que pode tomar os par�metros de ExpressionList
+					 * Confira se a classe corrente possui um método cujo nome é
+					 * 'ident' e que pode tomar os parâmetros de ExpressionList
 					 */
 					exprList = this.realParameters();
 				}
@@ -931,7 +930,7 @@ public class Compiler {
 					// retorne o objeto da ASA que representa "this" "." Id
 					/*
 					 * confira se a classe corrente realmente possui uma
-					 * vari�vel de inst�ncia 'ident'
+					 * variável de instância 'ident'
 					 */
 					return null;
 				}
