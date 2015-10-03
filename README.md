@@ -1,8 +1,88 @@
 # krakatoa-compiler
 A Compiler for the Krakatoa Language written in Java
 
-Update 2015-09-27 17-15-12 (mrcspi)  
-. Comentários adicionados a todas as funçãos na tentativa de determinar quais precisam ser revisitadas;  
-. Comentários adicionados internamente a cada função identificada como "not ok";  
-. Todos os geradores de código estão ausentes, a partir de Program.genKra() (que não está implementado, por sinal);  
-. Factor (especificamente PrimaryExpr) precisa de muita atenção.  
+Tarefas Completas: ✔
+
+Métodos:
+================
+
+*Maurízio*
+* ClassDec
+* InstaceVarDec
+* MethodDed
+* Statement
+* CompositeStatment
+* StatementList
+* AssignExprLocalDec
+* ReadStament
+* Write/WritelnStatment
+* ExprList
+* Expr
+* SimpleExpr
+* Factor
+    * Ident
+    * this
+
+*Vitor*
+* LocalDec
+* FormalParamDec
+* ParamDec
+* type
+* WhileStatement
+* RealParameters
+* IfStatement
+* ReturnStatement
+* BreakStatement
+* NullStatement
+* Term
+* SignalFactor
+* Factor
+    * new
+    * super
+
+Classes:
+================
+
+*Maurízio*
+* Assign
+* CompositeExpression
+* CompositeStatment
+* Expr
+* ExprList
+* InstanceVar
+* InstanceVarList
+* KraClass
+* MethodList
+* Method
+* Read
+* Statement
+* StatementList
+* UnaryExpr
+* variable
+* Write/Writeln
+* MessageSendToClass
+* MessageSend
+* MessageSendStatement
+* MessageSendToInstance
+* MessageSendToSuper
+* MessageSendToVariable
+
+*Vitor*
+* BreakStatement
+* IfStatement
+* LiteralInt
+* LiteralString
+* LiteralBoolean
+* LocalVarList
+* NullStatement
+* NullExpr
+* ObjectCreation
+* Parameter
+* ParamList
+* ParenthesisExpr
+* Program
+* ReturnStatement
+* SignalExpr
+* Types
+* WhileStatement
+* MessageSendToSelf
