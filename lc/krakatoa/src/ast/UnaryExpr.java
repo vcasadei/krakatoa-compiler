@@ -1,3 +1,13 @@
+/**
+ * Laboratório de Compiladores 2015/2
+ * Universidade Federal de São Carlos
+ * Orientação: Prof. Dr. José de O. Guimarães
+ * 
+ * @author Maurício Spinardi 408174
+ * @author Vitor Casadei 408301
+ * 
+ * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
+ */
 
 package ast;
 
@@ -12,6 +22,7 @@ public class UnaryExpr extends Expr {
 
 	@Override
 	public void genC(PW pw, boolean putParenthesis) {
+		
 		switch (op) {
 		case PLUS:
 			pw.print("+");
@@ -24,8 +35,8 @@ public class UnaryExpr extends Expr {
 			break;
 		default:
 			pw.print(" internal error at UnaryExpr::genC");
-
 		}
+		
 		expr.genC(pw, false);
 	}
 
@@ -36,4 +47,5 @@ public class UnaryExpr extends Expr {
 
 	private Expr	expr;
 	private Symbol	op;
+	
 }

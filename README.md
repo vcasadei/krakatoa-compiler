@@ -7,11 +7,12 @@ Métodos:
 ================
 
 *Maurízio*
-* ClassDec
-* InstaceVarDec
-* MethodDed
+* Program ✔ [exceto final/static]
+* ClassDec ✔ [exceto final/static]
+* InstaceVarDec ✔ [exceto final/static]
+* MethodDed ✔ [exceto final/static]
 * Statement
-* CompositeStatment
+* CompositeStatment ✔
 * StatementList
 * AssignExprLocalDec
 * ReadStament
@@ -46,22 +47,23 @@ Classes:
 *Maurízio*
 * Assign
 * CompositeExpression
-* CompositeStatment
+* CompositeStatment ✔ [exceto genKra()]
 * Expr
 * ExprList
-* InstanceVar
-* InstanceVarList
-* KraClass
-* MethodList
-* Method
+* InstanceVar ✔ [exceto genKra()]
+* InstanceVarList ✔ [exceto genKra()]
+* KraClass ✔ [exceto genKra()]
+* MethodList ✔ [exceto genKra()]
+* Method ✔ [exceto genKra()]
 * Read
-* Statement
-* StatementList
-* UnaryExpr
-* variable
+* Statement ✔
+* StatementList ✔ [exceto genKra()]
+* UnaryExpr ✔ [exceto genKra()]
+* Variable ✔
+* VariableExpr ✔ [exceto genKra()] 
 * Write/Writeln
 * MessageSendToClass
-* MessageSend
+* MessageSend ✔
 * MessageSendStatement
 * MessageSendToInstance
 * MessageSendToSuper
