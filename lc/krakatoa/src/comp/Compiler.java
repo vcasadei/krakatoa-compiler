@@ -914,25 +914,52 @@ public class Compiler {
 	private Expr term() {
 		Symbol op;
 
-		Expr left = signalFactor();
-		while ((op = lexer.token) == Symbol.DIV || op == Symbol.MULT
-				|| op == Symbol.AND) {
+		Expr leftExpr = signalFactor();
+		// If there is a div, mult or add operator
+		while ((op = lexer.token) == Symbol.DIV || op == Symbol.MULT || op == Symbol.AND) {
 			lexer.nextToken();
-			Expr right = signalFactor();
-			left = new CompositeExpr(left, op, right);
+			Expr rightExpr = signalFactor();
+			// If the operator is arithmetic (div or mult)
+			if (op == Symbol.DIV || op == Symbol.MULT) {
+				// The type of both expressions must be int
+				if (leftExpr.getType() != Type.intType || rightExpr.getType() != Type.intType) {
+					signalError.show("LINE:" + lexer.getCurrentLine() +
+							"=> Exprected int type, but got " + leftExpr.getType() + " and " + rightExpr.getType() + " instead." +
+							" Mult(*) and Div(/) operations only accept variables of type int");
+				}
+			} else {
+				// If the operator is not div or mult, it is add
+				// It only accepts boolean types
+				if (leftExpr.getType() != Type.booleanType || rightExpr.getType() != Type.booleanType) {
+					signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Exprected boolean type, but got " + leftExpr.getType() + " and " + rightExpr.getType() + " instead." +
+						" And(&&) operation only accept variables of type boolean");
+				}
+			}
+			// Composes continuously the expr on the left
+			leftExpr = new CompositeExpr(leftExpr, op, rightExpr);
 		}
-		return left;
+		return leftExpr;
 	}
 
 	/** signalFactor()			- OK */
 	private Expr signalFactor() {
 		Symbol op;
-		if ( (op = lexer.token) == Symbol.PLUS || op == Symbol.MINUS ) {
+		// If there is a signal
+		if ((op = lexer.token) == Symbol.PLUS || op == Symbol.MINUS ) {
 			lexer.nextToken();
-			return new SignalExpr(op, factor());
-		}
-		else
+			Expr expr = factor();
+			// Signals only work with int type
+			if (expr.getType() != Type.intType) {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected int type, but got " + expr.getType() + " instead.");
+			}
+			
+			return new SignalExpr(op, expr);
+		} else {
+			// If there is no signal
 			return factor();
+		}
+			
 	}
 
 	/** Factor()				- DEVE SER ALTERADA */

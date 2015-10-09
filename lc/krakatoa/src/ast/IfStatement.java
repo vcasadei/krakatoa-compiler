@@ -16,4 +16,9 @@ public class IfStatement extends Statement{
 	private Expr expr;
 	private Statement statementIf;
 	private Statement statementElse;
+	@Override
+	public void genKra(PW pw) {
+		// TODO Auto-generated method stub
+		
+	}
 }

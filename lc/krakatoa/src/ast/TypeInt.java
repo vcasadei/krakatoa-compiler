@@ -9,5 +9,8 @@ public class TypeInt extends Type {
    public String getCname() {
       return "int";
    }
+   public String getKraname() {
+	   return "boolean";
+   }
 
 }

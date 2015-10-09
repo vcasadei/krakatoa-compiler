@@ -35,8 +35,8 @@ Métodos:
 * ReturnStatement ✔
 * BreakStatement ✔
 * NullStatement ✔
-* Term
-* SignalFactor
+* Term ✔
+* SignalFactor ✔
 * Factor
     * new
     * super
@@ -48,8 +48,8 @@ Classes:
 * Assign
 * CompositeExpression
 * CompositeStatment ✔ [exceto genKra()]
-* Expr
-* ExprList
+* Expr ✔
+* ExprList ✔ [com genKra]
 * InstanceVar ✔ [exceto genKra()]
 * InstanceVarList ✔ [exceto genKra()]
 * KraClass ✔ [exceto genKra()]
@@ -84,7 +84,7 @@ Classes:
 * ParenthesisExpr
 * Program
 * ReturnStatement ✔ [com genKra]
-* SignalExpr
-* Types
+* SignalExpr ✔ [com genKra]
+* Types ✔
 * WhileStatement ✔ [exceto genKra]
 * MessageSendToSelf

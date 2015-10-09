@@ -6,5 +6,11 @@ public class BreakStatement extends Statement{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void genKra(PW pw) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -12,4 +12,9 @@ public class WhileStatement extends Statement {
 	
 	private Expr expr;
 	private Statement statement;
+	@Override
+	public void genKra(PW pw) {
+		// TODO Auto-generated method stub
+		
+	}
 }
