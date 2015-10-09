@@ -1,9 +1,9 @@
 /**
- * Laboratório de Compiladores 2015/2
- * Universidade Federal de São Carlos
- * Orientação: Prof. Dr. José de O. Guimarães
+ * Laboratï¿½rio de Compiladores 2015/2
+ * Universidade Federal de Sï¿½o Carlos
+ * Orientaï¿½ï¿½o: Prof. Dr. Josï¿½ de O. Guimarï¿½es
  * 
- * @author Maurício Spinardi 408174
+ * @author Maurï¿½cio Spinardi 408174
  * @author Vitor Casadei 408301
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
@@ -53,7 +53,7 @@ public class Compiler {
 			
 			/**
 			* "Every class can only refer to the classes that appear textually before it."
-			* Considerando que Program é a classe principal, então Program deve ser a última
+			* Considerando que Program ï¿½ a classe principal, entï¿½o Program deve ser a ï¿½ltima
 			* classe na lista de classes.
 			*/
 			int lastClass = kraClassList.size() - 1;
@@ -130,9 +130,9 @@ public class Compiler {
 
 	// TODO FINAL/STATIC SUPPORT
 	private KraClass classDec() {
-		// Note que os métodos desta classe não correspondem exatamente às
-		// regras da gramática. Este método classDec, por exemplo, implementa
-		// a produção KraClass (veja abaixo) e partes de outras produções.
+		// Note que os mï¿½todos desta classe nï¿½o correspondem exatamente ï¿½s
+		// regras da gramï¿½tica. Este mï¿½todo classDec, por exemplo, implementa
+		// a produï¿½ï¿½o KraClass (veja abaixo) e partes de outras produï¿½ï¿½es.
 
 		/*
 		 * KraClass		::= "class" Id [ "extends" Id ] "{" MemberList "}"
@@ -343,23 +343,50 @@ public class Compiler {
 		 */
 
 		Type type = type();
-		if ( lexer.token != Symbol.IDENT ) signalError.show("Identifier expected");
-		Variable v = new Variable(lexer.getStringValue(), type);
+		// Get current token string value
+		String currentTokenValue = lexer.getStringValue();
+		// Expect to be IDENT
+		if ( lexer.token != Symbol.IDENT ) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected Identifier, but got " + currentTokenValue + "instead.");
+		}
+		// Creates variable
+		Variable v = new Variable(currentTokenValue, type);
 		
-		/** NÃO INSERE EM SYMBOLTABLE? */
-		/** NÃO VERIFICA SE JÁ EXISTE? */
+		// Checks if it was previously declared
+		if (isInLocal(currentTokenValue)) {
+			symbolTable.putInLocal(currentTokenValue, v);
+			currentMethod.setLocalVariable(v);
+		} else {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Duplicated declariation of variable " + currentTokenValue);
+		}
 		
 		lexer.nextToken();
+		// Verifies if there is more variables declared (followed by commas) and repeats
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
-			if ( lexer.token != Symbol.IDENT )
-				signalError.show("Identifier expected");
-			v = new Variable(lexer.getStringValue(), type);
+			currentTokenValue = lexer.getStringValue();
+			if ( lexer.token != Symbol.IDENT ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected Identifier, but got " + currentTokenValue + "instead.");
+			}
+			v = new Variable(currentTokenValue, type);
 			
-			/** NÃO INSERE EM SYMBOLTABLE? */
-			/** NÃO VERIFICA SE JÁ EXISTE? */
+			if (isInLocal(currentTokenValue)) {
+				symbolTable.putInLocal(currentTokenValue, v);
+				currentMethod.setLocalVariable(v);
+			} else {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Duplicated declariation of variable " + currentTokenValue);
+			}
 			
 			lexer.nextToken();
+		}
+	}
+	
+	// Verifies if a key (variable) is already in the local symbol table
+	private boolean isInLocal(String key) {
+		if (symbolTable.getInLocal(key) == null) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -372,6 +399,7 @@ public class Compiler {
 		 */
 
 		paramDec();
+		// If there is more than one parameter
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
 			paramDec();
@@ -380,14 +408,26 @@ public class Compiler {
 
 	/** paramDec()				- OK */
 	private void paramDec() {
-		// ParamDec		::= Type Id
-		
 		/**
 		 * ParamDec		::= Type Id
 		 */
 
-		type();
-		if ( lexer.token != Symbol.IDENT ) signalError.show("Identifier expected");
+		Type t = type();
+		// Expects the token to be an identifier
+		String currentTokenValue = lexer.getStringValue();
+		if ( lexer.token != Symbol.IDENT ) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected Identifier, but got " + currentTokenValue + "instead.");
+		}
+		// Verifies if there already exists another parameter of the same type and name on local
+		if (isInLocal(currentTokenValue)) {
+			// Creates the param and sets in the method's params and local symbol table
+			Parameter param = new Parameter(currentTokenValue, t);
+			currentMethod.addParam(param);
+			symbolTable.putInLocal(currentTokenValue, param);
+		} else {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Duplicated declariation of variable " + currentTokenValue);
+		}
+		
 		lexer.nextToken();
 	}
 
@@ -411,16 +451,30 @@ public class Compiler {
 			result = Type.stringType;
 			break;
 		case IDENT:
+			String currentTokenValue = lexer.getStringValue();
+			Object o = null;
+			if (isType(currentTokenValue)) {
+				o = symbolTable.get(currentTokenValue);
+			} else {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Class " + currentTokenValue + " was not declared before use.");
+				result = null;
+			}
 			
-			// # corrija: faÃ§a uma busca na TS para buscar a classe
-			// IDENT deve ser uma classe.
+			if (o == null) {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Class " + currentTokenValue + " was not declared before use.");
+				result = null;
+			}
 			
-			/** DEVEMOS USAR A FUNÃ‡ÃƒO isType() DISPONÍVEL MAIS ABAIXO? */
-			
-			result = null;
+			// Expect current token to be a class instance
+			if (!isClass(o)) {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected identifier " + currentTokenValue + " to be a class.");
+				result = null;
+			}
+			// Finally casts the object to a class instance
+			result = (KraClass) o;
 			break;
 		default:
-			signalError.show("Type expected");
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected type, but got " + lexer.getStringValue());
 			result = Type.undefinedType;
 		}
 		lexer.nextToken();
@@ -446,7 +500,7 @@ public class Compiler {
 		// CompStatement ::= "{" { Statement } "}"
 		
 		/**
-		 * QUAL REGRA DEVERÁ SER USADA?
+		 * QUAL REGRA DEVERï¿½ SER USADA?
 		 */
 		
 		/**
@@ -526,6 +580,11 @@ public class Compiler {
 	private boolean isType(String name) {
 		return this.symbolTable.getInGlobal(name) != null;
 	}
+	
+	// Verifies if some object is an instance of a class, returns true if it is
+	private boolean isClass(Object obj) {
+		return (obj instanceof KraClass);
+	}
 
 	/** assignExprLocalDec()	- OK (VERIFICAR APENAS RETORNO DA FUNÃ‡ÃƒO) */
 	private Expr assignExprLocalDec() {
@@ -568,7 +627,7 @@ public class Compiler {
 			}
 		}
 		
-		/** RETORNARÁ NULO MESMO ? */
+		/** RETORNARï¿½ NULO MESMO ? */
 		
 		return null;
 	}
@@ -639,7 +698,7 @@ public class Compiler {
 
 			String name = lexer.getStringValue();
 			
-			/** NÃƒO PRECISA VERIFICAR SE JÁ EXISTE NA SYMBOLTABLE? */
+			/** NÃƒO PRECISA VERIFICAR SE Jï¿½ EXISTE NA SYMBOLTABLE? */
 			
 			lexer.nextToken();
 			if ( lexer.token == Symbol.COMMA )
@@ -1031,10 +1090,10 @@ public class Compiler {
 	private SignalError		signalError;
 	
 	/**
-	 * Variáveis globais adicionais.
+	 * Variï¿½veis globais adicionais.
 	 * 
-	 * @currentClass Permite declaração/uso de mais de uma classe
-	 * @currentMethod Permite declaração/uso de mais de um método por classe
+	 * @currentClass Permite declaraï¿½ï¿½o/uso de mais de uma classe
+	 * @currentMethod Permite declaraï¿½ï¿½o/uso de mais de um mï¿½todo por classe
 	 */
 	private KraClass		currentClass;
 	private Method			currentMethod;

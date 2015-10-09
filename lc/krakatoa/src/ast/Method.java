@@ -1,9 +1,9 @@
 /**
- * Laboratório de Compiladores 2015/2
- * Universidade Federal de São Carlos
- * Orientação: Prof. Dr. José de O. Guimarães
+ * Laboratï¿½rio de Compiladores 2015/2
+ * Universidade Federal de Sï¿½o Carlos
+ * Orientaï¿½ï¿½o: Prof. Dr. Josï¿½ de O. Guimarï¿½es
  * 
- * @author Maurício Spinardi 408174
+ * @author Maurï¿½cio Spinardi 408174
  * @author Vitor Casadei 408301
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
@@ -16,6 +16,10 @@ public class Method {
 	public Method(String name, Type returnType) {
 		this.name = name;
 		this.returnType = returnType;
+		
+		paramList = new ParamList();
+		statementList = new StatementList();
+		localVariableList = new LocalVariableList();
 	}
 
 	public String getName() {
@@ -28,6 +32,10 @@ public class Method {
 	
 	public void setParamList(ParamList paramList) {
 		this.paramList = paramList;
+	}
+	
+	public void addParam(Parameter param) {
+		this.paramList.addElement(param); 
 	}
 	
 	public LocalVariableList getLocalVariableList() {
@@ -48,6 +56,10 @@ public class Method {
 	
 	public void setStatementList(StatementList statementList) {
 		this.statementList = statementList;
+	}
+	
+	public void setLocalVariable(Variable v) {
+		localVariableList.addElement(v);
 	}
 	
 	private String name;

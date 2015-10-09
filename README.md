@@ -25,9 +25,9 @@ Métodos:
     * this
 
 *Vitor*
-* LocalDec
-* FormalParamDec
-* ParamDec
+* LocalDec ✔
+* FormalParamDec ✔
+* ParamDec ✔
 * type
 * WhileStatement
 * RealParameters
@@ -60,7 +60,7 @@ Classes:
 * StatementList ✔ [exceto genKra()]
 * UnaryExpr ✔ [exceto genKra()]
 * Variable ✔
-* VariableExpr ✔ [exceto genKra()] 
+* VariableExpr ✔ [exceto genKra()]
 * Write/Writeln
 * MessageSendToClass
 * MessageSend ✔
@@ -75,12 +75,12 @@ Classes:
 * LiteralInt
 * LiteralString
 * LiteralBoolean
-* LocalVarList
+* LocalVarList ✔ [exceto genKra]
 * NullStatement
 * NullExpr
 * ObjectCreation
 * Parameter
-* ParamList
+* ParamList ✔ [exceto genkra]
 * ParenthesisExpr
 * Program
 * ReturnStatement
