@@ -634,26 +634,55 @@ public class Compiler {
 
 	/** realParameters()		- OK (MESMO EFEITO DA REGRA ExpressionList) */
 	private ExprList realParameters() {
-		ExprList anExprList = null;
-
-		if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+		ExprList anExprList = new ExprList();
+		String currentTokenValue = lexer.getStringValue();
+		// Expects to find leftpar
+		if (lexer.token != Symbol.LEFTPAR) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find '(' but got " + currentTokenValue + " instead.");
+		}
 		lexer.nextToken();
-		if ( startExpr(lexer.token) ) anExprList = exprList();
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+		
+		// Initiates the exprList
+		if (startExpr(lexer.token)) {
+			anExprList = exprList();
+		}
+		currentTokenValue = lexer.getStringValue();
+		// Expects to find rightpar
+		if (lexer.token != Symbol.RIGHTPAR) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find ')' but got " + currentTokenValue + " instead.");
+		}
 		lexer.nextToken();
+		// returns the exprList instance
 		return anExprList;
 	}
 	
 	/** whileStatement()		- OK */
-	private void whileStatement() {
-
+	private WhileStatement whileStatement() {
+		// If a while statement is found, it's added an item to the while stack
+		whileStatements.push(new Integer(1));
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+		String currentTokenValue = lexer.getStringValue();
+		// Expects to find leftpar
+		if (lexer.token != Symbol.LEFTPAR) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find '(' but got " + currentTokenValue + " instead.");
+		}
 		lexer.nextToken();
-		expr();
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+		Expr expr = expr();
+		if (expr.getType() != Type.booleanType) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected expression to be boolean, but got " + expr.getType().getName() + " instead.");
+		}
+		currentTokenValue = lexer.getStringValue();
+		// Expects to find rightpar
+		if (lexer.token != Symbol.RIGHTPAR) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find ')' but got " + currentTokenValue + " instead.");
+		}
+		
 		lexer.nextToken();
-		statement();
+		
+		Statement statement = statement("while");
+		// After the code, pops the item from the stack
+		whileStatements.pop();
+		return new WhileStatement(expr, statement);
 	}
 
 	/** ifStatement()			- OK */
@@ -743,11 +772,21 @@ public class Compiler {
 	}
 
 	/** breakStatement()		- OK */
-	private void breakStatement() {
+	private BreakStatement breakStatement() {
+		// whileStatements
 		lexer.nextToken();
-		if ( lexer.token != Symbol.SEMICOLON )
-			signalError.show(SignalError.semicolon_expected);
+		
+		// If there is no while statements on the stack
+		// It means that the break statement is outside a while
+		if (whileStatements.empty()) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Break statement called outside while statement.");
+		}
+		// Expected to have ; after break
+		if ( lexer.token != Symbol.SEMICOLON ) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find ';' but got " + lexer.getStringValue() + " instead.");
+		}
 		lexer.nextToken();
+		return new BreakStatement();
 	}
 
 	/** nullStatement()			- OK */
@@ -1098,5 +1137,6 @@ public class Compiler {
 	private KraClass		currentClass;
 	private Method			currentMethod;
 	private boolean 		returnStatement;
+	private Stack			whileStatements = new Stack();
 
 }

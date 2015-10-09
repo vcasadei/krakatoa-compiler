@@ -1,0 +1,241 @@
+Este cabeçalho explica o formato em que está este relatório de erros
+
+Cada linha corresponde a um arquivo de teste. Citaremos três exemplos:
+Primeiro exemplo
+     ok-ger01 **(0/11) 
+Significa que o seu compilador sinalizou erro na linha 11 mas 
+não deveria ter sinalizado erro (0)
+
+Segundo exemplo
+     er-sem40   (42/42) [ : Wrong type ] (Erro de tipos. A instrucao 'this.m(a)' esta errada: um objeto de uma superclasse)
+Significa que o seu compilador apontou o erro na linha 42, a linha correta, 
+com a mensagem " Wrong type ". A mensagem esperada era "Erro de tipos"
+
+Terceiro exemplo
+     er-sem41 **(16/12)
+Significa que o seu compilador apontou o erro na linha 12 e o erro
+estava na linha 16
+
+Fim dos exemplos
+
+Foram considerados 'especiais' três arquivos ok's e 
+nove er's, cujas conferências são mais difíceis de se fazer.
+Estes arquivos são chamados 'critical ok' e 'critical er'.
+Veja no fim deste texto um relatorio com os erros criticos que o seu compilador
+deixou de apontar e com o total de erros ok's e er's
+----------  fim do cabeçalho -------------
+
+
+ok-chk01 
+ok-chk02 
+ok-chk03 
+ok-chk04 
+ok-chk05 
+ok-chk06 
+ok-chk07 
+ok-ger01 
+ok-ger02 
+ok-ger03 
+ok-ger04 
+ok-ger05 
+ok-ger06 
+ok-ger07 
+ok-ger08 
+ok-ger09 
+ok-ger10 
+ok-ger11 
+ok-ger12 
+ok-ger14 
+ok-ger15 
+ok-ger16 
+ok-ger17 **(0/25)    (testa geracao de codigo para metodo estatico)
+ok-ger18 **(0/12)    (testa geracao de codigo para metodos e variaveis estaticos)
+ok-ger19 **(0/13)    (testa geracao de codigo para metodos e variaveis estaticos)
+ok-ger20 **(0/14)    (testa geracao de codigo para classes que referem-se a si mesmas)
+ok-ger21 
+ok-ger22 **(0/12)    (testa geracao de codigo para metodos e classes finais)
+ok-lex02 
+ok-lex03 
+ok-lex04 
+ok-lex05 
+ok-lex06 
+ok-lex07 
+ok-lex08 
+ok-lex10 
+ok-sem03 
+ok-sem04 
+ok-sem05 
+ok-sem06 
+ok-sem07 
+ok-sem08 
+ok-sem09 
+ok-sem10 
+ok-sem11 
+ok-sem12 
+ok-sem13 
+ok-sem14 
+ok-sem15 
+ok-sem17 **(0/13)    (testa aceitacao de metodos e variaveis estaticos)
+ok-sem18 **(0/11)    (testa se o compilador aceita metodos estaticos com mesmo nome em classe e subclasse)
+ok-sem19 **(0/22)    (testa operações usando variáveis estáticas)
+ok-sem20 **(0/4)    (testa métodos finais)
+ok-sin02 
+ok-sin03 
+ok-sin04 
+ok-sin05 
+ok-sin06 
+ok-sin07 
+ok-sin08 
+ok-sin09 
+ok-sin10 
+ok-sin11 
+ok-sin12 
+ok-sin13 
+ok-sin14 
+ok-sin15 
+er-lex02   (10/10) [ : Invalid Character: '\' ] (Testa se \ nao 'e aceito como valido)
+er-lex03   (12/12) [ : Number out of limits ] (Testa se o lexico considera o numero -32768 como incorreto.)
+er-lex04   (10/10) [ : Number out of limits ] (Testa se o lexico sinaliza erro no numero 32768)
+er-lex05   (16/16) [ : Invalid Character: '#' ] (Teste para conferir se o lexico sinaliza o numero correto da linha)
+er-lex06   (10/10) [ : _ cannot start an indentifier ] (Testa se o lexico nao permite sublinhado como primeiro carater)
+er-lex07   (10/10) [ : ; expected ] (Testa se . 'e considerado ilegal)
+er-lex08   (1/1) [ : Comment opened and not closed ] (O compilador devera sinalizar 'comentario nao fechado')
+er-lex09   (10/10) [ : Number out of limits ] (O compilador devera sinalizar 'Numero fora dos limites')
+er-lex11   (10/10) [ : Class Program without a method 'run' ] (Palavras chaves nao podem estar em maiuscula.)
+er-sem01   (17/17) [ : Method m must have a return ] (metodo com tipo de retorno deve ter pelo menos um comando return)
+er-sem02   (12/12) [ : Variable I was not declared ] (Caracteres minusculos e maiusculos sao diferentes)
+er-sem03   (11/11) [ : Variable i was already declared ] (Redeclaracao de i em duas declaracoes em sequencia.)
+er-sem04   (12/12) [ : Uncompatible types in assignment ] (Erro de tipos)
+er-sem05   (12/12) [ : Uncompatible types in assignment ] (Erro de tipos)
+er-sem06   (10/10) [ : Cant make an assignment to a value ] (Instrucao esperada, atribuicao a valor)
+er-sem07   (14/14) [ : Variable i is not an object ] (Variavel inteira sendo utilizada como se fosse objeto)
+er-sem08   (10/10) [ : Invalid operation (+ and - accept only int variables) ] (Uso de operador aritmetico com valores booleanos)
+er-sem09   (12/12) [ : Invalid operation (&& accept only boolean variables) ] (Uso de operadores logicos com inteiros)
+er-sem11   (11/11) [ : The expression in the while statement must be boolean ] (Expressao do while deve ser booleana)
+er-sem12   (10/10) [ : Invalid operation (+ and - accept only int variables) ] (Valor booleano em expressao inteira)
+er-sem13   (12/12) [ : Can only read int and String types ] (Variaveis booleanas nao podem ser lidas.)
+er-sem14   (13/13) [ : Can only write int and String types ] (Expressoes booleanas nao podem ser escritas.)
+er-sem15   (12/12) [ : Operator ! can only be used to boolean variables ] (! aplicado a inteiro.)
+er-sem16   (10/10) [ : Signals can only be used with int values ] (Menos unario aplicado a booleano)
+er-sem17   (10/10) [ : Identifier expected ] (Parametros de read devem ser variaveis.)
+er-sem18   (11/11) [ : Not a valid type in the declaration ] (Tipo 'e uma variavel)
+er-sem19   (10/10) [ : Variable Program was not declared ] (Tipo invalido)
+er-sem20   (10/10) [ : Valid identifier expected, found boolean ] (Palavra reservada utilizada como variavel)
+er-sem21   (10/10) [ : Valid identifier expected, found false ] (Palavra reservada utilizada como variavel)
+er-sem22   (10/10) [ : Valid identifier expected, found int ] (Palavra reservada utilizada como variavel)
+er-sem23   (10/10) [ : Valid identifier expected, found read ] (Palavra reservada utilizada como variavel)
+er-sem24   (10/10) [ : Valid identifier expected, found true ] (Palavra reservada utilizada como variavel)
+er-sem25   (10/10) [ : Valid identifier expected, found write ] (Palavra reservada utilizada como variavel)
+er-sem26   (10/10) [ : Wrong usage of "break" outside a while statement ] (O compilador devera sinalizar erro 'break fora de while')
+er-sem27   (7/7) [ : Cant inheritance from the class itself ] (classe A herda de si mesma)
+er-sem28   (11/11) [ : Instance variable i already declared ] (Variavel i declarada duas vezes, mas nao em sequencia)
+er-sem29   (18/18) [ : Attempt to override a method changing its signature (wrong number of parameters) ] (put redefinida em B com parametros diferentes daqueles da superclasse)
+er-sem30   (18/18) [ : Attempt to override a method changing its signature (return type) ] (Metodo put em B possui valor de retorno. Na superclasse A, nao.)
+er-sem31   (11/11) [ : i already declared as an instance variable ] (Metodo com nome igual a de variavel de instancia)
+er-sem32   (12/12) [ : Method m already declared ] (Metodo publico e privado com mesmo nome)
+er-sem33   (12/12) [ : Method m already declared ] (Dois metodos publicos com mesmo nome)
+er-sem34   (21/21) [ : Call is an expression, not a statement ] (Chamada  'a.m()' eh uma expressao e esta sendo utilizada como uma instrucao)
+er-sem35   (10/10) [ : Cant have a 'return' in a void method ] (Metodo que nao deve retornar nada com instrucao return)
+er-sem36   (22/22) [ : Cant assignment a void call to a variable ] (Instrucao 'i = a.m()' admite que m retorna algum valor)
+er-sem37   (21/21) [ : No public method set was found for the class A ] (Metodo set nao pertence 'a classe A)
+er-sem38   (22/22) [ : Uncompatible types in assignment ] (A instrucao 'b = a' esta errada. Variaveis de subclasses nao podem receber objetos de superclasses.)
+er-sem39   (20/20) [ : Return type not compatible with the return of the method ] (Erro de tipos. A instrucao 'return A.new()' esta errada pois o tipo do valor de)
+er-sem40   (42/42) [ : Expression type is not convertible to parameter number 1 ] (Erro de tipos. A instrucao 'this.m(a)' esta errada: um objeto de uma superclasse)
+er-sem41   (16/16) [ : Uncompatible types in assignment ] (Objeto nao pode receber valores de tipos basicos)
+er-sem42   (16/16) [ : Uncompatible types in assignment ] (Variavel de tipo basico nao pode receber objetos)
+er-sem43   (12/12) [ : Uncompatible types in assignment ] (Variavel de tipo basico nao pode receber null)
+er-sem44   (28/28) [ : Can only write int and String types ] (Nao se pode escrever objetos)
+er-sem45   (16/16) [ : Can only read int and String types ] (Nao se pode ler objetos)
+er-sem46   (10/10) [ : Class Program dont have a superclass ] (super 'e utilizado somente quando ha superclasse)
+er-sem47   (26/26) [ : Class B dont have a super class with a public method m ] (Chamada a metodo inexistente utilizando 'super')
+er-sem48   (7/7) [ : Identifier expected ] (Os nomes dos tipos basicos sao reservados e nao podem ser nomes de classes)
+er-sem49   (11/11) [ : Identifier expected ] (Tipos basicos nao podem ser herdados, pois nao sao classes)
+er-sem50   (21/21) [ : Wrong usage of "break" outside a while statement ] (O compilador devera sinalizar erro 'break fora de loop-end')
+er-sem51   (19/19) [ : Attempt to override a method changing its signature (parameter 3 doesnt match types ] (put redefinida em B com parametros diferentes daqueles da superclasse A)
+er-sem57   (23/23) [ : Invalid operation (incompatible types in comparison) ] (Testa se o compilador sinalize erro nas comparacoes com == )
+er-sem58   (23/23) [ : Invalid operation (incompatible types in comparison) ] (Testa se o compilador sinalize erro nas comparacoes com != )
+er-sem59   (26/26) [ : No public method p was found for the class A ] (Chamada a metodo privado)
+er-sem60   (22/22) [ : Class B dont have a super class with a public method p ] (Chamada a metodo privado da superclasse)
+er-sem61   (34/34) [ : No public method s was found for the class C ] (Chamada a metodo inexistente)
+er-sem62   (17/17) [ : Cant use instance variables without 'this' ] (uso de variavel de instancia sem this)
+er-sem63   (15/15) [ : Wrong call of static method m ] (chamada incorreta a método estático)
+er-sem64   (15/15) [ : Wrong call of static method m ] (chamada incorreta a método estático)
+er-sem65   (12/12) [ : Valid identifier expected, found Program ] (chamada incorreta a método estático)
+er-sem66   (12/12) [ : Valid identifier expected, found Program ] (chamada a método não existente)
+er-sem67   (15/15) [ : Wrong call of method p (need to use 'this' ] (chamada a método não existente)
+er-sem68   (15/15) [ : Class Program doesnt have a method p ] (chamada a método não existente)
+er-sem69   (15/15) [ : Wrong call of static method m ] (chamada incorreta a método estático)
+er-sem70   (12/12) [ : Method m already declared ] (Metodo publico e privado com mesmo nome)
+er-sem71   (14/14) [ : Cant use 'this' in a static method ] (acesso a variavel de instancia em metodo publico)
+er-sem72   (15/15) [ : Cant use 'this' in a static method ] (chamada de metodo instancia publico em metodo estatico)
+er-sem73   (14/14) [ : Static method m already declared ] (dois metodos estaticos com mesmo nome)
+er-sem74   (15/15) [ : Variable m was not declared ] (chamada ilegal a metodo estatico)
+er-sem75   (17/17) [ : Valid identifier expected, found A ] (chamada a metodo estatico privado)
+er-sem76   (19/19) [ : No public method m was found for the class A ] (chamada a metodo estatico atraves de variavel)
+er-sem77   (13/13) [ : Class Program without a method 'run' ] (Método run ausent)
+er-sem78   (13/13) [ : There is no class Program or it is not the last one ] (classe Program ausente)
+er-sem79   (10/10) [ : Method 'run' of class Program must be paremeterless ] (Método run com parâmetros)
+er-sem80   (10/10) [ : Method 'run' of class Program must return 'void' ] (Método run deve retornar 'void')
+er-sem81   (10/10) [ : Method 'run' of class Program must be public ] (Método run deve ser publico)
+er-sem82   (10/10) [ : Method 'run' of class Program cannot be static ] (Método run nao pode ser estatico)
+er-sem83   (12/12) [ : Cant inheritance from a final class ] (Classe final sendo herdada)
+er-sem84 **(14/8)    (Método final sendo redeclarado)
+er-sem85   (8/8) [ : public/private or "}" expected ] (Método final em classe final)
+er-sin01   (10/10) [ : { expected ] (Declaracoes de variaveis locais devem ter aparecer depois de {.)
+er-sin02   (12/12) [ : Valid identifier expected, found j ] (Depois de , deve vir um identificador)
+er-sin03   (12/12) [ : Valid identifier expected, found int ] (Falta o identificador)
+er-sin04   (12/12) [ : Variable i was not declared ] (Falta o tipo da variavel)
+er-sin05   (12/12) [ : Identifier expected ] (, seguida de ) em read)
+er-sin06   (13/13) [ : Expression expected ] (, seguida de ) em write)
+er-sin07   (12/12) [ : Identifier expected ] (read sem argumentos)
+er-sin08   (12/12) [ : Expression expected ] (write sem argumentos)
+er-sin09   (12/12) [ : ) expected ] (operadores de comparacao nao podem ser usados em sequencia)
+er-sin10   (13/13) [ : ( expected ] (Falta ( depois de read)
+er-sin11   (12/12) [ : ( expected ] (Falta ( depois de write)
+er-sin12   (13/13) [ : Expression expected ] ({-} usado como expressao)
+er-sin13   (9/9) [ : { expected ] (Sem  corpo do metodo)
+er-sin14   (18/18) [ : End of file expected ] (Classe esperada. Embora qualquer texto apos a classe Programa 'e inutil, o compilador)
+er-sin15   (11/11) [ : ) expected ] (Nao pode existir comentario no meio de um numero)
+er-sin16   (11/11) [ : Valid identifier expected, found int ] (tipo usado como variavel)
+er-sin17   (10/10) [ : ; expected ] (Falta o ; na declaracao de i)
+er-sin18   (13/13) [ : ; expected ] (Falta o ;  apos atribuicao)
+er-sin19   (13/13) [ : ; expected ] (Falta o ; apos read)
+er-sin20   (10/10) [ : ; expected ] (Falta o ; apos write)
+er-sin21   (14/14) [ : ; expected ] (Falta o ;  apos unico comando do while)
+er-sin22   (15/15) [ : ; expected ] (Falta o ;  apos unico comando do if)
+er-sin23   (12/12) [ : } expected ] (else sem if)
+er-sin24   (12/12) [ : Expression expected ] (Testa se << nao 'e aceito como valido)
+er-sin25   (11/11) [ : Expression expected ] (Testa se >> nao 'e aceito como valido)
+er-sin26   (12/12) [ : Expression of IF statement must be of boolean type ] (Testa se => nao 'e aceito como valido)
+er-sin27   (11/11) [ : Expression of IF statement must be of boolean type ] (Testa se =< nao 'e aceito como valido)
+er-sin28   (7/7) [ : 'class' expected ] (Palavras chaves nao podem estar em maiuscula.)
+er-sin29   (10/10) [ : public/private or "}" expected ] (classe sem corpo)
+er-sin30   (11/11) [ : Invalid Character: '#' ] (carater # nao pertence a linguagem)
+er-sin31   (10/10) [ : Class Program without a method 'run' ] (; excedente)
+er-sin32   (9/9) [ : Type expected ] (, excedente)
+er-sin33   (10/10) [ : Type x was not declared ] (Tipo ausente na declaracao de x)
+er-sin34   (10/10) [ : ) expected ] (; excedente na declaracao de y)
+er-sin35   (10/10) [ : ) expected ] (, ausente na declaracao de m)
+er-sin36   (10/10) [ : Type m was not declared ] (Tipo de retorno ausente na declaracao de m)
+er-sin37   (11/11) [ : Expression expected ] (expressao do if vazia)
+er-sin38   (16/16) [ : public/private or "}" expected ] (} do fim do while ausente)
+er-sin39   (9/9) [ : { expected ] (; depois do nome do metodo)
+er-sin40   (11/11) [ : Attempt to declare a public instance variable ] (Declaracao de variavel de instancia na parte publica. Este erro poderia)
+er-sin41   (7/7) [ : Identifier expected ] (nome da classe ausente)
+er-sin43   (10/10) [ : Class Program without a method 'run' ] (testa se aceita declaracoes sem public/private)
+er-sin44   (10/10) [ : Class Program without a method 'run' ] (testa se aceita declaracoes sem public/private)
+er-sin51   (11/11) [ : Type expected ] (erro sintaxe na declaracao de metodo estático)
+er-sin52   (11/11) [ : private, or public expected ] (erro sintaxe na declaracao de metodo estático)
+er-sin53   (11/11) [ : private, or public expected ] (erro sintaxe na declaracao de variável estática)
+er-sin54   (11/11) [ : Type expected ] (erro sintaxe na declaracao de variável estática)
+er-sin55   (11/11) [ : Type expected ] (erro sintaxe na declaracao de variável estática)
+er-sin56   (11/11) [ : Type m was not declared ] (erro sintaxe na declaracao de metodo estático)
+
+
+9/67 erros nos arquivos ok-*.s
+1/137 erros nos arquivos er-*.s
+0/12 erros criticos
+
+
+Para uso do professor:
+9    1    0    2545    1467    128    

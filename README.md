@@ -28,12 +28,12 @@ Métodos:
 * LocalDec ✔
 * FormalParamDec ✔
 * ParamDec ✔
-* type
-* WhileStatement
-* RealParameters
+* type ✔
+* WhileStatement ✔
+* RealParameters ✔
 * IfStatement
 * ReturnStatement
-* BreakStatement
+* BreakStatement ✔
 * NullStatement
 * Term
 * SignalFactor
@@ -70,7 +70,7 @@ Classes:
 * MessageSendToVariable
 
 *Vitor*
-* BreakStatement
+* BreakStatement ✔ [exceto genKra]
 * IfStatement
 * LiteralInt
 * LiteralString
@@ -86,5 +86,5 @@ Classes:
 * ReturnStatement
 * SignalExpr
 * Types
-* WhileStatement
+* WhileStatement ✔ [exceto genKra]
 * MessageSendToSelf
