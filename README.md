@@ -31,10 +31,10 @@ Métodos:
 * type ✔
 * WhileStatement ✔
 * RealParameters ✔
-* IfStatement
-* ReturnStatement
+* IfStatement ✔
+* ReturnStatement ✔
 * BreakStatement ✔
-* NullStatement
+* NullStatement ✔
 * Term
 * SignalFactor
 * Factor
@@ -71,19 +71,19 @@ Classes:
 
 *Vitor*
 * BreakStatement ✔ [exceto genKra]
-* IfStatement
+* IfStatement ✔ [exceto genKra]
 * LiteralInt
 * LiteralString
 * LiteralBoolean
 * LocalVarList ✔ [exceto genKra]
-* NullStatement
-* NullExpr
+* NullStatement ✔ [com genKra]
+* NullExpr ✔ [com genKra]
 * ObjectCreation
 * Parameter
 * ParamList ✔ [exceto genkra]
 * ParenthesisExpr
 * Program
-* ReturnStatement
+* ReturnStatement ✔ [com genKra]
 * SignalExpr
 * Types
 * WhileStatement ✔ [exceto genKra]

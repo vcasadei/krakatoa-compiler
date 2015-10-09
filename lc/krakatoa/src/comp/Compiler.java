@@ -679,36 +679,106 @@ public class Compiler {
 		
 		lexer.nextToken();
 		
-		Statement statement = statement("while");
+		Statement statement = statement();
 		// After the code, pops the item from the stack
 		whileStatements.pop();
 		return new WhileStatement(expr, statement);
 	}
 
 	/** ifStatement()			- OK */
-	private void ifStatement() {
-
+	private IfStatement ifStatement() {
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+		// Expect left par
+		if ( lexer.token != Symbol.LEFTPAR ) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find '(' but got " + lexer.getStringValue() + " instead.");
+		}
+		
 		lexer.nextToken();
-		expr();
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+		Expr expr = expr();
+		// Expect the expression to be a boolean
+		if (expr.getType() != Type.booleanType) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected expression to be boolean, but got " + expr.getType().getName() + " instead.");
+		}
+		// Expect a right par
+		if ( lexer.token != Symbol.RIGHTPAR ) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find ')' but got " + lexer.getStringValue() + " instead.");
+		}
+		
 		lexer.nextToken();
-		statement();
+		// Create a ifStatement and elseStatement
+		Statement statementIf = statement();
+		Statement statementElse = null;
+		// If there is an else
 		if ( lexer.token == Symbol.ELSE ) {
 			lexer.nextToken();
-			statement();
+			statementElse = statement();
 		}
+		// Returns the instance of statement
+		return new IfStatement(expr, statementIf, statementElse);
 	}
 
 	/** returnStatement()		- OK */
-	private void returnStatement() {
+	private ReturnStatement returnStatement() {
 
 		lexer.nextToken();
-		expr();
-		if ( lexer.token != Symbol.SEMICOLON )
-			signalError.show(SignalError.semicolon_expected);
+		// Gets the expression
+		Expr returnExpr = expr();
+		// Expect to find ;
+		if ( lexer.token != Symbol.SEMICOLON ) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected to find ';' but got " + lexer.getStringValue() + " instead.");
+		}
+		// The type of the method with return must not be void
+		if (currentMethod.getReturnType() == Type.voidType) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Return statement found on void method. Cannot return a void method");
+		}
+		// Or at least be convertible between one and another
+		if (!canConvertType(currentMethod.getReturnType(), returnExpr.getType())) {
+			signalError.show("LINE:" + lexer.getCurrentLine() + "=> Method type not convertible to return type." +
+					" The method type is " + currentMethod.getReturnType() + " and the return type is " + returnExpr.getType());
+		}
+
 		lexer.nextToken();
+		// Flags that a return statement was found
+		returnStatement = true;
+		
+		return new ReturnStatement(returnExpr);
+	}
+	
+	// Method that verifies if a type can be converted to another type
+	private boolean canConvertType(Type type1, Type type2) {
+		// If both types are the same
+		if (type1 == type2) {
+			// And are basic types
+			if (type1 == Type.intType || type1 == Type.stringType || type1 == Type.booleanType) {
+				return true;
+			} else {
+				// If are classes in hierarchy
+				if (isType(type1.getName()) && isType(type2.getName())) {
+					return true;
+				} else {
+					// Gets the supperclass of type2
+					KraClass secondClass = symbolTable.getInGlobal(type2.getName());
+					secondClass = secondClass.getSuperclass();
+					// Runs on all hierarchy looking for a superclass compatible with type1
+					while (secondClass != null) {
+						if (secondClass == type1) {
+							// If found a compatible superclass
+							return true;
+						}
+						secondClass = secondClass.getSuperclass();
+					}
+					// If it came here, no compatible class was found
+					return false;
+				}
+			}
+		}
+		
+		// If the first type is a class and the second type is undefined
+		if (isType(type1.getName()) && type2 == Type.undefinedType) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	/** readStatement()			- DEVE SER ALTERADA */
@@ -790,8 +860,9 @@ public class Compiler {
 	}
 
 	/** nullStatement()			- OK */
-	private void nullStatement() {
+	private NullStatement nullStatement() {
 		lexer.nextToken();
+		return new NullStatement();
 	}
 
 	/** exprList()				- OK */
