@@ -127,5 +127,9 @@ public class KraClass extends Type {
 	public void addStaticPrivateMethod(Method method) {
 		this.staticPrivateMethodList.addElement(method);
 	}
+
+	public Variable getInstanceVariable(String name) {
+		return instanceVariableList.getVariable(name);
+	}
 	
 }

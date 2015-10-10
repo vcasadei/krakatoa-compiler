@@ -14,12 +14,12 @@ Métodos:
 * Statement ✔ [exceto number]
 * CompositeStatment ✔
 * StatementList ✔
-* AssignExprLocalDec ✔ [exceto number, casting]
-* ReadStament
-* Write/WritelnStatment
-* ExprList
-* Expr
-* SimpleExpr
+* AssignExprLocalDec
+* ReadStament 
+* Write/WritelnStatment ✔
+* ExprList ✔
+* Expr 
+* SimpleExpr ✔
 * Factor
     * Ident
     * this

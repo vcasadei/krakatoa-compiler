@@ -34,6 +34,7 @@ public class Compiler {
 		program = program(compilationErrorList);
 		
 		return program;
+		
 	}
 
 	private Program program(ArrayList<CompilationError> compilationErrorList) {
@@ -162,7 +163,7 @@ public class Compiler {
 		 * Verifica se a classe foi declarada anteriormente.
 		 */
 		KraClass alreadyDeclared = symbolTable.getInGlobal(className);
-		if (alreadyDeclared != null) {
+		if ( alreadyDeclared != null ) {
 			signalError.show("Class " + className + " already declared");
 		}
 		currentClass = new KraClass(className);
@@ -179,11 +180,11 @@ public class Compiler {
 			}
 			String superclassName = lexer.getStringValue();
 			
-			if (className.equals(superclassName)) {
+			if ( className.equals(superclassName) ) {
 				signalError.show("Cant inheritance from the class itself");
 			}
 			alreadyDeclared = symbolTable.getInGlobal(superclassName);
-			if (alreadyDeclared == null) {
+			if ( alreadyDeclared == null ) {
 				signalError.show("Class " + superclassName + " was not declared");
 			}
 			currentClass.setSuperclass(new KraClass(superclassName));
@@ -203,16 +204,15 @@ public class Compiler {
 		/**
 		 * Verifica os tipos dos métodos/variáveis.
 		 */
-		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC ||
-				lexer.token == Symbol.STATIC) {
+		while ( lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC || lexer.token == Symbol.STATIC ) {
 			Symbol qualifier;
 			isStatic = false;
 			
-			if (lexer.token == Symbol.STATIC) {
+			if ( lexer.token == Symbol.STATIC ) {
 				isStatic = true;
 			}
 			
-			switch (lexer.token) {
+			switch ( lexer.token ) {
 			case PRIVATE:
 				lexer.nextToken();
 				qualifier = Symbol.PRIVATE;
@@ -260,27 +260,32 @@ public class Compiler {
 		}
 		
 		return currentClass;
-	}
+	} 
 	
 	private void instanceVarDec(Type type, String name) {
 		// InstVarDec 	::= [ "static" ] "private" Type IdList ";"
 
 		boolean found;
 
-		while (lexer.token == Symbol.COMMA) {
+		while ( lexer.token == Symbol.COMMA ) {
 			lexer.nextToken();
 			if ( lexer.token != Symbol.IDENT ) signalError.show("Identifier expected");
 			String variableName = lexer.getStringValue();
-
+			
+			int check = 0;
+			if ( isStatic ) check = 1;
+			else check = 2;
+			
 			/**
 			 * Verifica se a variável é estática.
 			 */
-			if (isStatic) {
+			switch ( check ) {
+			case 1:
 				/**
 				 * Verifica se a variável já foi declarada.
 				 */
 				found = currentClass.containsStaticVariable(name);
-				if (found) {
+				if ( found ) {
 					signalError.show("Static variable " + name + "already declared");
 				}
 				else {
@@ -288,25 +293,24 @@ public class Compiler {
 					 * Verifica se já existe algum método de mesmo nome.
 					 */
 					found = currentClass.containsStaticPrivateMethod(name);
-					if (!found) found = currentClass.containsStaticPublicMethod(name);
-					if (!found) found = currentClass.containsPrivateMethod(name);
-					if (!found) found = currentClass.containsPublicMethod(name);
-					if (found) {
+					if ( !found ) found = currentClass.containsStaticPublicMethod(name);
+					if ( !found ) found = currentClass.containsPrivateMethod(name);
+					if ( !found ) found = currentClass.containsPublicMethod(name);
+					if ( found ) {
 						signalError.show(name + " already declared as a method");
 					}
 				}
 				/**
 				 * Declara, na verdade, uma variável estática.
 				 */
-				InstanceVariable instanceVariable = new InstanceVariable(name, type, true);
-				currentClass.addStaticVariable(instanceVariable);
-			}
-			else {
+				currentClass.addStaticVariable(new InstanceVariable(name, type, true));
+				break;
+			case 2:
 				/**
 				 * Verifica se a variável já foi declarada.
 				 */
 				found = currentClass.containsInstanceVariable(variableName);
-				if (found) {
+				if ( found ) {
 					signalError.show("Instance variable " + name + " already declared");
 				}
 				else {
@@ -314,18 +318,20 @@ public class Compiler {
 					 * Verifica se já existe algum método de mesmo nome.
 					 */
 					found = currentClass.containsStaticPrivateMethod(name);
-					if (!found) found = currentClass.containsStaticPublicMethod(name);
-					if (!found) found = currentClass.containsPrivateMethod(name);
-					if (!found) found = currentClass.containsPublicMethod(name);
-					if (found) {
+					if ( !found ) found = currentClass.containsStaticPublicMethod(name);
+					if ( !found ) found = currentClass.containsPrivateMethod(name);
+					if ( !found ) found = currentClass.containsPublicMethod(name);
+					if ( found ) {
 						signalError.show(name + " already declared as a method");
 					}
 				}
 				/**
 				 * Declara uma variável de instância.
 				 */
-				InstanceVariable instanceVariable = new InstanceVariable(name, type);
-				currentClass.addInstanceVariable(instanceVariable);
+				currentClass.addInstanceVariable(new InstanceVariable(name, type));
+				break;
+			default:
+				// não deverá chegar a esse caso
 			}
 			lexer.nextToken();
 		}
@@ -347,28 +353,37 @@ public class Compiler {
 		/**
 		 * Verifica se o método é estático.
 		 */
-		if (isStatic) {
+		int check = 0;
+		if ( isStatic ) check = 1;
+		else check = 2;
+		
+		switch ( check ) {
+		case 1:
 			/**
 			 * Verifica se o método já foi declarado.
 			 * Vale lembrar que podem existir dois métodos com a mesma assinatura,
 			 * desde que um seja estático.
 			 */
 			found = currentClass.containsStaticPrivateMethod(name) || currentClass.containsStaticPublicMethod(name);
-			if (found) {
+			if ( found ) {
 				signalError.show("Static method " + name + " already declared");
 			}
-		}
-		else {
+			break;
+		case 2:
 			found = currentClass.containsPrivateMethod(name) || currentClass.containsPublicMethod(name);
-			if (found) {
+			if ( found ) {
 				signalError.show("Method " + name + " already declared");
 			}
+			break;
+		default:
+			// não deverá chegar a esse caso
 		}
+		
 		/**
 		 * Verifica se já existe alguma variável de mesmo nome.
 		 */
 		found = currentClass.containsStaticVariable(name) || currentClass.containsInstanceVariable(name);
-		if (found) {
+		if ( found ) {
 			signalError.show(name + " already declared as an instance variable");
 		}
 		
@@ -383,38 +398,46 @@ public class Compiler {
 		String methodName = currentMethod.getName();
 		
 		if ( qualifier == Symbol.PUBLIC ) {
-			if (isStatic) {
+			switch ( check ) {
+			case 1:
 				currentClass.addStaticPublicMethod(currentMethod);
 				if ( className.equals("Program") && methodName.equals("run") ) {
 					signalError.show("Method 'run' of class Program cannot be static");
 				}
-			}
-			else {
+				break;
+			case 2:
 				currentClass.addPublicMethod(currentMethod);
 				if ( className.equals("Program") && methodName.equals("run") ) {
 					if ( currentMethod.getParamList().getSize() > 0 ) {
 						signalError.show("Method 'run' of class Program must be parameterless");
 					}
-					else {
-						if ( currentMethod.getReturnType() != Type.voidType ) {
-							signalError.show("Method 'run' of class Program must return 'void'");
-						}
+					if ( currentMethod.getReturnType() != Type.voidType ) {
+						signalError.show("Method 'run' of class Program must return 'void'");
 					}
 				}
+				break;
+			default:
+				// não deverá chegar a esse caso
 			}
 		}
 		else {
-			if ( isStatic ) {
-				currentClass.addStaticPrivateMethod(currentMethod);
-				if ( className.equals("Program") && methodName.equals("run") ) {
-					signalError.show("Method 'run' of class Program cannot be static");
+			switch ( check ) {
+			case 1:
+				if ( isStatic ) {
+					currentClass.addStaticPrivateMethod(currentMethod);
+					if ( className.equals("Program") && methodName.equals("run") ) {
+						signalError.show("Method 'run' of class Program cannot be static");
+					}
 				}
-			}
-			else {
+				break;
+			case 2:
 				currentClass.addPrivateMethod(currentMethod);
 				if ( className.equals("Program") && methodName.equals("run") ) {
 					signalError.show("Method 'run' of class Program must be public");
 				}
+				break;
+			default:
+				// não deverá chegar a esse caso
 			}
 		}
 
@@ -445,7 +468,7 @@ public class Compiler {
 			ParamList currentMethodPL = currentMethod.getParamList();
 			
 			int i = 0;
-			for (Variable param : superMethodPL.getList()) {
+			for ( Variable param : superMethodPL.getList() ) {
 				if ( param.getType() != currentMethodPL.getList().get(i).getType() ) {
 					signalError.show("Attempt to override a method changing its signature (parameter " + i + " doesnt match types");
 				}
@@ -631,10 +654,11 @@ public class Compiler {
 		StatementList stmtList = new StatementList();
 		Statement stmt;
 		
-		while ((tk = lexer.token) != Symbol.RIGHTCURBRACKET
-				&& tk != Symbol.ELSE)
-			if ((stmt = statement()) != null) {
-				stmtList.addElement(stmt);			}
+		while ( (tk = lexer.token) != Symbol.RIGHTCURBRACKET && tk != Symbol.ELSE ) {
+			if ( (stmt = statement()) != null ) {
+				stmtList.addElement(stmt);
+			}
+		}
 		
 		return stmtList;
 	}
@@ -759,7 +783,6 @@ public class Compiler {
 		return null;
 	}
 
-	/** realParameters()		- OK (MESMO EFEITO DA REGRA ExpressionList) */
 	private ExprList realParameters() {
 		ExprList anExprList = new ExprList();
 		String currentTokenValue = lexer.getStringValue();
@@ -783,7 +806,6 @@ public class Compiler {
 		return anExprList;
 	}
 	
-	/** whileStatement()		- OK */
 	private WhileStatement whileStatement() {
 		// If a while statement is found, it's added an item to the while stack
 		whileStatements.push(new Integer(1));
@@ -812,7 +834,6 @@ public class Compiler {
 		return new WhileStatement(expr, statement);
 	}
 
-	/** ifStatement()			- OK */
 	private IfStatement ifStatement() {
 		lexer.nextToken();
 		// Expect left par
@@ -844,7 +865,6 @@ public class Compiler {
 		return new IfStatement(expr, statementIf, statementElse);
 	}
 
-	/** returnStatement()		- OK */
 	private ReturnStatement returnStatement() {
 
 		lexer.nextToken();
@@ -908,24 +928,62 @@ public class Compiler {
 		return false;
 	}
 
-	/** readStatement()			- DEVE SER ALTERADA */
 	private void readStatement() {
+		
+		ArrayList<Variable> ReadStatement = new ArrayList<Variable>();
+		
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+		if ( lexer.token != Symbol.LEFTPAR ) {
+			signalError.show("( expected");
+		}
 		lexer.nextToken();
-		while (true) {
+		while ( true ) {
+				
+			Symbol classVariable = null;
 			if ( lexer.token == Symbol.THIS ) {
+				classVariable = Symbol.THIS;
 				lexer.nextToken();
-				if ( lexer.token != Symbol.DOT ) signalError.show(". expected");
+				if ( lexer.token != Symbol.DOT ) {
+					signalError.show(". expected");
+				}
 				lexer.nextToken();
 			}
-			if ( lexer.token != Symbol.IDENT )
+			if ( lexer.token != Symbol.IDENT ) {
 				signalError.show(SignalError.ident_expected);
+			}
 
 			String name = lexer.getStringValue();
 			
-			/** NÃO PRECISA VERIFICAR SE J� EXISTE NA SYMBOLTABLE? */
+			if ( classVariable == Symbol.THIS ) {
+				boolean found = currentClass.containsInstanceVariable(name);
+				if ( !found ) {
+					signalError.show("Class " + currentClass.getName() + " have no instance variable '" + name + "'. Wrong usage of 'this'");
+				}
 			
+				Variable classVar = currentClass.getInstanceVariable(name);
+				
+				/**
+				 * De acordo com a documentação, só é possível ler tipo int e String.
+				 * Não é possível utilizar o modelo switch-case em valores do tipo Type.
+				 */
+				if ( classVar.getType() != Type.intType && classVar.getType() != Type.stringType ) {
+					signalError.show("Can only read int and String types");
+				}
+				
+				ReadStatement.add(classVar);
+			}
+			else {
+				Variable local = symbolTable.getInLocal(name);
+				if ( local == null ) {
+					signalError.show("Variable " + name + " was not declared");
+				}
+				if ( local.getType() != Type.intType && local.getType() != Type.stringType ) {
+					signalError.show("Can only read int and String types");
+				}
+				
+				ReadStatement.add(local);
+			}
+				
 			lexer.nextToken();
 			if ( lexer.token == Symbol.COMMA )
 				lexer.nextToken();
@@ -938,37 +996,63 @@ public class Compiler {
 		if ( lexer.token != Symbol.SEMICOLON )
 			signalError.show(SignalError.semicolon_expected);
 		lexer.nextToken();
+		
+		return new ReadStatement(ReadStatement);
 	}
 
-	/** writeStatement()		- OK */
 	private void writeStatement() {
 
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+		if ( lexer.token != Symbol.LEFTPAR ) {
+			signalError.show("( expected");
+		}
 		lexer.nextToken();
-		exprList();
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+		
+		ArrayList<Expr> exprList = exprList().getExprList();
+		for ( Expr expr: exprList ) {
+			if (expr.getType() != Type.intType && expr.getType() != Type.stringType ) {
+				signalError.show("Can only write int and String types");
+			}
+		}
+		
+		if ( lexer.token != Symbol.RIGHTPAR ) {
+			signalError.show(") expected");
+		}
 		lexer.nextToken();
-		if ( lexer.token != Symbol.SEMICOLON )
+		if ( lexer.token != Symbol.SEMICOLON ) {
 			signalError.show(SignalError.semicolon_expected);
+		}
 		lexer.nextToken();
+		
+		return new WriteStatement(exprList);
 	}
 
-	/** writelnStatement()		- OK */
 	private void writelnStatement() {
 
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+		if ( lexer.token != Symbol.LEFTPAR ) {
+			signalError.show("( expected");
+		}
 		lexer.nextToken();
-		exprList();
-		if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+		ArrayList<Expr> exprList = exprList().getExprList();
+		for ( Expr expr: exprList ) {
+			if (expr.getType() != Type.intType && expr.getType() != Type.stringType ) {
+				signalError.show("Can only write int and String types");
+			}
+		}
+		
+		if ( lexer.token != Symbol.RIGHTPAR ) {
+			signalError.show(") expected");
+		}
 		lexer.nextToken();
-		if ( lexer.token != Symbol.SEMICOLON )
+		if ( lexer.token != Symbol.SEMICOLON ) {
 			signalError.show(SignalError.semicolon_expected);
+		}
 		lexer.nextToken();
+		
+		return WriteLnStatement(exprList);
 	}
 
-	/** breakStatement()		- OK */
 	private BreakStatement breakStatement() {
 		// whileStatements
 		lexer.nextToken();
@@ -986,13 +1070,11 @@ public class Compiler {
 		return new BreakStatement();
 	}
 
-	/** nullStatement()			- OK */
 	private NullStatement nullStatement() {
 		lexer.nextToken();
 		return new NullStatement();
 	}
 
-	/** exprList()				- OK */
 	private ExprList exprList() {
 		// ExpressionList ::= Expression { "," Expression }
 
@@ -1005,7 +1087,6 @@ public class Compiler {
 		return anExprList;
 	}
 
-	/** expr()					- OK */
 	private Expr expr() {
 
 		/**
@@ -1023,17 +1104,36 @@ public class Compiler {
 		return left;
 	}
 
-	/** simpleExpr()			- OK */
 	private Expr simpleExpr() {
 		Symbol op;
 
 		Expr left = term();
-		while ((op = lexer.token) == Symbol.MINUS || op == Symbol.PLUS
-				|| op == Symbol.OR) {
+		while ((op = lexer.token) == Symbol.MINUS || op == Symbol.PLUS || op == Symbol.OR) {
 			lexer.nextToken();
 			Expr right = term();
+			
+			/**
+			 * Verifica a combinação de tipos para os tipos básicos.
+			 */
+			switch ( op ) {
+			case MINUS:
+			case PLUS:
+				if ( left.getType() != Type.intType || right.getType() != Type.intType ) {
+					signalError.show("Invalid operation (+ and - accept only int variables)");
+				}
+				break;
+			case OR:
+				if ( left.getType() != Type.booleanType || right.getType() != Type.booleanType ) {
+					signalError.show("Invalid operation (|| accept only boolean variables)");
+				}
+				break;
+			default:
+				// não deverá chegar a esse caso
+			}
+			
 			left = new CompositeExpr(left, op, right);
 		}
+		
 		return left;
 	}
 
