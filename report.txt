@@ -1,7 +1,7 @@
 Relat�rio do Compilador
 
-121 de um total de 133 erros que deveriam ser sinalizados n�o o foram (90%)
-0 erros foram sinalizados na linha errada (0%)
+115 de um total de 133 erros que deveriam ser sinalizados n�o o foram (86%)
+1 erros foram sinalizados na linha errada (0%)
 0 erros foram sinalizados em 76 arquivos sem erro (0%)
 
 Erros que deveriam ser sinalizados mas n�o foram:
@@ -11,8 +11,6 @@ ER-SEM15.KRA, 9, Operator '!' does not accepts 'int' values (comp.Compiler.facto
 ER-SIN18.KRA, 9, Missing ';' (comp.Compiler.assignExprLocalDec())
 
 ER-SEM41.KRA, 14, Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class (comp.Compiler.assignExprLocalDec())
-
-ER-SIN29.KRA, 7, 'private',  'public', or '}' expected (comp.Compiler.classDec())
 
 ER-SEM09.KRA, 12, type 'int' does not support operator '&&' (comp.Compiler.term())
 
@@ -53,8 +51,6 @@ ER-SEM20.KRA, 8, Identifier expected (comp.Compiler.localDec())
 ER-LEX03.KRA, 6, literal int out of limites (lexer.Lexer.nextToken())
 
 ER-LEX07.KRA, 8, Unknown character (lexer.Lexer.nextToken())
-
-ER-SEM84.KRA, 12, Redeclaration of final method 'finalMethod' (comp.Compiler.methodDec())
 
 ER-SEM35.KRA, 9, Illegal 'return' statement. Method returns 'void' (comp.Compiler.returnStatement())
 
@@ -156,11 +152,7 @@ ER-SEM58.KRA, 21, Incompatible types cannot be compared with '!=' because the re
 
 ER-SIN22.KRA, 11, Missing ';' (comp.Compiler.assignExprLocalDec())
 
-ER-SEM85.KRA, 6, 'final' method in a 'final' class (comp.Compiler.methodDec())
-
 ER-SEM13.KRA, 11, Command 'read' does not accept 'boolean' variables (comp.Compiler.readStatement())
-
-ER-SIN57.KRA, 7, 'public', 'private' or '}' expected (comp.Compiler.classDec())
 
 ER-SEM60.KRA, 21, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
 
@@ -222,13 +214,9 @@ ER-SEM86.KRA, 8, Class 'A' was not found (comp.Compiler.factor())
 
 ER-SIN35.KRA, 6, ')' expected (comp.Compiler.methodDec)
 
-ER-SIN43.KRA, 6, 'public', 'private', or '}' expected (comp.Compiler.classDec())
-
 ER-SEM69.KRA, 11, '.' or '=' expected after identifier OR statement expected (comp.Compiler.factor())
 
 ER-SIN37.KRA, 8, Expression expected (comp.Compiler.factor())
-
-ER-SIN44.KRA, 6, 'public', 'private', or '}' expected (comp.Compiler.classDec())
 
 ER-SIN04.KRA, 8, Statement expected (comp.Compiler.assignExprLocalDec())
 
@@ -248,7 +236,13 @@ ER-SEM32.KRA, 11, Method 'm' is being redeclared (comp.Compiler.methodDec())
 
 ER-SEM75.KRA, 14, Static method 'm' was not found in class 'A' (comp.Compiler.factor())
 
-Um ou mais arquivos de teste tinham erros, mas estes foram sinalizados nos n�meros de linhas corretos
+######################################################
+Erros que foram sinalizados na linha errada:
+
+ER-SEM84.KRA
+    correto:    12, Redeclaration of final method 'finalMethod' (comp.Compiler.methodDec())
+    sinalizado: 6, 'private',  'public', or '}' expected
+
 O compilador n�o sinalizou nenhum erro que n�o deveria ter sinalizado
 ######################################################
 Em todos os testes abaixo, o compilador sinalizou o erro na linha correta (quando o teste tinha erros) ou n�o sinalizou o erro (quando o teste N�O tinha erros). Mas � necess�rio conferir se as mensagens emitidas pelo compilador s�o compat�veis com as mensagens de erro sugeridas pelas chamadas aos metaobjetos dos testes. 
@@ -263,6 +257,11 @@ The 'ce' message is:      "Attempt to declare public instance variable 'i'"
 ER-SIN52.KRA
 The compiler message was: "private, or public expected"
 The 'ce' message is:      "'public' or 'private' expected"
+
+
+ER-SIN29.KRA
+The compiler message was: "'private',  'public', or '}' expected"
+The 'ce' message is:      "'private',  'public', or '}' expected"
 
 
 ER-SIN55.KRA
@@ -305,6 +304,16 @@ The compiler message was: "private, or public expected"
 The 'ce' message is:      "'private' expected"
 
 
+ER-SEM85.KRA
+The compiler message was: "'private',  'public', or '}' expected"
+The 'ce' message is:      "'final' method in a 'final' class"
+
+
+ER-SIN57.KRA
+The compiler message was: "'private',  'public', or '}' expected"
+The 'ce' message is:      "'public', 'private' or '}' expected"
+
+
 ER-SIN41.KRA
 The compiler message was: "Identifier expected"
 The 'ce' message is:      "Identifier expected"
@@ -313,5 +322,15 @@ The 'ce' message is:      "Identifier expected"
 ER-SIN36.KRA
 The compiler message was: "LINE:    public m( int x, int y ) {  //#=> Class m was not declared before use."
 The 'ce' message is:      "Identifier expected"
+
+
+ER-SIN43.KRA
+The compiler message was: "'private',  'public', or '}' expected"
+The 'ce' message is:      "'public', 'private', or '}' expected"
+
+
+ER-SIN44.KRA
+The compiler message was: "'private',  'public', or '}' expected"
+The 'ce' message is:      "'public', 'private', or '}' expected"
 
 
