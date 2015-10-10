@@ -14,6 +14,11 @@ public class Program {
 
 
 	public void genKra(PW pw) {
+		// Iterates over the classes and generates the Krakatoa code for each of them
+		for (KraClass aClass : classList) {
+			aClass.genKra(pw);
+			pw.printlnIdent("");
+		}
 	}
 
 	public void genC(PW pw) {

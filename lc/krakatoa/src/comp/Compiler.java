@@ -986,36 +986,37 @@ public class Compiler {
 		Expr e;
 		ExprList exprList;
 		String messageName, ident;
+		Method method = null;
+		ParamList paramListMethod;
 
 		switch (lexer.token) {
 			// IntValue
 		case LITERALINT:
 			return literalInt();
-			
 			// BooleanValue
 		case FALSE:
 			lexer.nextToken();
 			return LiteralBoolean.False;
-			
 			// BooleanValue
 		case TRUE:
 			lexer.nextToken();
 			return LiteralBoolean.True;
-			
 			// StringValue
 		case LITERALSTRING:
 			String literalString = lexer.getLiteralStringValue();
 			lexer.nextToken();
 			return new LiteralString(literalString);
-			
 			// "(" Expression ")" |
 		case LEFTPAR:
 			lexer.nextToken();
 			e = expr();
-			if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+			// Expected to find the right par to close the expression
+			if ( lexer.token != Symbol.RIGHTPAR ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected to find ')', but found " + lexer.getStringValue() + " instead.");
+			}
 			lexer.nextToken();
 			return new ParenthesisExpr(e);
-			
 			// "null"
 		case NULL:
 			lexer.nextToken();
@@ -1025,30 +1026,49 @@ public class Compiler {
 		case NOT:
 			lexer.nextToken();
 			e = expr();
-			return new UnaryExpr(e, Symbol.NOT);
+			// Not operator only works with a boolean expression
+			if (e.getType() != Type.booleanType) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected type to be boolean, but got " + e.getType() + " instead." +
+						" Not (!) operator accepts only boolean values.");
+			}
 			
+			return new UnaryExpr(e, Symbol.NOT);
 			// ObjectCreation ::= "new" Id "(" ")"
 		case NEW:
 			lexer.nextToken();
-			if ( lexer.token != Symbol.IDENT )
-				signalError.show("Identifier expected");
+			// Should have an identifier
+			if ( lexer.token != Symbol.IDENT ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected to find 'identifier', but found " + lexer.getStringValue() + " instead.");
+			}
 
 			String className = lexer.getStringValue();
-			/*
-			 * // encontre a classe className in symbol table KraClass 
-			 *      aClass = symbolTable.getInGlobal(className); 
-			 *      if ( aClass == null ) ...
-			 */
+			
+			// Finds the className on globalSymbolTable KraClass
+			KraClass aClass = symbolTable.getInGlobal(className);
+			if (aClass == null) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Class " + className + " was used before it was declared or was not declared.");
+			}
 
+			// Should have leftpar
 			lexer.nextToken();
-			if ( lexer.token != Symbol.LEFTPAR ) signalError.show("( expected");
+			if ( lexer.token != Symbol.LEFTPAR ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected to find '(', but found " + lexer.getStringValue() + " instead.");
+			}
 			lexer.nextToken();
-			if ( lexer.token != Symbol.RIGHTPAR ) signalError.show(") expected");
+			// And also rightpar
+			if ( lexer.token != Symbol.RIGHTPAR ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected to find ')', but found " + lexer.getStringValue() + " instead.");
+			}
 			lexer.nextToken();
 			/*
 			 * return an object representing the creation of an object
 			 */
-			return null;
+			return new ObjectBuilder(aClass);
 			
 			/*
           	 * PrimaryExpr ::= "super" "." Id "(" [ ExpressionList ] ")"  | 
@@ -1065,20 +1085,71 @@ public class Compiler {
 			// "super" "." Id "(" [ ExpressionList ] ")"
 			lexer.nextToken();
 			if ( lexer.token != Symbol.DOT ) {
-				signalError.show("'.' expected");
-			}
-			else
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected to find '.', but found " + lexer.getStringValue() + " instead.");
+			} else {
 				lexer.nextToken();
-			if ( lexer.token != Symbol.IDENT )
-				signalError.show("Identifier expected");
+			}
+			if ( lexer.token != Symbol.IDENT ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected to find 'identifier', but found " + lexer.getStringValue() + " instead.");
+			}
 			messageName = lexer.getStringValue();
-			/*
-			 * para fazer as conferências semânticas, procure por 'messageName'
-			 * na superclasse/superclasse da superclasse etc
-			 */
+			// Search on superclass in order to find messageName
+			KraClass superKraClass = currentClass.getSuperclass();
+			// The class should have a superclass
+			if (superKraClass == null) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected " + currentClass.getName() + " to have a superclass.");
+			}
+			boolean superKraClassFound = false;
+			// Iterates over all superclasses on the hierarchy until a valid superclass is found (or not)
+			while (superKraClass != null) {
+				superKraClassFound = superKraClass.containsPublicMethod(messageName);
+				if (superKraClassFound) {
+					break;
+				} else {
+					superKraClass = superKraClass.getSuperclass();
+				}
+			}
+			
+			// If couldn't find any
+			if (!superKraClassFound) {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> Expected " + currentClass.getName() + " to have a superclass with a public method " +
+						"called " + messageName);
+			}
+			
 			lexer.nextToken();
 			exprList = realParameters();
-			break;
+			
+			method = superKraClass.getPublicMethod(messageName);
+			paramListMethod = method.getParamList();
+			// Checks if the number of parameters is equal to the number of expressions
+			if (paramListMethod.getSize() == exprList.getSize()) {
+				Iterator<Expr> exprListIterator = exprList.getElements();
+				Iterator<Parameter> paramListMethodIterador = paramListMethod.getElements();
+				// Parameter Counter, only for better error messages
+				int parametersCounter = 1;
+
+				// Iterates over the parameters and expressions and checks if they match on type or can
+				// be converted between them
+				while (exprListIterator.hasNext() && paramListMethodIterador.hasNext()) {
+					Expr expr = exprListIterator.next();
+					Parameter parameter = paramListMethodIterador.next();
+					// Checks if the can convert the types
+					if (!canConvertType(parameter.getType(), expr.getType())) {
+						signalError.show("LINE:" + lexer.getCurrentLine() + "=> Expected expression type to be convertible to parameter "+ parametersCounter +" type." +
+								" The expression type is " + expr.getType() + " and the return type is " + parameter.getType());
+					}
+					
+					parametersCounter++;
+				}
+			} else {
+				signalError.show("LINE:" + lexer.getCurrentLine() +
+						"=> The number of parameters is different from the number of expressions.");
+			}
+			return new MessageSendToSuper(method, exprList, currentClass);
 		
 		case IDENT:
 			/*

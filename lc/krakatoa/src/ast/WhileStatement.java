@@ -14,7 +14,16 @@ public class WhileStatement extends Statement {
 	private Statement statement;
 	@Override
 	public void genKra(PW pw) {
-		// TODO Auto-generated method stub
+		pw.print("while (");
+		expr.genKra(pw, false);
+		pw.println(") {");
+		
+		pw.add();
+		statement.genKra(pw);
+		pw.sub();
+		
+		pw.println("}");
+		
 		
 	}
 }

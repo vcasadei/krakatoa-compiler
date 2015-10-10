@@ -1,9 +1,9 @@
 /**
- * Laboratório de Compiladores 2015/2
- * Universidade Federal de São Carlos
- * Orientação: Prof. Dr. José de O. Guimarães
+ * Laboratï¿½rio de Compiladores 2015/2
+ * Universidade Federal de Sï¿½o Carlos
+ * Orientaï¿½ï¿½o: Prof. Dr. Josï¿½ de O. Guimarï¿½es
  * 
- * @author Maurício Spinardi 408174
+ * @author Maurï¿½cio Spinardi 408174
  * @author Vitor Casadei 408301
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
@@ -15,6 +15,10 @@ public class KraClass extends Type {
 
 	public KraClass( String name ) {
 		super(name);
+	}
+	
+	public void genKra(PW pw) {
+		// To do...
 	}
 
 	public String getCname() {

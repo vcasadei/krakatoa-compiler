@@ -14,14 +14,14 @@ import java.util.*;
 public class ParamList {
 
     public ParamList() {
-       paramList = new ArrayList<Variable>();
+       paramList = new ArrayList<Parameter>();
     }
 
-    public void addElement(Variable v) {
+    public void addElement(Parameter v) {
        paramList.add(v);
     }
 
-    public Iterator<Variable> elements() {
+    public Iterator<Parameter> getElements() {
         return paramList.iterator();
     }
 
@@ -29,10 +29,21 @@ public class ParamList {
         return paramList.size();
     }
     
-    public ArrayList<Variable> getList() {
+    public ArrayList<Parameter> getList() {
     	return paramList;
     }
+    
+    public void genKra(PW pw) {
+    	int paramCounter = paramList.size();
+    	for (Parameter p : paramList) {
+    		p.genKra(pw);
+    		if (paramCounter > 1) {
+    			pw.print(", ");
+    		}
+    		paramCounter--;
+    	}
+    }
 
-    private ArrayList<Variable> paramList;
+    private ArrayList<Parameter> paramList;
 
 }

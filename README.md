@@ -6,7 +6,7 @@ Tarefas Completas: ✔
 Métodos:
 ================
 
-*Maurízio*
+**Maurízio**
 * Program ✔ [exceto final/static]
 * ClassDec ✔ [exceto final/static]
 * InstaceVarDec ✔ [exceto final/static]
@@ -24,7 +24,7 @@ Métodos:
     * Ident
     * this
 
-*Vitor*
+**Vitor**
 * LocalDec ✔
 * FormalParamDec ✔
 * ParamDec ✔
@@ -37,14 +37,14 @@ Métodos:
 * NullStatement ✔
 * Term ✔
 * SignalFactor ✔
-* Factor
-    * new
-    * super
+* Factor ✔
+    * new ✔
+    * super ✔
 
 Classes:
 ================
 
-*Maurízio*
+**Maurízio**
 * Assign
 * CompositeExpression
 * CompositeStatment ✔ [exceto genKra()]
@@ -66,25 +66,27 @@ Classes:
 * MessageSend ✔
 * MessageSendStatement
 * MessageSendToInstance
-* MessageSendToSuper
+* MessageSendToSuper ✔ [Verifica o genKra por favor. Não tenho certeza se está certo]
 * MessageSendToVariable
 
-*Vitor*
-* BreakStatement ✔ [exceto genKra]
-* IfStatement ✔ [exceto genKra]
-* LiteralInt
-* LiteralString
-* LiteralBoolean
-* LocalVarList ✔ [exceto genKra]
-* NullStatement ✔ [com genKra]
-* NullExpr ✔ [com genKra]
-* ObjectCreation
-* Parameter
-* ParamList ✔ [exceto genkra]
-* ParenthesisExpr
-* Program
-* ReturnStatement ✔ [com genKra]
-* SignalExpr ✔ [com genKra]
+**Vitor**
+
+*Including genKra*
+* BreakStatement ✔
+* IfStatement ✔
+* LiteralInt ✔
+* LiteralString ✔
+* LiteralBoolean ✔
+* LocalVarList ✔ [Verifica o genKra por favor. Não tenho certeza se está certo]
+* NullStatement ✔
+* NullExpr ✔
+* ObjectBuilder
+* Parameter ✔
+* ParamList ✔
+* ParenthesisExpr ✔
+* Program ✔ [Verifica o genKra por favor. Não tenho certeza se está certo]
+* ReturnStatement ✔
+* SignalExpr ✔
 * Types ✔
-* WhileStatement ✔ [exceto genKra]
-* MessageSendToSelf
+* WhileStatement ✔
+* MessageSendToSelf ✔ [Verifica o genKra por favor. Não tenho certeza se está certo]

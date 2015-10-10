@@ -13,12 +13,30 @@ public class IfStatement extends Statement{
 		this.statementElse = statementElse;
 	}
 	
-	private Expr expr;
-	private Statement statementIf;
-	private Statement statementElse;
+	private Expr expr = null;
+	private Statement statementIf = null;
+	private Statement statementElse = null;
 	@Override
 	public void genKra(PW pw) {
-		// TODO Auto-generated method stub
+		pw.printIdent("if (");
+		expr.genKra(pw, false);
+		pw.println(") {");
+		
+		pw.add();
+		statementIf.genKra(pw);
+		pw.sub();
+		
+		pw.printIdent("}");
+		
+		if (statementElse != null) {
+			pw.println(" else {");
+			
+			pw.add();
+			statementElse.genKra(pw);
+			pw.sub();
+			
+			pw.printIdent("}");
+		}
 		
 	}
 }
