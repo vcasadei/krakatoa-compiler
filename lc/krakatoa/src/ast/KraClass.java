@@ -1,9 +1,9 @@
 /**
- * Laboratório de Compiladores 2015/2
- * Universidade Federal de São Carlos
- * Orientação: Prof. Dr. José de O. Guimarães
+ * Laboratï¿½rio de Compiladores 2015/2
+ * Universidade Federal de Sï¿½o Carlos
+ * Orientaï¿½ï¿½o: Prof. Dr. Josï¿½ de O. Guimarï¿½es
  * 
- * @author Maurício Spinardi 408174
+ * @author Maurï¿½cio Spinardi 408174
  * @author Vitor Casadei 408301
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
@@ -90,6 +90,42 @@ public class KraClass extends Type {
 	private String name;
 	private KraClass superclass;
 	private InstanceVariableList instanceVariableList;
+	private InstanceVariableList staticVariableList;
 	private MethodList publicMethodList, privateMethodList;
+	
+	public boolean containsStaticVariable(String varName) {
+		if (this.staticVariableList.containsVariable(varName)) {
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean containsStaticPrivateMethod(String methodName) {
+		if (this.staticPrivateMethodList.containsMethod(methodName)) {
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean containsStaticPublicMethod(String methodName) {
+		if (this.staticPublicMethodList.containsMethod(methodName)) {
+			return true;
+		}
+		else return false;
+	}
+	
+	public void addStaticVariable(InstanceVariable var) {
+		this.staticVariableList.addElement(var);
+	}
+	
+	private MethodList staticPublicMethodList, staticPrivateMethodList;
+
+	public void addStaticPublicMethod(Method method) {
+		this.staticPublicMethodList.addElement(method);
+	}
+
+	public void addStaticPrivateMethod(Method method) {
+		this.staticPrivateMethodList.addElement(method);
+	}
 	
 }

@@ -13,6 +13,7 @@ package comp;
 
 import ast.*;
 import lexer.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -31,6 +32,7 @@ public class Compiler {
 		Program program = null;
 		lexer.nextToken();
 		program = program(compilationErrorList);
+		
 		return program;
 	}
 
@@ -128,7 +130,7 @@ public class Compiler {
 		return new MetaobjectCall(name, metaobjectParamList);
 	}
 
-	// TODO FINAL/STATIC SUPPORT
+	// TODO FINAL
 	private KraClass classDec() {
 		// Note que os m�todos desta classe n�o correspondem exatamente �s
 		// regras da gram�tica. Este m�todo classDec, por exemplo, implementa
@@ -144,35 +146,71 @@ public class Compiler {
 		 * Qualifier	::= [ "static" ]  ( "private" | "public" )
 		 */
 		
-		if ( lexer.token != Symbol.CLASS ) signalError.show("'class' expected");
+		if ( lexer.token != Symbol.CLASS ) {
+			signalError.show("'class' expected");
+		}
+		
 		lexer.nextToken();
-		if ( lexer.token != Symbol.IDENT ) signalError.show(SignalError.ident_expected);
+		
+		if ( lexer.token != Symbol.IDENT ) {
+			signalError.show(SignalError.ident_expected);
+		}
+		
 		String className = lexer.getStringValue();
-			
+		
+		/**
+		 * Verifica se a classe foi declarada anteriormente.
+		 */
 		KraClass alreadyDeclared = symbolTable.getInGlobal(className);
-		if (alreadyDeclared != null) signalError.show("Class " + className + " already declared");
+		if (alreadyDeclared != null) {
+			signalError.show("Class " + className + " already declared");
+		}
 		currentClass = new KraClass(className);
 		symbolTable.putInGlobal(className, currentClass);
 		lexer.nextToken();
 		
+		/**
+		 * Verifica se está sendo feito uso de herança.
+		 */
 		if ( lexer.token == Symbol.EXTENDS ) {
 			lexer.nextToken();
-			if ( lexer.token != Symbol.IDENT ) signalError.show(SignalError.ident_expected);
+			if ( lexer.token != Symbol.IDENT ) {
+				signalError.show(SignalError.ident_expected);
+			}
 			String superclassName = lexer.getStringValue();
 			
-			if (className.equals(superclassName)) signalError.show("Can't inheritance from itself");
+			if (className.equals(superclassName)) {
+				signalError.show("Cant inheritance from the class itself");
+			}
 			alreadyDeclared = symbolTable.getInGlobal(superclassName);
-			if (alreadyDeclared == null) signalError.show("Class " + superclassName + " does not exist");
+			if (alreadyDeclared == null) {
+				signalError.show("Class " + superclassName + " was not declared");
+			}
 			currentClass.setSuperclass(new KraClass(superclassName));
 			
 			lexer.nextToken();
 		}
+		/**
+		 * Caso não esteja sendo feito uso de herança.
+		 */
+		else currentClass.setSuperclass(null);
 		
-		if ( lexer.token != Symbol.LEFTCURBRACKET ) signalError.show("{ expected", true);
+		if ( lexer.token != Symbol.LEFTCURBRACKET ) {
+			signalError.show("{ expected", true);
+		}
 		lexer.nextToken();
 
-		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC) {
+		/**
+		 * Verifica os tipos dos métodos/variáveis.
+		 */
+		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC ||
+				lexer.token == Symbol.STATIC) {
 			Symbol qualifier;
+			isStatic = false;
+			
+			if (lexer.token == Symbol.STATIC) {
+				isStatic = true;
+			}
 			
 			switch (lexer.token) {
 			case PRIVATE:
@@ -184,23 +222,31 @@ public class Compiler {
 				qualifier = Symbol.PUBLIC;
 				break;
 			default:
-				signalError.show("private or public expected");
+				signalError.show("private, or public expected");
 				qualifier = Symbol.PUBLIC;
 			}
 			
 			Type t = type();
 			
-			if ( lexer.token != Symbol.IDENT ) signalError.show("Identifier expected");
+			if ( lexer.token != Symbol.IDENT ) {
+				signalError.show("Identifier expected");
+			}
 			String name = lexer.getStringValue();
 			lexer.nextToken();
-			if ( lexer.token == Symbol.LEFTPAR ) methodDec(t, name, qualifier);
+			if ( lexer.token == Symbol.LEFTPAR ) {
+				methodDec(t, name, qualifier);
+			}
 			else {
-				if ( qualifier != Symbol.PRIVATE ) signalError.show("Attempt to declare a public instance variable");
+				if ( qualifier != Symbol.PRIVATE ) {
+					signalError.show("Attempt to declare a public instance variable");
+				}
 				else instanceVarDec(t, name);
 			}
 		}
 		
-		if ( lexer.token != Symbol.RIGHTCURBRACKET ) signalError.show("public/private or \"}\" expected");
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
+			signalError.show("public/private or \"}\" expected");
+		}
 		lexer.nextToken();
 
 		/**
@@ -210,36 +256,86 @@ public class Compiler {
 		 */
 		if ( currentClass.getName().equals("Program") ) {
 			boolean run = currentClass.containsPublicMethod("run");
-			if ( !run ) signalError.show("Class Program without a run() method");
+			if ( !run ) signalError.show("Class Program without a method 'run'");
 		}
 		
 		return currentClass;
 	}
 	
-	// TODO FINAL/STATIC SUPPORT
 	private void instanceVarDec(Type type, String name) {
 		// InstVarDec 	::= [ "static" ] "private" Type IdList ";"
+
+		boolean found;
 
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
 			if ( lexer.token != Symbol.IDENT ) signalError.show("Identifier expected");
 			String variableName = lexer.getStringValue();
-			
-			boolean found;
-			found = currentClass.containsInstanceVariable(variableName); 
-			if (found) signalError.show("Static variable " + name + " already declared");
-			found = currentClass.containsPrivateMethod(variableName) || currentClass.containsPublicMethod(variableName);
-			if (found) signalError.show((name + " is a method and cannot be declared"));
-			InstanceVariable instanceVariable = new InstanceVariable(name, type);
-			currentClass.addInstanceVariable(instanceVariable);
-			
+
+			/**
+			 * Verifica se a variável é estática.
+			 */
+			if (isStatic) {
+				/**
+				 * Verifica se a variável já foi declarada.
+				 */
+				found = currentClass.containsStaticVariable(name);
+				if (found) {
+					signalError.show("Static variable " + name + "already declared");
+				}
+				else {
+					/**
+					 * Verifica se já existe algum método de mesmo nome.
+					 */
+					found = currentClass.containsStaticPrivateMethod(name);
+					if (!found) found = currentClass.containsStaticPublicMethod(name);
+					if (!found) found = currentClass.containsPrivateMethod(name);
+					if (!found) found = currentClass.containsPublicMethod(name);
+					if (found) {
+						signalError.show(name + " already declared as a method");
+					}
+				}
+				/**
+				 * Declara, na verdade, uma variável estática.
+				 */
+				InstanceVariable instanceVariable = new InstanceVariable(name, type, true);
+				currentClass.addStaticVariable(instanceVariable);
+			}
+			else {
+				/**
+				 * Verifica se a variável já foi declarada.
+				 */
+				found = currentClass.containsInstanceVariable(variableName);
+				if (found) {
+					signalError.show("Instance variable " + name + " already declared");
+				}
+				else {
+					/**
+					 * Verifica se já existe algum método de mesmo nome.
+					 */
+					found = currentClass.containsStaticPrivateMethod(name);
+					if (!found) found = currentClass.containsStaticPublicMethod(name);
+					if (!found) found = currentClass.containsPrivateMethod(name);
+					if (!found) found = currentClass.containsPublicMethod(name);
+					if (found) {
+						signalError.show(name + " already declared as a method");
+					}
+				}
+				/**
+				 * Declara uma variável de instância.
+				 */
+				InstanceVariable instanceVariable = new InstanceVariable(name, type);
+				currentClass.addInstanceVariable(instanceVariable);
+			}
 			lexer.nextToken();
 		}
-		if ( lexer.token != Symbol.SEMICOLON ) signalError.show(SignalError.semicolon_expected);
+		
+		if ( lexer.token != Symbol.SEMICOLON ) {
+			signalError.show(SignalError.semicolon_expected);
+		}
 		lexer.nextToken();
 	}
 	
-	// TODO FINAL/STATIC SUPPORT
 	private void methodDec(Type type, String name, Symbol qualifier) {
 		/*
 		 * MethodDec		::=	Qualifier Return Id "("[ FormalParamDec ] ")"
@@ -247,12 +343,37 @@ public class Compiler {
 		 */
 
 		boolean found;
-		found = currentClass.containsPrivateMethod(name) || currentClass.containsPublicMethod(name);
-		if (found) signalError.equals("Method " + name + " already declared");
-		found = currentClass.containsInstanceVariable(name);
-		if (found) signalError.show((name + " is an instance variable and cannot be declared"));
+
+		/**
+		 * Verifica se o método é estático.
+		 */
+		if (isStatic) {
+			/**
+			 * Verifica se o método já foi declarado.
+			 * Vale lembrar que podem existir dois métodos com a mesma assinatura,
+			 * desde que um seja estático.
+			 */
+			found = currentClass.containsStaticPrivateMethod(name) || currentClass.containsStaticPublicMethod(name);
+			if (found) {
+				signalError.show("Static method " + name + " already declared");
+			}
+		}
+		else {
+			found = currentClass.containsPrivateMethod(name) || currentClass.containsPublicMethod(name);
+			if (found) {
+				signalError.show("Method " + name + " already declared");
+			}
+		}
+		/**
+		 * Verifica se já existe alguma variável de mesmo nome.
+		 */
+		found = currentClass.containsStaticVariable(name) || currentClass.containsInstanceVariable(name);
+		if (found) {
+			signalError.show(name + " already declared as an instance variable");
+		}
 		
-		currentMethod = new Method(name, type);
+		if ( isStatic ) currentMethod = new Method(name, type, true);
+		else currentMethod = new Method(name, type);
 		
 		lexer.nextToken();
 		if ( lexer.token != Symbol.RIGHTPAR ) formalParamDec();
@@ -262,41 +383,62 @@ public class Compiler {
 		String methodName = currentMethod.getName();
 		
 		if ( qualifier == Symbol.PUBLIC ) {
-			currentClass.addPublicMethod(currentMethod);
-			if ( className.equals("Program") && methodName.equals("run") ) {
-				if ( currentMethod.getParamList().getSize() > 0 ) {
-					signalError.show("Method 'run' must be parameterless");
+			if (isStatic) {
+				currentClass.addStaticPublicMethod(currentMethod);
+				if ( className.equals("Program") && methodName.equals("run") ) {
+					signalError.show("Method 'run' of class Program cannot be static");
 				}
-				else {
-					if ( currentMethod.getReturnType() != Type.voidType ) {
-						signalError.show("Method 'run' must return 'void'");
+			}
+			else {
+				currentClass.addPublicMethod(currentMethod);
+				if ( className.equals("Program") && methodName.equals("run") ) {
+					if ( currentMethod.getParamList().getSize() > 0 ) {
+						signalError.show("Method 'run' of class Program must be parameterless");
+					}
+					else {
+						if ( currentMethod.getReturnType() != Type.voidType ) {
+							signalError.show("Method 'run' of class Program must return 'void'");
+						}
 					}
 				}
 			}
 		}
 		else {
-			currentClass.addPrivateMethod(currentMethod);		
-			if ( className.equals("Program") && methodName.equals("run") ) {
-				signalError.show("Method 'run' must be public");
+			if ( isStatic ) {
+				currentClass.addStaticPrivateMethod(currentMethod);
+				if ( className.equals("Program") && methodName.equals("run") ) {
+					signalError.show("Method 'run' of class Program cannot be static");
+				}
+			}
+			else {
+				currentClass.addPrivateMethod(currentMethod);
+				if ( className.equals("Program") && methodName.equals("run") ) {
+					signalError.show("Method 'run' of class Program must be public");
+				}
 			}
 		}
-		
+
 		Method superclassMethod = null;
 		
 		KraClass superclass = currentClass.getSuperclass();
 		while ( superclass != null ) {
-			boolean exist = superclass.containsPublicMethod(name);
-			if ( exist ) {
+			found = superclass.containsPublicMethod(name);
+			if ( found ) {
 				superclassMethod = superclass.getPublicMethod(name);
 				break;
 			}
 			else superclass = superclass.getSuperclass();
 		}
 		
+		/**
+		 * Verifica se está ocorrendo uma sobrecarga de método.
+		 */
 		if ( superclassMethod != null ) {
-			if ( type != superclassMethod.getReturnType() ) signalError.show("Wrong return type");
+			if ( type != superclassMethod.getReturnType() ) {
+				signalError.show("Attempt to override a method changing its signature (return type)");
+			}
 			if ( superclassMethod.getParamList().getSize() != currentMethod.getParamList().getSize() ) {
-				signalError.show("Wrong number of parameters");
+				signalError.show("Attempt to override a method changing its signature (wrong number of parameters");
 			}
 			
 			ParamList superMethodPL = superclassMethod.getParamList();
@@ -305,14 +447,16 @@ public class Compiler {
 			int i = 0;
 			for (Variable param : superMethodPL.getList()) {
 				if ( param.getType() != currentMethodPL.getList().get(i).getType() ) {
-					signalError.show("Wrong parameters");
+					signalError.show("Attempt to override a method changing its signature (parameter " + i + " doesnt match types");
 				}
 				i++;
 			}
 		}
 
 		lexer.nextToken();
-		if ( lexer.token != Symbol.LEFTCURBRACKET ) signalError.show("{ expected");
+		if ( lexer.token != Symbol.LEFTCURBRACKET ) {
+			signalError.show("{ expected");
+		}
 
 		lexer.nextToken();
 		
@@ -320,12 +464,14 @@ public class Compiler {
 		
 		currentMethod.setStatementList(statementList());
 		
-		if ( lexer.token != Symbol.RIGHTCURBRACKET ) signalError.show("} expected");
-		
-		if ( type == Type.voidType ) {
-			if ( returnStatement ) {
-				signalError.show("Method " + name + " should not have a return");
+		if ( type != Type.voidType ) {
+			if ( !returnStatement ) {
+				signalError.show("Method " + name + " must have a return");
 			}
+		}
+		
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
+			signalError.show("} expected");
 		}
 		
 		symbolTable.removeLocalIdent();
@@ -334,13 +480,8 @@ public class Compiler {
 
 	}
 
-	/** localDec()				- DEVE SER ALTERADA */
 	private void localDec() {
 		// LocalDec 	::= Type IdList ";"
-		
-		/**
-		 * LocalDec		::= Type IdList ";"
-		 */
 
 		Type type = type();
 		// Get current token string value
@@ -390,13 +531,8 @@ public class Compiler {
 		}
 	}
 
-	/** formalParamDec()		- OK */
 	private void formalParamDec() {
 		// FormalParamDec 	::= ParamDec { "," ParamDec }
-		
-		/**
-		 * FormalParamDec	::=	ParamDec { "," ParamDec }
-		 */
 
 		paramDec();
 		// If there is more than one parameter
@@ -406,12 +542,7 @@ public class Compiler {
 		}
 	}
 
-	/** paramDec()				- OK */
 	private void paramDec() {
-		/**
-		 * ParamDec		::= Type Id
-		 */
-
 		Type t = type();
 		// Expects the token to be an identifier
 		String currentTokenValue = lexer.getStringValue();
@@ -430,8 +561,7 @@ public class Compiler {
 		
 		lexer.nextToken();
 	}
-
-	/** type()					- DEVE SER ALTERADA */	
+	
 	private Type type() {
 		// Type		::= BasicType | Id
 		
@@ -482,53 +612,39 @@ public class Compiler {
 	}
 
 	private CompositeStatement compositeStatement() {
-
-		/**
-		 * CompStatement	::= "{" { Statement } "}"
-		 */
-		
 		lexer.nextToken();
 		StatementList statementList = statementList();
-		if ( lexer.token != Symbol.RIGHTCURBRACKET ) signalError.show("} expected");
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
+			signalError.show("} expected");
+		}
 		else lexer.nextToken();
 		
 		return new CompositeStatement(statementList);
 	}
 
-	/** statementList()			- DEVE SER ALTERADA */
 	private StatementList statementList() {
 		// CompStatement ::= "{" { Statement } "}"
 		
-		/**
-		 * QUAL REGRA DEVER� SER USADA?
-		 */
-		
-		/**
-		 * StatementList	::= { Statement }
-		 * CompStatement	::= "{" { Statement } "}"
-		 */
-		
 		Symbol tk;
 		// statements always begin with an identifier, if, read, write, ...
+		
+		StatementList stmtList = new StatementList();
+		Statement stmt;
+		
 		while ((tk = lexer.token) != Symbol.RIGHTCURBRACKET
 				&& tk != Symbol.ELSE)
-			statement();
+			if ((stmt = statement()) != null) {
+				stmtList.addElement(stmt);			}
 		
-		return null;
+		return stmtList;
 	}
 
-	/** statement()				- OK */
-	private void statement() {
+	// TODO NUMBER
+	private Statement statement() {
 		/*
 		 * Statement ::= Assignment ``;'' | IfStat |WhileStat | MessageSend
 		 *                ``;'' | ReturnStat ``;'' | ReadStat ``;'' | WriteStat ``;'' |
 		 *               ``break'' ``;'' | ``;'' | CompStatement | LocalDec
-		 */
-		
-		/**
-		 * Statement	::=	AssignExprLocalDec ";" | IfStat | WhileStat |
-		 * 						ReturnStat  ";" | ReadStat ";" | WriteStat ";" |
-		 * 						"break" ";" | ";" | CompStatement 
 		 */
 
 		switch (lexer.token) {
@@ -538,44 +654,34 @@ public class Compiler {
 		case INT:
 		case BOOLEAN:
 		case STRING:
-			assignExprLocalDec();
-			break;
+			return assignExprLocalDec();
 		case RETURN:
-			returnStatement();
-			break;
+			return returnStatement();
 		case READ:
-			readStatement();
-			break;
+			return readStatement();
 		case WRITE:
-			writeStatement();
-			break;
+			return writeStatement();
 		case WRITELN:
-			writelnStatement();
-			break;
+			return writelnStatement();
 		case IF:
-			ifStatement();
-			break;
+			return ifStatement();
 		case BREAK:
-			breakStatement();
-			break;
+			return breakStatement();
 		case WHILE:
-			whileStatement();
-			break;
+			return whileStatement();
 		case SEMICOLON:
-			nullStatement();
-			break;
+			return nullStatement();
 		case LEFTCURBRACKET:
-			compositeStatement();
-			break;
+			return compositeStatement();
 		default:
 			signalError.show("Statement expected");
 		}
+		
+		return null;
 	}
 	
-	/** isType()				- OK */
 	/*
-	 * retorne true se 'name' é uma classe declarada anteriormente. É necessário
-	 * fazer uma busca na tabela de símbolos para isto.
+	 * Retorna true se 'name' é uma classe declarada anteriormente.
 	 */
 	private boolean isType(String name) {
 		return this.symbolTable.getInGlobal(name) != null;
@@ -586,16 +692,12 @@ public class Compiler {
 		return (obj instanceof KraClass);
 	}
 
-	/** assignExprLocalDec()	- OK (VERIFICAR APENAS RETORNO DA FUNÇÃO) */
-	private Expr assignExprLocalDec() {
+	// TODO NUMBER AND CASTING
+	private Statement assignExprLocalDec() {
 		/*
 		 * AssignExprLocalDec 	::= Expression [ ``$=$'' Expression ] | LocalDec
 		 */
 		
-		/**
-		 * AssignExprLocalDec	::= Expression [ "=" Expression ] | LocalDec
-		 */
-
 		if ( lexer.token == Symbol.INT || lexer.token == Symbol.BOOLEAN
 				|| lexer.token == Symbol.STRING ||
 				// token � uma classe declarada textualmente antes desta
@@ -609,6 +711,14 @@ public class Compiler {
 			 * LocalDec 			::= Type IdList ``;''
 			 */
 			localDec();
+			
+			/**
+			 * Verifica, uma vez que se trata de uma declaração de variável,
+			 * se não ocorreu erro léxico por ausência de ';'
+			 */
+			if (lexer.token != Symbol.SEMICOLON) {
+				signalError.show("; expected");
+			}
 		}
 		else {
 			
@@ -616,18 +726,35 @@ public class Compiler {
 			 * AssignExprLocalDec 	::= Expression [ ``$=$'' Expression ]
 			 */
 			
-			expr();
+			/**
+			 * Se trata de uma atribuição, de fato.
+			 */
+			Expr esq;
+			Expr dir;
+			
+			
+			esq = expr();
 			if ( lexer.token == Symbol.ASSIGN ) {
 				lexer.nextToken();
-				expr();
+				dir = expr();
+				
+				/**
+				 * Verifica a compatibilidade dos tipos da atribuição.
+				 */
+				if (dir.getType() == Type.voidType) {
+					signalError.show("Cant assignment a void call to a variable");
+				}
+				if (dir.getType() != esq.getType()) {
+					signalError.show("Uncompatible types in assignment");
+				}
+				
 				if ( lexer.token != Symbol.SEMICOLON )
 					signalError.show("';' expected", true);
 				else
 					lexer.nextToken();
+				return new AssignmentStatement(esq, dir);
 			}
 		}
-		
-		/** RETORNAR� NULO MESMO ? */
 		
 		return null;
 	}
@@ -1236,5 +1363,6 @@ public class Compiler {
 	private Method			currentMethod;
 	private boolean 		returnStatement;
 	private Stack			whileStatements = new Stack();
+	private boolean			isStatic;
 
 }

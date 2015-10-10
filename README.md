@@ -7,14 +7,14 @@ Métodos:
 ================
 
 *Maurízio*
-* Program ✔ [exceto final/static]
-* ClassDec ✔ [exceto final/static]
-* InstaceVarDec ✔ [exceto final/static]
-* MethodDed ✔ [exceto final/static]
-* Statement
+* Program ✔
+* ClassDec ✔ [exceto final]
+* InstaceVarDec ✔
+* MethodDed ✔
+* Statement ✔ [exceto number]
 * CompositeStatment ✔
-* StatementList
-* AssignExprLocalDec
+* StatementList ✔
+* AssignExprLocalDec ✔ [exceto number, casting]
 * ReadStament
 * Write/WritelnStatment
 * ExprList
@@ -28,7 +28,7 @@ Métodos:
 * LocalDec ✔
 * FormalParamDec ✔
 * ParamDec ✔
-* type ✔
+* Type ✔
 * WhileStatement ✔
 * RealParameters ✔
 * IfStatement ✔
@@ -47,20 +47,20 @@ Classes:
 *Maurízio*
 * Assign
 * CompositeExpression
-* CompositeStatment ✔ [exceto genKra()]
+* CompositeStatment ✔ [exceto genKra]
 * Expr ✔
 * ExprList ✔ [com genKra]
-* InstanceVar ✔ [exceto genKra()]
-* InstanceVarList ✔ [exceto genKra()]
-* KraClass ✔ [exceto genKra()]
-* MethodList ✔ [exceto genKra()]
-* Method ✔ [exceto genKra()]
+* InstanceVar ✔ [exceto genKra]
+* InstanceVarList ✔ [exceto genKra]
+* KraClass ✔ [exceto genKra]
+* MethodList ✔ [exceto genKra]
+* Method ✔ [exceto genKra]
 * Read
 * Statement ✔
-* StatementList ✔ [exceto genKra()]
-* UnaryExpr ✔ [exceto genKra()]
+* StatementList ✔ [exceto genKra]
+* UnaryExpr ✔ [exceto genKra]
 * Variable ✔
-* VariableExpr ✔ [exceto genKra()]
+* VariableExpr ✔ [exceto genKra]
 * Write/Writeln
 * MessageSendToClass
 * MessageSend ✔

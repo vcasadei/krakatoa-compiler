@@ -22,6 +22,17 @@ public class Method {
 		localVariableList = new LocalVariableList();
 	}
 
+	public Method(String name, Type returnType, boolean b) {
+		this.name = name;
+		this.returnType = returnType;
+		
+		paramList = new ParamList();
+		statementList = new StatementList();
+		localVariableList = new LocalVariableList();
+		
+		this.isStatic = b;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -67,5 +78,6 @@ public class Method {
 	private LocalVariableList localVariableList;
 	private Type returnType;
 	private StatementList statementList;
+	private boolean isStatic = false;
 	
 }
