@@ -22,7 +22,7 @@ public class UnaryExpr extends Expr {
 
 	@Override
 	public void genC(PW pw, boolean putParenthesis) {
-		
+
 		switch (op) {
 		case PLUS:
 			pw.print("+");
@@ -36,7 +36,7 @@ public class UnaryExpr extends Expr {
 		default:
 			pw.print(" internal error at UnaryExpr::genC");
 		}
-		
+
 		expr.genC(pw, false);
 	}
 
@@ -45,12 +45,13 @@ public class UnaryExpr extends Expr {
 		return expr.getType();
 	}
 
-	private Expr	expr;
-	private Symbol	op;
+	private Expr expr;
+	private Symbol op;
+
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

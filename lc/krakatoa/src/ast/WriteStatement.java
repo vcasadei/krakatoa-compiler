@@ -5,11 +5,11 @@ import java.util.*;
 public class WriteStatement extends Statement {
 
 	public WriteStatement(ArrayList<Expr> writeStmt) {
-		for ( Expr expr : writeStmt ) {
+		for (Expr expr : writeStmt) {
 			this.writeStmt.addElement(expr);
 		}
 	}
-	
+
 	@Override
 	public void genC(PW pw) {
 		// TODO Auto-generated method stub
@@ -21,7 +21,7 @@ public class WriteStatement extends Statement {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private ExprList writeStmt;
 
 }

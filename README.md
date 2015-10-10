@@ -14,14 +14,14 @@ Métodos:
 * Statement ✔ [exceto number]
 * CompositeStatment ✔
 * StatementList ✔
-* AssignExprLocalDec
+* AssignExprLocalDec ✔ [exceto number e casting]
 * ReadStament  ✔
 * Write/WritelnStatment ✔
 * ExprList ✔
 * Expr ✔
 * SimpleExpr ✔
 * Factor
-    * Ident
+    * Ident ✔ [exceto checagem de parâmetros]
     * this
 
 *Vitor*

@@ -1,9 +1,9 @@
 /**
- * Laboratório de Compiladores 2015/2
- * Universidade Federal de São Carlos
- * Orientação: Prof. Dr. José de O. Guimarães
+ * Laboratï¿½rio de Compiladores 2015/2
+ * Universidade Federal de Sï¿½o Carlos
+ * Orientaï¿½ï¿½o: Prof. Dr. Josï¿½ de O. Guimarï¿½es
  * 
- * @author Maurício Spinardi 408174
+ * @author Maurï¿½cio Spinardi 408174
  * @author Vitor Casadei 408301
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
@@ -15,33 +15,35 @@ import java.util.*;
 
 public class InstanceVariableList {
 
-    public InstanceVariableList() {
-       instanceVariableList = new ArrayList<InstanceVariable>();
-    }
+	public InstanceVariableList() {
+		instanceVariableList = new ArrayList<InstanceVariable>();
+	}
 
-    public void addElement(InstanceVariable instanceVariable) {
-       instanceVariableList.add( instanceVariable );
-    }
+	public void addElement(InstanceVariable instanceVariable) {
+		instanceVariableList.add(instanceVariable);
+	}
 
-    public Iterator<InstanceVariable> elements() {
-    	return this.instanceVariableList.iterator();
-    }
+	public Iterator<InstanceVariable> elements() {
+		return this.instanceVariableList.iterator();
+	}
 
-    public int getSize() {
-        return instanceVariableList.size();
-    }
-    
-    public Variable getVariable(String varName) {
-		for (Variable var: this.instanceVariableList)
-			if (var.getName().equals(varName)) return var;
+	public int getSize() {
+		return instanceVariableList.size();
+	}
+
+	public Variable getVariable(String varName) {
+		for (Variable var : this.instanceVariableList)
+			if (var.getName().equals(varName))
+				return var;
 		return null;
 	}
-    
-    public boolean containsVariable(String varName) {
-		if (this.getVariable(varName) != null) return true;
+
+	public boolean containsVariable(String varName) {
+		if (this.getVariable(varName) != null)
+			return true;
 		return false;
 	}
 
-    private ArrayList<InstanceVariable> instanceVariableList;
-    
+	private ArrayList<InstanceVariable> instanceVariableList;
+
 }

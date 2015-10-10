@@ -13,15 +13,15 @@ package ast;
 
 public class InstanceVariable extends Variable {
 
-    public InstanceVariable( String name, Type type ) {
-        super(name, type);
-    }
+	public InstanceVariable(String name, Type type) {
+		super(name, type);
+	}
 
 	public InstanceVariable(String name, Type type, boolean b) {
 		super(name, type);
 		this.isStatic = b;
 	}
-	
+
 	private boolean isStatic = false;
 
 }

@@ -16,7 +16,7 @@ public class Method {
 	public Method(String name, Type returnType) {
 		this.name = name;
 		this.returnType = returnType;
-		
+
 		paramList = new ParamList();
 		statementList = new StatementList();
 		localVariableList = new LocalVariableList();
@@ -25,59 +25,59 @@ public class Method {
 	public Method(String name, Type returnType, boolean b) {
 		this.name = name;
 		this.returnType = returnType;
-		
+
 		paramList = new ParamList();
 		statementList = new StatementList();
 		localVariableList = new LocalVariableList();
-		
+
 		this.isStatic = b;
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	public ParamList getParamList() {
 		return paramList;
 	}
-	
+
 	public void setParamList(ParamList paramList) {
 		this.paramList = paramList;
 	}
-	
+
 	public void addParam(Parameter param) {
-		this.paramList.addElement(param); 
+		this.paramList.addElement(param);
 	}
-	
+
 	public LocalVariableList getLocalVariableList() {
 		return localVariableList;
 	}
-	
+
 	public void setLocalVariableList(LocalVariableList localVarList) {
 		this.localVariableList = localVarList;
 	}
-	
+
 	public Type getReturnType() {
 		return returnType;
 	}
-	
+
 	public StatementList getStatementList() {
 		return statementList;
 	}
-	
+
 	public void setStatementList(StatementList statementList) {
 		this.statementList = statementList;
 	}
-	
+
 	public void setLocalVariable(Variable v) {
 		localVariableList.addElement(v);
 	}
-	
+
 	private String name;
 	private ParamList paramList;
 	private LocalVariableList localVariableList;
 	private Type returnType;
 	private StatementList statementList;
 	private boolean isStatic = false;
-	
+
 }

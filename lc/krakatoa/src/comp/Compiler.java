@@ -37,6 +37,7 @@ public class Compiler {
 		
 	}
 
+
 	private Program program(ArrayList<CompilationError> compilationErrorList) {
 		// Program ::= KraClass { KraClass }
 		
@@ -266,6 +267,7 @@ public class Compiler {
 		
 	} 
 	
+	
 	private void instanceVarDec(Type type, String name) {
 		// InstVarDec 	::= [ "static" ] "private" Type IdList ";"
 
@@ -346,6 +348,7 @@ public class Compiler {
 		lexer.nextToken();
 		
 	}
+	
 	
 	private void methodDec(Type type, String name, Symbol qualifier) {
 		/*
@@ -508,6 +511,7 @@ public class Compiler {
 
 	}
 
+	
 	private void localDec() {
 		// LocalDec 	::= Type IdList ";"
 
@@ -562,6 +566,7 @@ public class Compiler {
 		
 	}
 
+	
 	private void formalParamDec() {
 		// FormalParamDec 	::= ParamDec { "," ParamDec }
 
@@ -574,6 +579,7 @@ public class Compiler {
 		
 	}
 
+	
 	private void paramDec() {
 		
 		Type t = type();
@@ -595,6 +601,7 @@ public class Compiler {
 		lexer.nextToken();
 		
 	}
+	
 	
 	private Type type() {
 		// Type		::= BasicType | Id
@@ -646,6 +653,7 @@ public class Compiler {
 		
 	}
 
+	
 	private CompositeStatement compositeStatement() {
 		
 		lexer.nextToken();
@@ -659,6 +667,7 @@ public class Compiler {
 		
 	}
 
+	
 	private StatementList statementList() {
 		// CompStatement ::= "{" { Statement } "}"
 		
@@ -727,7 +736,7 @@ public class Compiler {
 		return this.symbolTable.getInGlobal(name) != null;
 		
 	}
-	
+
 	// Verifies if some object is an instance of a class, returns true if it is
 	private boolean isClass(Object obj) {
 		
@@ -735,6 +744,7 @@ public class Compiler {
 		
 	}
 
+	
 	// TODO NUMBER AND CASTING
 	private Statement assignExprLocalDec() {
 		/*
@@ -775,7 +785,6 @@ public class Compiler {
 			Expr esq;
 			Expr dir;
 			
-			
 			esq = expr();
 			if ( lexer.token == Symbol.ASSIGN ) {
 				lexer.nextToken();
@@ -784,11 +793,14 @@ public class Compiler {
 				/**
 				 * Verifica a compatibilidade dos tipos da atribuição.
 				 */
-				if (dir.getType() == Type.voidType) {
+				if ( dir.getType() == Type.voidType ) {
 					signalError.show("Cant assignment a void call to a variable");
 				}
-				if (dir.getType() != esq.getType()) {
+				if ( !canConvertType(esq.getType(), dir.getType()) ) {
 					signalError.show("Uncompatible types in assignment");
+				}
+				else {
+					//TODO CASTING
 				}
 				
 				if ( lexer.token != Symbol.SEMICOLON )
@@ -797,12 +809,30 @@ public class Compiler {
 					lexer.nextToken();
 				return new AssignmentStatement(esq, dir);
 			}
+			else {
+				/**
+				 * "A method that does not return a value can be used as a statement."
+				 * Otherwise, "must be called only within an expression".
+				 */
+				if ( esq.getType() == Type.voidType ) {
+					if ( lexer.token != Symbol.SEMICOLON )
+						signalError.show("';' expected", true);
+					else {
+						lexer.nextToken();
+						return new MessageSendStatement(esq);
+					}
+				}
+				else {
+					signalError.show("Call is an expression, not a statement");
+				}
+			}
 		}
 		
 		return null;
 		
 	}
 
+	
 	private ExprList realParameters() {
 		
 		ExprList anExprList = new ExprList();
@@ -827,6 +857,7 @@ public class Compiler {
 		return anExprList;
 		
 	}
+	
 	
 	private WhileStatement whileStatement() {
 		
@@ -858,6 +889,7 @@ public class Compiler {
 		
 	}
 
+	
 	private IfStatement ifStatement() {
 	
 		lexer.nextToken();
@@ -891,6 +923,7 @@ public class Compiler {
 		
 	}
 
+	
 	private ReturnStatement returnStatement() {
 
 		lexer.nextToken();
@@ -917,7 +950,7 @@ public class Compiler {
 		return new ReturnStatement(returnExpr);
 		
 	}
-	
+		
 	// Method that verifies if a type can be converted to another type
 	private boolean canConvertType(Type type1, Type type2) {
 		
@@ -957,6 +990,7 @@ public class Compiler {
 		
 	}
 
+	
 	private Statement readStatement() {
 		
 		ArrayList<Variable> ReadStatement = new ArrayList<Variable>();
@@ -1029,6 +1063,8 @@ public class Compiler {
 		return new ReadStatement(ReadStatement);
 		
 	}
+	
+	
 
 	private Statement writeStatement() {
 
@@ -1057,6 +1093,8 @@ public class Compiler {
 		return new WriteStatement(exprList);
 	}
 
+	
+
 	private Statement writelnStatement() {
 
 		lexer.nextToken();
@@ -1083,6 +1121,8 @@ public class Compiler {
 		return new WriteLnStatement(exprList);
 	}
 
+	
+
 	private BreakStatement breakStatement() {
 		
 		// whileStatements
@@ -1102,12 +1142,16 @@ public class Compiler {
 		
 	}
 
+	
+
 	private NullStatement nullStatement() {
 		
 		lexer.nextToken();
 		return new NullStatement();
 		
 	}
+
+	
 
 	private ExprList exprList() {
 		// ExpressionList ::= Expression { "," Expression }
@@ -1258,7 +1302,7 @@ public class Compiler {
 		
 	}
 
-	/** Factor()				- DEVE SER ALTERADA */
+	
 	private Expr factor() {
 
 		/*
@@ -1384,13 +1428,35 @@ public class Compiler {
           	 *                 Id "." Id "(" [ ExpressionList ] ")" |
           	 *                 Id "." Id "." Id "(" [ ExpressionList ] ")" |
 			 */
+			
+			Method method = null;
 
 			String firstId = lexer.getStringValue();
 			lexer.nextToken();
 			if ( lexer.token != Symbol.DOT ) {
 				// Id
 				// retorne um objeto da ASA que representa um identificador
-				return null;
+				
+				boolean found = currentClass.containsStaticPrivateMethod(firstId) || currentClass.containsStaticPublicMethod(firstId);
+				if ( found ) {
+					signalError.show("Wrong call of static method " + firstId);
+				}
+				
+				found = currentClass.containsPrivateMethod(firstId) || currentClass.containsPublicMethod(firstId);
+				if ( found ) {
+					signalError.show("Wrong call of method " + firstId + " (need to use 'this'");
+				}
+				
+				if ( symbolTable.getInLocal(firstId) == null && currentClass.containsInstanceVariable(firstId) ) {
+					signalError.show("Cant use instance variables without 'this'");
+				}
+				else {
+					if ( symbolTable.getInLocal(firstId) == null ) {
+						signalError.show("Variable " + firstId + " was not declared");
+					}
+				}
+				
+				return new VariableExpr(symbolTable.getInLocal(firstId));
 			}
 			else { // Id "."
 				lexer.nextToken(); // coma o "."
@@ -1399,8 +1465,17 @@ public class Compiler {
 				}
 				else {
 					// Id "." Id
-					lexer.nextToken();
+					if ( symbolTable.getInLocal(firstId) == null ) {
+						signalError.show("Variable " + firstId + "was not declared");
+					}
+					
+					if ( !isType(symbolTable.getInLocal(firstId).getType().getName()) ) {
+						signalError.show("Variable " + firstId + " was not declared");
+					}
+					
 					ident = lexer.getStringValue();
+					lexer.nextToken();
+					
 					if ( lexer.token == Symbol.DOT ) {
 						// Id "." Id "." Id "(" [ ExpressionList ] ")"
 						/*
@@ -1410,29 +1485,120 @@ public class Compiler {
 						 * Contudo, se variáveis estáticas não estiver nas especificações,
 						 * sinalize um erro neste ponto.
 						 */
+												
 						lexer.nextToken();
-						if ( lexer.token != Symbol.IDENT )
+						if ( lexer.token != Symbol.IDENT ) {
 							signalError.show("Identifier expected");
+						}
 						messageName = lexer.getStringValue();
-						/**
-						 * CREIO QUE SE REPETE A INDICAÇÃO ABAIXO:
-						 * para fazer as conf. sem., procure por 'messageName'
-						 * na superclasse/superclasse da superclasse, etc.
-						 */
+						
+						KraClass classOfIdent = symbolTable.getInGlobal(symbolTable.getInLocal(ident).getType().getName());
+						while ( classOfIdent != null ) {
+							if ( !(classOfIdent.containsStaticPrivateMethod(messageName) ||
+									classOfIdent.containsStaticPublicMethod(messageName) ||
+									classOfIdent.containsPrivateMethod(messageName) ||
+									classOfIdent.containsPublicMethod(messageName)) ) {
+								signalError.show("No method " + messageName + " was found");
+							}
+							if ( classOfIdent.containsStaticPrivateMethod(messageName) ) {
+								method = classOfIdent.getStaticPrivateMethod(messageName); 
+								break;
+							}
+							if ( classOfIdent.containsStaticPublicMethod(messageName) ) {
+								method = classOfIdent.getStaticPublicMethod(messageName); 
+								break;
+							}
+							if ( classOfIdent.containsPublicMethod(messageName) ) {
+								method = classOfIdent.getPublicMethod(messageName); 
+								break;
+							}
+							if ( classOfIdent.containsPrivateMethod(messageName) ) {
+								method = classOfIdent.getPrivateMethod(messageName); 
+								break;
+							}
+							classOfIdent = classOfIdent.getSuperclass();
+						}
 						lexer.nextToken();
 						exprList = this.realParameters();
+						
+						ParamList currentMethodPL = method.getParamList();
+						
+						if (exprList.getSize() == currentMethodPL.getSize()) {
+							signalError.show("Wrong number of parameters");
+						}
+						
+						// TODO PARAMETERS CHECK
+						
+						return new MessageSendToVariable(symbolTable.getInLocal(firstId), method, exprList);
 
 					}
 					else if ( lexer.token == Symbol.LEFTPAR ) {
 						// Id "." Id "(" [ ExpressionList ] ")"
+						
+						KraClass classOfIdent = symbolTable.getInGlobal(symbolTable.getInLocal(ident).getType().getName());
+						
+						if ( currentClass.getName() == classOfIdent.getName() ) {
+							if ( classOfIdent.containsPrivateMethod(ident) ) {
+								method = classOfIdent.getPrivateMethod(ident);
+							}
+							if ( classOfIdent.containsPublicMethod(ident) ) {
+								method = classOfIdent.getPublicMethod(ident);
+							}
+							if ( method == null ) {
+								classOfIdent = classOfIdent.getSuperclass();
+								while ( classOfIdent != null ) {
+									if ( classOfIdent.containsPublicMethod(ident) ) {
+										method = classOfIdent.getPublicMethod(ident);
+										break;
+									}
+									classOfIdent = classOfIdent.getSuperclass();
+								}
+							}
+							if ( method == null ) {
+								signalError.show("No method " + ident + " was found");
+							}
+						}
+						else {
+							if ( classOfIdent.containsPublicMethod(ident) ) {
+								method = classOfIdent.getPublicMethod(ident);
+							}
+							if ( method == null ) {
+								classOfIdent = classOfIdent.getSuperclass();
+								while ( classOfIdent != null ) {
+									if ( classOfIdent.containsPublicMethod(ident) ) {
+										method = classOfIdent.getPublicMethod(ident);
+										break;
+									}
+									classOfIdent = classOfIdent.getSuperclass();
+								}
+							}
+							if ( method == null ) {
+								signalError.show("No public method " + ident + " was found for the class " + symbolTable.getInLocal(firstId).getType().getName());
+							}
+						}
 						exprList = this.realParameters();
-						/*
-						 * para fazer as conferências semânticas, procure por
-						 * método 'ident' na classe de 'firstId'
-						 */
+						
+						ParamList currentMethodPL = method.getParamList();
+						
+						if (exprList.getSize() == currentMethodPL.getSize()) {
+							signalError.show("Wrong number of parameters");
+						}
+						
+						// TODO PARAMETERS CHECK
+						
+						return new MessageSendToVariable(symbolTable.getInLocal(firstId), method, exprList);
 					}
 					else {
 						// retorne o objeto da ASA que representa Id "." Id
+						
+						KraClass classOfIdent = symbolTable.getInGlobal(symbolTable.getInLocal(firstId).getType().getName());
+						
+						if ( classOfIdent.containsInstanceVariable(ident) ) {
+							return new MessageSendToInstance(symbolTable.getInLocal(firstId), classOfIdent.getInstanceVariable(ident));
+						}
+						else {
+							signalError.show("Class " + classOfIdent.getName() + " have no instance variable " + ident);
+						}
 					}
 				}
 			}
