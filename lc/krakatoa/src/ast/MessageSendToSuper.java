@@ -1,6 +1,6 @@
 package ast;
 
-public class MessageSendToSuper extends MessageSend { 
+public class MessageSendToSuper extends MessageSend {
 
     public Type getType() { 
         return methodMessage.getReturnType();
@@ -52,5 +52,5 @@ public class MessageSendToSuper extends MessageSend {
 	private Method methodMessage;
 	private ExprList exprList;
 	private KraClass kraClassSender;
-    
+
 }

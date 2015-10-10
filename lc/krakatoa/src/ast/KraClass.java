@@ -13,12 +13,17 @@ package ast;
 
 public class KraClass extends Type {
 
-	public KraClass( String name ) {
+	public KraClass(String name) {
 		super(name);
 	}
 	
 	public void genKra(PW pw) {
 		// To do...
+	}
+
+	public KraClass(String name, boolean b) {
+		super(name);
+		isFinal = b;
 	}
 
 	public String getCname() {
@@ -32,7 +37,7 @@ public class KraClass extends Type {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public KraClass getSuperclass() {
 		return superclass;
 	}
@@ -45,48 +50,48 @@ public class KraClass extends Type {
 		return instanceVariableList;
 	}
 
-	public void setInstanceVariableList(InstanceVariableList
-			instanceVariableList) {
+	public void setInstanceVariableList(
+			InstanceVariableList instanceVariableList) {
 		this.instanceVariableList = instanceVariableList;
 	}
-	
+
 	public boolean containsPublicMethod(String methodName) {
 		if (this.publicMethodList.containsMethod(methodName)) {
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
-	
+
 	public boolean containsPrivateMethod(String methodName) {
 		if (this.privateMethodList.containsMethod(methodName)) {
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
-	
+
 	public boolean containsInstanceVariable(String varName) {
 		if (this.instanceVariableList.containsVariable(varName)) {
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
-	
+
 	public void addInstanceVariable(InstanceVariable var) {
 		this.instanceVariableList.addElement(var);
 	}
-	
+
 	public void addPublicMethod(Method method) {
 		this.publicMethodList.addElement(method);
 	}
-	
+
 	public void addPrivateMethod(Method method) {
 		this.privateMethodList.addElement(method);
 	}
-	
+
 	public Method getPublicMethod(String method) {
 		return this.publicMethodList.getMethod(method);
 	}
-	
+
 	public Method getPrivateMethod(String method) {
 		return this.privateMethodList.getMethod(method);
 	}
@@ -94,6 +99,55 @@ public class KraClass extends Type {
 	private String name;
 	private KraClass superclass;
 	private InstanceVariableList instanceVariableList;
+	private InstanceVariableList staticVariableList;
 	private MethodList publicMethodList, privateMethodList;
-	
+	private boolean isFinal = false;
+
+	public boolean containsStaticVariable(String varName) {
+		if (this.staticVariableList.containsVariable(varName)) {
+			return true;
+		} else
+			return false;
+	}
+
+	public boolean containsStaticPrivateMethod(String methodName) {
+		if (this.staticPrivateMethodList.containsMethod(methodName)) {
+			return true;
+		} else
+			return false;
+	}
+
+	public boolean containsStaticPublicMethod(String methodName) {
+		if (this.staticPublicMethodList.containsMethod(methodName)) {
+			return true;
+		} else
+			return false;
+	}
+
+	public void addStaticVariable(InstanceVariable var) {
+		this.staticVariableList.addElement(var);
+	}
+
+	private MethodList staticPublicMethodList, staticPrivateMethodList;
+
+	public void addStaticPublicMethod(Method method) {
+		this.staticPublicMethodList.addElement(method);
+	}
+
+	public void addStaticPrivateMethod(Method method) {
+		this.staticPrivateMethodList.addElement(method);
+	}
+
+	public Variable getInstanceVariable(String name) {
+		return instanceVariableList.getVariable(name);
+	}
+
+	public Method getStaticPrivateMethod(String method) {
+		return this.staticPrivateMethodList.getMethod(method);
+	}
+
+	public Method getStaticPublicMethod(String method) {
+		return this.staticPublicMethodList.getMethod(method);
+	}
+
 }

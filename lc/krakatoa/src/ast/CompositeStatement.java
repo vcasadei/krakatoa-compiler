@@ -24,17 +24,17 @@ public class CompositeStatement extends Statement {
 	public void setStatementList(StatementList statementList) {
 		this.statementList = statementList;
 	}
-	
+
 	public void genC(PW pw) {
-		
+
 	}
-	
+
 	private StatementList statementList;
 
 	@Override
 	public void genKra(PW pw) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
