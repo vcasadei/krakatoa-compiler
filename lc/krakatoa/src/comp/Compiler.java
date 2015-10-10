@@ -137,19 +137,14 @@ public class Compiler {
 
 	// TODO FINAL
 	private KraClass classDec() {
-		// Note que os m�todos desta classe n�o correspondem exatamente �s
-		// regras da gram�tica. Este m�todo classDec, por exemplo, implementa
-		// a produ��o KraClass (veja abaixo) e partes de outras produ��es.
-
-		/*
-		 * KraClass		::= "class" Id [ "extends" Id ] "{" MemberList "}"
-		 * MemberList	::= { Qualifier Member } 
-		 * Member		::= InstVarDec | MethodDec
-		 * InstVarDec	::= Type IdList ";" 
-		 * MethodDec	::= Qualifier Type Id "("[ FormalParamDec ] ")"
-		 * 						"{" StatementList "}" 
-		 * Qualifier	::= [ "static" ]  ( "private" | "public" )
-		 */
+			
+		isFinal = false;
+		isStatic = false;
+		
+		if ( lexer.token == Symbol.FINAL ) {
+			isFinal = true;
+			lexer.nextToken();
+		}
 		
 		if ( lexer.token != Symbol.CLASS ) {
 			signalError.show("'class' expected");
@@ -166,11 +161,14 @@ public class Compiler {
 		/**
 		 * Verifica se a classe foi declarada anteriormente.
 		 */
-		KraClass alreadyDeclared = symbolTable.getInGlobal(className);
-		if ( alreadyDeclared != null ) {
+		if ( symbolTable.getInGlobal(className) != null )
 			signalError.show("Class " + className + " already declared");
-		}
-		currentClass = new KraClass(className);
+	
+		if ( isFinal )
+			currentClass = new KraClass(className, isFinal);
+		else
+			currentClass = new KraClass(className);
+		
 		symbolTable.putInGlobal(className, currentClass);
 		lexer.nextToken();
 		
@@ -178,27 +176,33 @@ public class Compiler {
 		 * Verifica se está sendo feito uso de herança.
 		 */
 		if ( lexer.token == Symbol.EXTENDS ) {
+		
 			lexer.nextToken();
+			
 			if ( lexer.token != Symbol.IDENT ) {
 				signalError.show(SignalError.ident_expected);
 			}
+			
 			String superclassName = lexer.getStringValue();
 			
 			if ( className.equals(superclassName) ) {
 				signalError.show("Cant inheritance from the class itself");
 			}
-			alreadyDeclared = symbolTable.getInGlobal(superclassName);
-			if ( alreadyDeclared == null ) {
+
+			if ( symbolTable.getInGlobal(superclassName) == null ) {
 				signalError.show("Class " + superclassName + " was not declared");
 			}
+			
 			currentClass.setSuperclass(new KraClass(superclassName));
 			
 			lexer.nextToken();
 		}
+		
 		/**
 		 * Caso não esteja sendo feito uso de herança.
 		 */
-		else currentClass.setSuperclass(null);
+		else
+			currentClass.setSuperclass(null);
 		
 		if ( lexer.token != Symbol.LEFTCURBRACKET ) {
 			signalError.show("{ expected", true);
@@ -208,12 +212,12 @@ public class Compiler {
 		/**
 		 * Verifica os tipos dos métodos/variáveis.
 		 */
-		while ( lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC || lexer.token == Symbol.STATIC ) {
+		while ( lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC || lexer.token == Symbol.STATIC) {
 			Symbol qualifier;
-			isStatic = false;
 			
 			if ( lexer.token == Symbol.STATIC ) {
 				isStatic = true;
+				lexer.nextToken();
 			}
 			
 			switch ( lexer.token ) {
@@ -227,6 +231,7 @@ public class Compiler {
 				break;
 			default:
 				signalError.show("private, or public expected");
+				lexer.nextToken();
 				qualifier = Symbol.PUBLIC;
 			}
 			
@@ -235,24 +240,22 @@ public class Compiler {
 			if ( lexer.token != Symbol.IDENT ) {
 				signalError.show("Identifier expected");
 			}
+			
 			String name = lexer.getStringValue();
+			
 			lexer.nextToken();
+			
 			if ( lexer.token == Symbol.LEFTPAR ) {
 				methodDec(t, name, qualifier);
 			}
 			else {
-				if ( qualifier != Symbol.PRIVATE ) {
-					signalError.show("Attempt to declare a public instance variable");
-				}
-				else instanceVarDec(t, name);
+				if ( qualifier != Symbol.PRIVATE )
+					signalError.show("Attempt to declare public instance variable '" + name + "'");
+				else
+					instanceVarDec(t, name);
 			}
 		}
 		
-		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
-			signalError.show("public/private or \"}\" expected");
-		}
-		lexer.nextToken();
-
 		/**
 		 * "Every program must have a class named Program with a parameterless method
 		 * called run. To start the execution of a program, the runtime system creates
@@ -262,6 +265,12 @@ public class Compiler {
 			boolean run = currentClass.containsPublicMethod("run");
 			if ( !run ) signalError.show("Class Program without a method 'run'");
 		}
+		
+		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
+			signalError.show("public/private or \"}\" expected");
+		}
+		
+		lexer.nextToken();
 		
 		return currentClass;
 		
@@ -1365,6 +1374,11 @@ public class Compiler {
 		case NOT:
 			lexer.nextToken();
 			e = expr();
+			
+			if ( e.getType() != Type.booleanType ) {
+				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Operator '!' can only be used by boolean type");
+			}
+			
 			return new UnaryExpr(e, Symbol.NOT);
 			
 			// ObjectCreation ::= "new" Id "(" ")"
@@ -1700,5 +1714,6 @@ public class Compiler {
 	private boolean 		returnStatement;
 	private Stack			whileStatements = new Stack();
 	private boolean			isStatic;
+	private boolean			isFinal;
 
 }

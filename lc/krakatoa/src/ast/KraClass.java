@@ -17,6 +17,11 @@ public class KraClass extends Type {
 		super(name);
 	}
 
+	public KraClass(String name, boolean b) {
+		super(name);
+		isFinal = b;
+	}
+
 	public String getCname() {
 		return getName();
 	}
@@ -92,6 +97,7 @@ public class KraClass extends Type {
 	private InstanceVariableList instanceVariableList;
 	private InstanceVariableList staticVariableList;
 	private MethodList publicMethodList, privateMethodList;
+	private boolean isFinal = false;
 
 	public boolean containsStaticVariable(String varName) {
 		if (this.staticVariableList.containsVariable(varName)) {
