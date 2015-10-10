@@ -15,10 +15,10 @@ Métodos:
 * CompositeStatment ✔
 * StatementList ✔
 * AssignExprLocalDec
-* ReadStament 
+* ReadStament  ✔
 * Write/WritelnStatment ✔
 * ExprList ✔
-* Expr 
+* Expr ✔
 * SimpleExpr ✔
 * Factor
     * Ident
@@ -46,22 +46,22 @@ Classes:
 
 *Maurízio*
 * Assign
-* CompositeExpression
+* CompositeExpression ✔ [exceto genKra]
 * CompositeStatment ✔ [exceto genKra]
 * Expr ✔
-* ExprList ✔ [com genKra]
+* ExprList ✔
 * InstanceVar ✔ [exceto genKra]
 * InstanceVarList ✔ [exceto genKra]
 * KraClass ✔ [exceto genKra]
 * MethodList ✔ [exceto genKra]
 * Method ✔ [exceto genKra]
-* Read
+* Read ✔
 * Statement ✔
 * StatementList ✔ [exceto genKra]
 * UnaryExpr ✔ [exceto genKra]
 * Variable ✔
 * VariableExpr ✔ [exceto genKra]
-* Write/Writeln
+* Write/Writeln ✔ [exceto genKra]
 * MessageSendToClass
 * MessageSend ✔
 * MessageSendStatement
@@ -76,15 +76,15 @@ Classes:
 * LiteralString
 * LiteralBoolean
 * LocalVarList ✔ [exceto genKra]
-* NullStatement ✔ [com genKra]
-* NullExpr ✔ [com genKra]
+* NullStatement ✔
+* NullExpr ✔
 * ObjectCreation
 * Parameter
 * ParamList ✔ [exceto genkra]
 * ParenthesisExpr
 * Program
-* ReturnStatement ✔ [com genKra]
-* SignalExpr ✔ [com genKra]
+* ReturnStatement ✔
+* SignalExpr ✔
 * Types ✔
 * WhileStatement ✔ [exceto genKra]
 * MessageSendToSelf

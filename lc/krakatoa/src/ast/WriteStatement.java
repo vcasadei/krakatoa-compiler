@@ -2,10 +2,12 @@ package ast;
 
 import java.util.*;
 
-public class ReadStatement extends Statement {
+public class WriteStatement extends Statement {
 
-	public ReadStatement (ArrayList<Variable> ReadStmt) {
-		this.ReadStmt = ReadStmt;
+	public WriteStatement(ArrayList<Expr> writeStmt) {
+		for ( Expr expr : writeStmt ) {
+			this.writeStmt.addElement(expr);
+		}
 	}
 	
 	@Override
@@ -20,6 +22,6 @@ public class ReadStatement extends Statement {
 
 	}
 	
-	private ArrayList<Variable> ReadStmt; 
+	private ExprList writeStmt;
 
 }

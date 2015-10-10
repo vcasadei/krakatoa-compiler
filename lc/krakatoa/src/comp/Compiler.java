@@ -69,6 +69,7 @@ public class Compiler {
 			// if there was an exception, there is a compilation signalError
 		}
 		return program;
+		
 	}
 
 	/**  parses a metaobject call as <code>{@literal @}ce(...)</code> in <br>
@@ -83,6 +84,7 @@ public class Compiler {
 	 */
 	@SuppressWarnings("incomplete-switch")
 	private MetaobjectCall metaobjectCall() {
+		
 		String name = lexer.getMetaobjectName();
 		lexer.nextToken();
 		ArrayList<Object> metaobjectParamList = new ArrayList<>();
@@ -129,6 +131,7 @@ public class Compiler {
 		}
 			
 		return new MetaobjectCall(name, metaobjectParamList);
+		
 	}
 
 	// TODO FINAL
@@ -260,6 +263,7 @@ public class Compiler {
 		}
 		
 		return currentClass;
+		
 	} 
 	
 	private void instanceVarDec(Type type, String name) {
@@ -340,6 +344,7 @@ public class Compiler {
 			signalError.show(SignalError.semicolon_expected);
 		}
 		lexer.nextToken();
+		
 	}
 	
 	private void methodDec(Type type, String name, Symbol qualifier) {
@@ -543,15 +548,18 @@ public class Compiler {
 			
 			lexer.nextToken();
 		}
+		
 	}
 	
 	// Verifies if a key (variable) is already in the local symbol table
 	private boolean isInLocal(String key) {
+		
 		if (symbolTable.getInLocal(key) == null) {
 			return false;
 		} else {
 			return true;
 		}
+		
 	}
 
 	private void formalParamDec() {
@@ -563,9 +571,11 @@ public class Compiler {
 			lexer.nextToken();
 			paramDec();
 		}
+		
 	}
 
 	private void paramDec() {
+		
 		Type t = type();
 		// Expects the token to be an identifier
 		String currentTokenValue = lexer.getStringValue();
@@ -583,6 +593,7 @@ public class Compiler {
 		}
 		
 		lexer.nextToken();
+		
 	}
 	
 	private Type type() {
@@ -632,9 +643,11 @@ public class Compiler {
 		}
 		lexer.nextToken();
 		return result;
+		
 	}
 
 	private CompositeStatement compositeStatement() {
+		
 		lexer.nextToken();
 		StatementList statementList = statementList();
 		if ( lexer.token != Symbol.RIGHTCURBRACKET ) {
@@ -643,6 +656,7 @@ public class Compiler {
 		else lexer.nextToken();
 		
 		return new CompositeStatement(statementList);
+		
 	}
 
 	private StatementList statementList() {
@@ -661,6 +675,7 @@ public class Compiler {
 		}
 		
 		return stmtList;
+		
 	}
 
 	// TODO NUMBER
@@ -708,12 +723,16 @@ public class Compiler {
 	 * Retorna true se 'name' é uma classe declarada anteriormente.
 	 */
 	private boolean isType(String name) {
+		
 		return this.symbolTable.getInGlobal(name) != null;
+		
 	}
 	
 	// Verifies if some object is an instance of a class, returns true if it is
 	private boolean isClass(Object obj) {
+		
 		return (obj instanceof KraClass);
+		
 	}
 
 	// TODO NUMBER AND CASTING
@@ -781,9 +800,11 @@ public class Compiler {
 		}
 		
 		return null;
+		
 	}
 
 	private ExprList realParameters() {
+		
 		ExprList anExprList = new ExprList();
 		String currentTokenValue = lexer.getStringValue();
 		// Expects to find leftpar
@@ -804,9 +825,11 @@ public class Compiler {
 		lexer.nextToken();
 		// returns the exprList instance
 		return anExprList;
+		
 	}
 	
 	private WhileStatement whileStatement() {
+		
 		// If a while statement is found, it's added an item to the while stack
 		whileStatements.push(new Integer(1));
 		lexer.nextToken();
@@ -832,9 +855,11 @@ public class Compiler {
 		// After the code, pops the item from the stack
 		whileStatements.pop();
 		return new WhileStatement(expr, statement);
+		
 	}
 
 	private IfStatement ifStatement() {
+	
 		lexer.nextToken();
 		// Expect left par
 		if ( lexer.token != Symbol.LEFTPAR ) {
@@ -863,6 +888,7 @@ public class Compiler {
 		}
 		// Returns the instance of statement
 		return new IfStatement(expr, statementIf, statementElse);
+		
 	}
 
 	private ReturnStatement returnStatement() {
@@ -889,10 +915,12 @@ public class Compiler {
 		returnStatement = true;
 		
 		return new ReturnStatement(returnExpr);
+		
 	}
 	
 	// Method that verifies if a type can be converted to another type
 	private boolean canConvertType(Type type1, Type type2) {
+		
 		// If both types are the same
 		if (type1 == type2) {
 			// And are basic types
@@ -926,9 +954,10 @@ public class Compiler {
 		}
 		
 		return false;
+		
 	}
 
-	private void readStatement() {
+	private Statement readStatement() {
 		
 		ArrayList<Variable> ReadStatement = new ArrayList<Variable>();
 		
@@ -998,9 +1027,10 @@ public class Compiler {
 		lexer.nextToken();
 		
 		return new ReadStatement(ReadStatement);
+		
 	}
 
-	private void writeStatement() {
+	private Statement writeStatement() {
 
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) {
@@ -1027,7 +1057,7 @@ public class Compiler {
 		return new WriteStatement(exprList);
 	}
 
-	private void writelnStatement() {
+	private Statement writelnStatement() {
 
 		lexer.nextToken();
 		if ( lexer.token != Symbol.LEFTPAR ) {
@@ -1050,10 +1080,11 @@ public class Compiler {
 		}
 		lexer.nextToken();
 		
-		return WriteLnStatement(exprList);
+		return new WriteLnStatement(exprList);
 	}
 
 	private BreakStatement breakStatement() {
+		
 		// whileStatements
 		lexer.nextToken();
 		
@@ -1068,11 +1099,14 @@ public class Compiler {
 		}
 		lexer.nextToken();
 		return new BreakStatement();
+		
 	}
 
 	private NullStatement nullStatement() {
+		
 		lexer.nextToken();
 		return new NullStatement();
+		
 	}
 
 	private ExprList exprList() {
@@ -1085,13 +1119,10 @@ public class Compiler {
 			anExprList.addElement(expr());
 		}
 		return anExprList;
+		
 	}
 
 	private Expr expr() {
-
-		/**
-		 * Expression	::=	SimpleExpression [Relation SimpleExpression]
-		 */
 		
 		Expr left = simpleExpr();
 		Symbol op = lexer.token;
@@ -1099,12 +1130,48 @@ public class Compiler {
 				|| op == Symbol.LT || op == Symbol.GE || op == Symbol.GT ) {
 			lexer.nextToken();
 			Expr right = simpleExpr();
+			
+			/**
+			 * Verifica a combinação de tipos para os tipos básicos.
+			 */
+			switch ( op ) {
+			case LE:
+			case LT:
+			case GE:
+			case GT:
+				if ( left.getType() != Type.intType || right.getType() != Type.intType ) {
+					signalError.show("Invalid operation (>, >=, <, <= are only valid to int variables)");
+				}
+				break;
+			case EQ:
+			case NEQ:
+				/**
+				 * Verifica se não são o tipo básico que suporta os operadores.
+				 * Verifica, também, se são convertíveis e/ou diferentes.
+				 */
+				if ( left.getType() != Type.stringType && right.getType() != Type.stringType ) {
+					if ( !canConvertType(left.getType(), right.getType()) && !canConvertType(right.getType(), left.getType()) ) {
+						signalError.show("Invalid operation (incompatible types in comparison)");
+					}
+				}
+				else {
+					if(	left.getType() != Type.undefinedType && right.getType() != Type.undefinedType && left.getType() != right.getType() ) {
+						signalError.show("Invalid operation (incompatible types in comparison)");
+					}
+				}
+				break;
+			default:
+				// não deverá chegar a esse caso
+			}
+			
 			left = new CompositeExpr(left, op, right);
 		}
 		return left;
+		
 	}
 
 	private Expr simpleExpr() {
+		
 		Symbol op;
 
 		Expr left = term();
@@ -1135,10 +1202,11 @@ public class Compiler {
 		}
 		
 		return left;
+		
 	}
 
-	/** term()					- OK */
 	private Expr term() {
+		
 		Symbol op;
 
 		Expr leftExpr = signalFactor();
@@ -1167,10 +1235,11 @@ public class Compiler {
 			leftExpr = new CompositeExpr(leftExpr, op, rightExpr);
 		}
 		return leftExpr;
+		
 	}
 
-	/** signalFactor()			- OK */
 	private Expr signalFactor() {
+		
 		Symbol op;
 		// If there is a signal
 		if ((op = lexer.token) == Symbol.PLUS || op == Symbol.MINUS ) {
@@ -1186,7 +1255,7 @@ public class Compiler {
 			// If there is no signal
 			return factor();
 		}
-			
+		
 	}
 
 	/** Factor()				- DEVE SER ALTERADA */
@@ -1425,7 +1494,6 @@ public class Compiler {
 		return null;
 	}
 
-	/** literalInt()			- OK */
 	private LiteralInt literalInt() {
 
 		LiteralInt e = null;
@@ -1438,7 +1506,6 @@ public class Compiler {
 		return new LiteralInt(value);
 	}
 
-	/** startExpr()				- OK (USADA EM CONJUNTO COM realParameters()) */
 	private static boolean startExpr(Symbol token) {
 
 		return token == Symbol.FALSE || token == Symbol.TRUE
@@ -1458,6 +1525,9 @@ public class Compiler {
 	 * 
 	 * @currentClass Permite declara��o/uso de mais de uma classe
 	 * @currentMethod Permite declara��o/uso de mais de um m�todo por classe
+	 * @returnStatement Indica se um Statement possui retorno
+	 * @whileStatements
+	 * @isStatic Permite identificar se se trata de um tipo estático
 	 */
 	private KraClass		currentClass;
 	private Method			currentMethod;
