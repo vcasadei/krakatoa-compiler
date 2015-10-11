@@ -55,9 +55,11 @@ public class Compiler {
 			classDec();
 			if (currentClass != null)
 				kraClassList.add(currentClass);
-
+			
+			String token = lexer.getStringValue();
 			while (lexer.token == Symbol.CLASS) {
 				classDec();
+				token = lexer.getStringValue();
 				if (currentClass != null)
 					kraClassList.add(currentClass);
 			}
@@ -282,6 +284,7 @@ public class Compiler {
 		}
 
 		lexer.nextToken();
+		String token = lexer.getStringValue();
 
 	}
 
@@ -597,7 +600,7 @@ public class Compiler {
 	private Type type() {
 
 		Type result;
-
+		
 		switch (lexer.token) {
 		case VOID:
 			result = Type.voidType;
@@ -699,7 +702,7 @@ public class Compiler {
 	 * ";" | ReadStat ";" | WriteStat ";" | "break" ";" | ";" | CompStatement <br>
 	 */
 	private Statement statement() {
-
+		
 		switch (lexer.token) {
 		case THIS:
 		case IDENT:
@@ -781,10 +784,7 @@ public class Compiler {
 				if (!canConvertType(esq.getType(), dir.getType())) {
 					signalError.show("Uncompatible types in assignment");
 				} else {
-					if (dir instanceof ObjectBuilder) {
-						((ObjectBuilder) esq).setCastObject((KraClass) esq
-								.getType());
-					}
+					// TODO CASTING
 				}
 
 				if (lexer.token != Symbol.SEMICOLON)
@@ -798,6 +798,8 @@ public class Compiler {
 				// "A method that does not return a value can be used as a statement."
 				// Otherwise, "must be called only within an expression".
 
+				Type debugType = esq.getType();
+				
 				if (esq.getType() == Type.voidType) {
 					if (lexer.token != Symbol.SEMICOLON)
 						signalError.show("';' expected", true);
@@ -1563,6 +1565,8 @@ public class Compiler {
 		case IDENT:
 			String firstId = lexer.getStringValue();
 			lexer.nextToken();
+			
+			String debug = lexer.getStringValue();
 
 			if (lexer.token != Symbol.DOT) {
 				boolean found = currentClass
@@ -1620,10 +1624,9 @@ public class Compiler {
 								.show("'static' support to be fully developed");
 
 					} else if (lexer.token == Symbol.LEFTPAR) {
-
+						
 						KraClass classOfIdent = symbolTable
-								.getInGlobal(symbolTable.getInLocal(ident)
-										.getType().getName());
+								.getInGlobal(symbolTable.getInLocal(firstId).getType().getName());
 
 						if (currentClass.getName() == classOfIdent.getName()) {
 							if (classOfIdent.containsPrivateMethod(ident))
@@ -1677,8 +1680,8 @@ public class Compiler {
 
 						exprList = realParameters();
 						ParamList currentMethodPL = method.getParamList();
-
-						if (exprList.getSize() == currentMethodPL.getSize()) {
+						
+						if (exprList.getSize() != currentMethodPL.getSize()) {
 							signalError.show("Wrong number of parameters");
 						}
 
@@ -1777,7 +1780,7 @@ public class Compiler {
 					exprList = this.realParameters();
 					ParamList currentMethodPL = thisMethod.getParamList();
 
-					if (exprList.getSize() == currentMethodPL.getSize()) {
+					if (exprList.getSize() != currentMethodPL.getSize()) {
 						signalError.show("Wrong number of parameters");
 					}
 
@@ -1844,7 +1847,7 @@ public class Compiler {
 					exprList = this.realParameters();
 					ParamList currentMethodPL = thisMethod.getParamList();
 
-					if (exprList.getSize() == currentMethodPL.getSize()) {
+					if (exprList.getSize() != currentMethodPL.getSize()) {
 						signalError.show("Wrong number of parameters");
 					}
 

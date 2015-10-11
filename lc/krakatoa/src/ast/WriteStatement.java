@@ -28,8 +28,9 @@ public class WriteStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		// TODO Auto-generated method stub
-
+		pw.print("write(");
+		writeStmt.genKra(pw);
+		pw.println(")");
 	}
 
 	private ExprList writeStmt;

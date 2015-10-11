@@ -28,7 +28,12 @@ public class VariableExpr extends Expr {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
-
+		if (putParenthesis) {
+			pw.print("(");
+			v.genKra(pw);
+			pw.print(")");
+		} else
+			v.genKra(pw);
 	}
+
 }

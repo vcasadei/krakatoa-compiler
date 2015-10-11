@@ -32,7 +32,7 @@ public class MessageSendToSuper extends MessageSend {
 		// Calls super and the method
 		pw.print("super." + methodMessage.getName() + "(");
 		// The list of expressions
-		// exprList.genKra(pw);
+		exprList.genKra(pw);
 		pw.print(")");
 	}
 

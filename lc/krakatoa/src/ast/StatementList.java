@@ -28,7 +28,7 @@ public class StatementList {
 
 	public void genKra(PW pw) {
 		for (Statement stmt : statementList) {
-			pw.printlnIdent("");
+			pw.printIdent("");
 			stmt.genKra(pw);
 		}
 	}

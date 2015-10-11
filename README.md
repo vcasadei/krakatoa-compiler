@@ -42,7 +42,7 @@ Métodos:
 * NullStatement ✔
 * Term ✔
 * SignalFactor ✔
-* Factor ✔
+* Factor
     * new ✔
     * super ✔
 

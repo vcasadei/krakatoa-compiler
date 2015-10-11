@@ -19,7 +19,7 @@ public class BreakStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printlnIdent("break;");
+		pw.println("break;");
 	}
 
 }

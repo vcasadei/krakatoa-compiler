@@ -70,8 +70,17 @@ public class CompositeExpr extends Expr {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
-
+		if (putParenthesis)
+			pw.print("(");
+		left.genKra(pw, true);
+		String strSymbol = arrayOper.get(oper);
+		if (strSymbol == null) {
+			pw.println("internal error in CompositeExpr::genC");
+		} else
+			pw.print(" " + strSymbol + " ");
+		right.genKra(pw, true);
+		if (putParenthesis)
+			pw.print(")");
 	}
 
 }

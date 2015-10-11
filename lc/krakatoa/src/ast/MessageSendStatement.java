@@ -18,14 +18,15 @@ public class MessageSendStatement extends Statement {
 
 	public void genC(PW pw) {
 		pw.printIdent("");
-		// messageSend.genC(pw);
+		//messageSend.genC(pw);
 		pw.println(";");
 	}
 
 	@Override
 	public void genKra(PW pw) {
-		// TODO Auto-generated method stub
-
+		pw.printIdent("");
+		//messageSend.genKra(pw, true);
+		pw.println(";");
 	}
 
 	private MessageSend messageSend;

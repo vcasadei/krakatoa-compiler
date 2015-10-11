@@ -26,8 +26,13 @@ public class ReadStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		// TODO Auto-generated method stub
-
+		pw.print("read(");
+		int size = ReadStmt.size();
+		for (Variable var : ReadStmt) {
+			pw.print(var.getName());
+			if (--size > 0)
+				pw.print(", ");
+		}
 	}
 
 	private ArrayList<Variable> ReadStmt;

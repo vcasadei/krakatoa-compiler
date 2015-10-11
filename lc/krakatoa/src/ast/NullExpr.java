@@ -17,13 +17,11 @@ public class NullExpr extends Expr {
 	}
 
 	public Type getType() {
-		// # corrija
-		return null;
+		return Type.undefinedType;
 	}
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
-
+		pw.printIdent("null");
 	}
 }

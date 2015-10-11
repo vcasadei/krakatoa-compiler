@@ -29,7 +29,7 @@ public class IfStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("if (");
+		pw.print("if (");
 		expr.genKra(pw, false);
 		pw.println(") {");
 
@@ -37,7 +37,7 @@ public class IfStatement extends Statement {
 		statementIf.genKra(pw);
 		pw.sub();
 
-		pw.printIdent("}");
+		pw.printlnIdent("}");
 
 		if (statementElse != null) {
 			pw.println(" else {");

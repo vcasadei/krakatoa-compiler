@@ -1,14 +1,10 @@
 Relat�rio do Compilador
 
-11 de um total de 133 erros que deveriam ser sinalizados n�o o foram (8%)
-10 erros foram sinalizados na linha errada (7%)
-28 erros foram sinalizados em 76 arquivos sem erro (36%)
+6 de um total de 133 erros que deveriam ser sinalizados n�o o foram (4%)
+8 erros foram sinalizados na linha errada (6%)
+30 erros foram sinalizados em 76 arquivos sem erro (39%)
 
 Erros que deveriam ser sinalizados mas n�o foram:
-
-ER-SEM61.KRA, 33, Method 's' was not found in class 'C' or its superclasses (comp.Compiler.factor())
-
-ER-SEM37.KRA, 20, Method 'set' was not found in class 'A' or its superclasses (comp.Compiler.factor())
 
 ER-SEM84.KRA, 12, Redeclaration of final method 'finalMethod' (comp.Compiler.methodDec())
 
@@ -16,17 +12,11 @@ ER-SEM62.KRA, 15, Identifier 'a' was not found (comp.Compiler.factor())
 
 ER-SEM68.KRA, 12, Method 'p' was not found in class 'Program' or its superclasses (comp.Compiler.factor())
 
-ER-SEM36.KRA, 20, Expression expected in the right-hand side of assignment (comp.Compiler.assignExprLocalDec())
-
 ER-SEM85.KRA, 6, 'final' method in a 'final' class (comp.Compiler.methodDec())
 
 ER-SEM01.KRA, 16, Missing 'return' statement in method 'm' (comp.Compiler.methodDec())
 
-ER-SEM76.KRA, 16, Method 'm' was not found in class 'A' or its superclasses (comp.Compiler.factor())
-
 ER-SEM34.KRA, 19, Message send 'a.m()' returns a value that is not used (comp.Compiler.statement())
-
-ER-SEM38.KRA, 20, Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side (comp.Compiler.assignExprLocalDec())
 
 ######################################################
 Erros que foram sinalizados na linha errada:
@@ -43,10 +33,6 @@ ER-SEM47.KRA
     correto:    24, Method 'm' was not found in superclass 'B' or its superclasses (comp.Compiler.factor())
     sinalizado: 9, LINE:   public void set(int n) {=> Duplicated declariation of variable n
 
-ER-SEM57.KRA
-    correto:    21, Incompatible types cannot be compared with '==' because the result will always be 'false' (comp.Compiler.expr())
-    sinalizado: 19, Uncompatible types in assignment
-
 ER-SIN17.KRA
     correto:    7, Missing ';' (comp.Compiler.localDec())
     sinalizado: 8, ; expected
@@ -61,15 +47,11 @@ ER-SEM23.KRA
 
 ER-SEM59.KRA
     correto:    25, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
-    sinalizado: 13, Wrong number of parameters
-
-ER-SEM58.KRA
-    correto:    21, Incompatible types cannot be compared with '!=' because the result will always be 'false' (comp.Compiler.expr())
-    sinalizado: 19, Uncompatible types in assignment
+    sinalizado: 13, Call is an expression, not a statement
 
 ER-SEM60.KRA
     correto:    21, Method 'p' was not found in the public interface of 'A' or its superclasses (comp.Compiler.factor())
-    sinalizado: 13, Wrong number of parameters
+    sinalizado: 13, Call is an expression, not a statement
 
 ######################################################
 Erros que foram sinalizados mas n�o deveriam ter sido:
@@ -90,6 +72,10 @@ OK-GER17.KRA, 27, Variable Awas not declared
 
 OK-GER16.KRA, 16, LINE:      return this.k;=> Method type not convertible to return type. The method type is ast.TypeInt@659e0bfd and the return type is null
 
+OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@659e0bfd and ast.TypeVoid@232204a1 instead. Mult(*) and Div(/) operations only accept variables of type int
+
+OK-SEM10.KRA, 50, Uncompatible types in assignment
+
 OK-SEM12.KRA, 22, LINE:      A = new B();=> Expected identifier A to be a class.
 
 OK-GER20.KRA, 16, Variable Awas not declared
@@ -103,6 +89,8 @@ OK-SEM01.KRA, 6, Identifier expected
 OK-SEM17.KRA, 15, Variable Awas not declared
 
 OK-SIN10.KRA, 14, LINE:      return this.n;=> Method type not convertible to return type. The method type is ast.TypeInt@659e0bfd and the return type is null
+
+OK-SIN08.KRA, 24, Can only write int and String types
 
 OK-GER14.KRA, 19, LINE:      return this.k;=> Method type not convertible to return type. The method type is ast.TypeInt@659e0bfd and the return type is null
 
@@ -118,15 +106,13 @@ OK-SEM06.KRA, 15, LINE:      int n;=> Duplicated declariation of variable n
 
 OK-CHK03.KRA, 17, Uncompatible types in assignment
 
-OK-CHK06.KRA, 17, Uncompatible types in assignment
-
-OK-SEM03.KRA, 18, Invalid operation (incompatible types in comparison)
+OK-CHK06.KRA, 39, Instance variable not found
 
 OK-CHK07.KRA, 20, LINE:      return this.course;=> Method type not convertible to return type. The method type is ast.TypeString@28d93b30 and the return type is null
 
-OK-SEM14.KRA, 24, Uncompatible types in assignment
+OK-SEM14.KRA, 27, Invalid operation (incompatible types in comparison)
 
-OK-GER22.KRA, 15, Wrong number of parameters
+OK-GER22.KRA, 15, Can only write int and String types
 
 OK-SEM18.KRA, 13, Variable Awas not declared
 
@@ -175,9 +161,19 @@ The compiler message was: "Method m already declared"
 The 'ce' message is:      "Method 'm' is being redefined"
 
 
+ER-SEM61.KRA
+The compiler message was: "No public method s was found for the class C"
+The 'ce' message is:      "Method 's' was not found in class 'C' or its superclasses"
+
+
 ER-SEM73.KRA
 The compiler message was: "Static method m already declared"
 The 'ce' message is:      "Redefinition of static method 'm'"
+
+
+ER-SEM37.KRA
+The compiler message was: "No public method set was found for the class A"
+The 'ce' message is:      "Method 'set' was not found in class 'A' or its superclasses"
 
 
 ER-SEM72.KRA
@@ -283,6 +279,11 @@ The 'ce' message is:      "'}' expected"
 ER-SIN31.KRA
 The compiler message was: "public/private or "}" expected"
 The 'ce' message is:      "'public', 'private', or '}' expected"
+
+
+ER-SEM57.KRA
+The compiler message was: "Invalid operation (incompatible types in comparison)"
+The 'ce' message is:      "Incompatible types cannot be compared with '==' because the result will always be 'false'"
 
 
 ER-SIN20.KRA
@@ -400,6 +401,11 @@ The compiler message was: "Expression expected"
 The 'ce' message is:      "Expression expected OR Unknown sequence of symbols"
 
 
+ER-SEM36.KRA
+The compiler message was: "Cant assignment a void call to a variable"
+The 'ce' message is:      "Expression expected in the right-hand side of assignment"
+
+
 ER-SIN54.KRA
 The compiler message was: "LINE:    private static int x; //#=> Expected type, but got static"
 The 'ce' message is:      "Identifier expected"
@@ -478,6 +484,11 @@ The 'ce' message is:      "'private' expected"
 ER-SIN10.KRA
 The compiler message was: "( expected"
 The 'ce' message is:      "'(' expected after 'read' command"
+
+
+ER-SEM58.KRA
+The compiler message was: "Invalid operation (incompatible types in comparison)"
+The 'ce' message is:      "Incompatible types cannot be compared with '!=' because the result will always be 'false'"
 
 
 ER-SIN22.KRA
@@ -565,6 +576,11 @@ The compiler message was: "Wrong call of method p (need to use 'this'"
 The 'ce' message is:      "'.' or '=' expected after an identifier OR statement expected"
 
 
+ER-SEM76.KRA
+The compiler message was: "No public method m was found for the class A"
+The 'ce' message is:      "Method 'm' was not found in class 'A' or its superclasses"
+
+
 ER-SIN41.KRA
 The compiler message was: "Identifier expected"
 The 'ce' message is:      "Identifier expected"
@@ -608,6 +624,11 @@ The 'ce' message is:      "Identifier expected"
 ER-SIN36.KRA
 The compiler message was: "LINE:    public m( int x, int y ) {  //#=> Class m was not declared before use."
 The 'ce' message is:      "Identifier expected"
+
+
+ER-SEM38.KRA
+The compiler message was: "Uncompatible types in assignment"
+The 'ce' message is:      "Type error: type of the right-hand side of the assignment is not a subclass of the left-hand side"
 
 
 ER-SEM39.KRA

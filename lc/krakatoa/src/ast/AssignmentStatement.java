@@ -25,8 +25,12 @@ public class AssignmentStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		// TODO Auto-generated method stub
-
+		esq.genKra(pw, true);
+		if (dir != null) {
+			pw.print(" = ");
+			dir.genKra(pw, true);
+		}
+		pw.println(";");
 	}
 
 	Expr esq, dir;
