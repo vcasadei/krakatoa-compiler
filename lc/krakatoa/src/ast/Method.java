@@ -65,6 +65,20 @@ public class Method {
 		return this.isStatic;
 	}
 
+	public void genKra(PW pw) {
+		if (isStatic)
+			pw.print("static ");
+		pw.print(returnType.getCname() + " ");
+		pw.print(name + "(");
+		paramList.genKra(pw);
+		pw.println(") {");
+		pw.add();
+		localVariableList.genKra(pw);
+		stmtList.genKra(pw);
+		pw.sub();
+		pw.printlnIdent("}");
+	}
+	
 	private String name;
 	private ParamList paramList;
 	private LocalVariableList localVariableList;

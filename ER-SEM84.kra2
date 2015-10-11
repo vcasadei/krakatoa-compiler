@@ -1,0 +1,12 @@
+class SuperProgram {
+   public void finalMethod() {
+   }
+}
+
+class Program {
+   public void finalMethod() {
+   }
+   public void run() {
+   }
+}
+

@@ -1,0 +1,10 @@
+final class SuperProgram {
+   public void eusoufinal() {
+   }
+}
+
+class Program {
+   public void run() {
+   }
+}
+

@@ -35,7 +35,17 @@ public class MethodList {
 				return true;
 		return false;
 	}
-
+	
+	public void genKra(PW pw, boolean b) {
+		for (Method method : methodList) {
+			if (b)
+				pw.printIdent("public ");
+			else
+				pw.printIdent("private ");
+			method.genKra(pw);
+		}
+	}
+	
 	private ArrayList<Method> methodList;
 
 }

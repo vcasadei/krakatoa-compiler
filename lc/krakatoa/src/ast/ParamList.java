@@ -34,6 +34,15 @@ public class ParamList {
 		return paramList;
 	}
 
+	public void genKra(PW pw) {
+		int i = 0;
+		for (Parameter param : paramList)
+			param.genKra(pw);
+			if (i < paramList.size())
+				pw.print(",");
+			i++;
+	}
+	
 	private ArrayList<Parameter> paramList;
 
 }

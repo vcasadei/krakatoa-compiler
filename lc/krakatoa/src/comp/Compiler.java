@@ -420,12 +420,14 @@ public class Compiler {
 			}
 			if (qualifier == Symbol.PUBLIC)
 				currentClass.addPublicMethod(currentMethod);
-			else if (currentClass.getName().equals("Program")
-					&& currentMethod.getName().equals("run")) {
-				signalError
-						.show("Method 'run' of class Program cannot be private");
+			else {	
+				if (currentClass.getName().equals("Program")
+						&& currentMethod.getName().equals("run")) {
+					signalError
+							.show("Method 'run' of class Program cannot be private");
+				}
+				currentClass.addPrivateMethod(currentMethod);
 			}
-			currentClass.addPrivateMethod(currentMethod);
 		}
 
 		Method superclassMethod = null;

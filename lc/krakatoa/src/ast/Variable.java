@@ -13,6 +13,11 @@ public class Variable {
         return type;
     }
 
+    public void genKra(PW pw) {
+		pw.println(type + name);
+	}
+    
     private String name;
     private Type type;
+    
 }

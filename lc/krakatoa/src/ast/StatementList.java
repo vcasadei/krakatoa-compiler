@@ -26,6 +26,13 @@ public class StatementList {
 		return statementList.size();
 	}
 
+	public void genKra(PW pw) {
+		for (Statement stmt : statementList) {
+			pw.printlnIdent("");
+			stmt.genKra(pw);
+		}
+	}
+	
 	private ArrayList<Statement> statementList;
 
 }

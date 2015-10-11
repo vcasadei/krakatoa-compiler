@@ -24,7 +24,11 @@ public class Program {
 	}
 
 	public void genKra(PW pw) {
-		
+		for (KraClass kraClass : classList)
+			if (kraClass != null) {
+				kraClass.genKra(pw);
+				pw.println("");
+			}
 	}
 
 	public void genC(PW pw) {

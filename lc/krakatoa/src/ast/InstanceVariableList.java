@@ -43,6 +43,15 @@ public class InstanceVariableList {
 				return instVar;
 		return null;
 	}
+	
+	public void genKra(PW pw) {
+		for (InstanceVariable instVar : instanceVariableList) {
+			pw.printIdent("private ");
+			instVar.genKra(pw);
+			pw.println(";");
+		}
+		
+	}
 
 	private ArrayList<InstanceVariable> instanceVariableList;
 

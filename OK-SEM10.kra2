@@ -1,0 +1,16 @@
+class A {
+   public void first(ast.TypeInt@659e0bfdpn
+,) {
+   }
+}
+
+class B {
+   public void second() {
+   }
+}
+
+class C {
+   public void third() {
+   }
+}
+
