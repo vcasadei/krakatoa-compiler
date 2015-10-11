@@ -1,8 +1,0 @@
-final class Terra {
-}
-
-class Program {
-   public void run() {
-   }
-}
-
