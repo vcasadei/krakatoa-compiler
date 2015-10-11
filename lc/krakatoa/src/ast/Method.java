@@ -1,40 +1,38 @@
-/**
- * Laborat�rio de Compiladores 2015/2
- * Universidade Federal de S�o Carlos
- * Orienta��o: Prof. Dr. Jos� de O. Guimar�es
- * 
- * @author Maur�cio Spinardi 408174
- * @author Vitor Casadei 408301
- * 
- * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
- */
-
 package ast;
 
 public class Method {
 
-	public Method(String name, Type returnType) {
+	public Method(String name, Type type, boolean isStatic) {
 		this.name = name;
-		this.returnType = returnType;
-
-		paramList = new ParamList();
-		statementList = new StatementList();
-		localVariableList = new LocalVariableList();
-	}
-
-	public Method(String name, Type returnType, boolean b) {
-		this.name = name;
-		this.returnType = returnType;
-
-		paramList = new ParamList();
-		statementList = new StatementList();
-		localVariableList = new LocalVariableList();
-
-		this.isStatic = b;
+		this.paramList = new ParamList();
+		this.localVariableList = new LocalVariableList();
+		this.returnType = type;
+		this.stmtList = new StatementList();
+		this.isStatic = isStatic;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Type getReturnType() {
+		return returnType;
+	}
+
+	public void setReturnType(Type returnType) {
+		this.returnType = returnType;
+	}
+
+	public StatementList getStatementList() {
+		return stmtList;
+	}
+
+	public void setStatementList(StatementList stmtList) {
+		this.stmtList = stmtList;
 	}
 
 	public ParamList getParamList() {
@@ -44,40 +42,20 @@ public class Method {
 	public void setParamList(ParamList paramList) {
 		this.paramList = paramList;
 	}
-
+	
+	public void setLocalVariable(Variable v) {
+		this.localVariableList.addElement(v);
+	}
+	
 	public void addParam(Parameter param) {
 		this.paramList.addElement(param);
-	}
-
-	public LocalVariableList getLocalVariableList() {
-		return localVariableList;
-	}
-
-	public void setLocalVariableList(LocalVariableList localVarList) {
-		this.localVariableList = localVarList;
-	}
-
-	public Type getReturnType() {
-		return returnType;
-	}
-
-	public StatementList getStatementList() {
-		return statementList;
-	}
-
-	public void setStatementList(StatementList statementList) {
-		this.statementList = statementList;
-	}
-
-	public void setLocalVariable(Variable v) {
-		localVariableList.addElement(v);
 	}
 
 	private String name;
 	private ParamList paramList;
 	private LocalVariableList localVariableList;
 	private Type returnType;
-	private StatementList statementList;
-	private boolean isStatic = false;
+	private StatementList stmtList;
+	private boolean isStatic;
 
 }

@@ -1,41 +1,24 @@
-/**
- * Laborat�rio de Compiladores 2015/2
- * Universidade Federal de S�o Carlos
- * Orienta��o: Prof. Dr. Jos� de O. Guimar�es
- * 
- * @author Maur�cio Spinardi 408174
- * @author Vitor Casadei 408301
- * 
- * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
- */
-
 package ast;
 
+/*
+ * Krakatoa Class
+ */
 public class KraClass extends Type {
 
-	public KraClass(String name) {
+	public KraClass(String name, boolean isFinal) {
 		super(name);
-	}
-	
-	public void genKra(PW pw) {
-		// To do...
-	}
-
-	public KraClass(String name, boolean b) {
-		super(name);
-		isFinal = b;
+		this.superclass = null;
+		this.instanceVariableList = new InstanceVariableList();
+		this.publicMethodList = new MethodList();
+		this.privateMethodList = new MethodList();
+		this.staticPublicMethodList = new MethodList();
+		this.staticPrivateMethodList = new MethodList();
+		this.staticVariableList = new InstanceVariableList();
+		this.isFinal = isFinal;
 	}
 
 	public String getCname() {
 		return getName();
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public KraClass getSuperclass() {
@@ -46,108 +29,92 @@ public class KraClass extends Type {
 		this.superclass = superclass;
 	}
 
-	public InstanceVariableList getInstanceVariableList() {
-		return instanceVariableList;
+	public boolean isFinal() {
+		return isFinal;
 	}
 
-	public void setInstanceVariableList(
-			InstanceVariableList instanceVariableList) {
-		this.instanceVariableList = instanceVariableList;
+	public void setFinal(boolean isFinal) {
+		this.isFinal = isFinal;
 	}
 
-	public boolean containsPublicMethod(String methodName) {
-		if (this.publicMethodList.containsMethod(methodName)) {
-			return true;
-		} else
-			return false;
+	public boolean containsPublicMethod(String string) {
+		return this.publicMethodList.containsMethod(string);
 	}
 
-	public boolean containsPrivateMethod(String methodName) {
-		if (this.privateMethodList.containsMethod(methodName)) {
-			return true;
-		} else
-			return false;
+	public boolean containsPrivateMethod(String string) {
+		return this.privateMethodList.containsMethod(string);
 	}
 
-	public boolean containsInstanceVariable(String varName) {
-		if (this.instanceVariableList.containsVariable(varName)) {
-			return true;
-		} else
-			return false;
+	public boolean containsStaticPrivateMethod(String string) {
+		return this.staticPrivateMethodList.containsMethod(string);
 	}
 
-	public void addInstanceVariable(InstanceVariable var) {
-		this.instanceVariableList.addElement(var);
+	public boolean containsStaticPublicMethod(String string) {
+		return this.staticPublicMethodList.containsMethod(string);
 	}
 
-	public void addPublicMethod(Method method) {
-		this.publicMethodList.addElement(method);
+	public boolean containsInstanceVariable(String string) {
+		return this.instanceVariableList.constainsVariable(string);
 	}
 
-	public void addPrivateMethod(Method method) {
-		this.privateMethodList.addElement(method);
+	public boolean containsStaticVariable(String string) {
+		return this.staticVariableList.constainsVariable(string);
 	}
 
-	public Method getPublicMethod(String method) {
-		return this.publicMethodList.getMethod(method);
+	public void addStaticVariable(InstanceVariable staticVariable) {
+		staticVariableList.addElement(staticVariable);
 	}
 
-	public Method getPrivateMethod(String method) {
-		return this.privateMethodList.getMethod(method);
+	public void addInstanceVariable(InstanceVariable instanceVariable) {
+		instanceVariableList.addElement(instanceVariable);
+	}
+
+	public void addStaticPublicMethod(Method staticPublicMethod) {
+		staticPublicMethodList.addElement(staticPublicMethod);
+	}
+
+	public void addStaticPrivateMethod(Method staticPrivateMethod) {
+		staticPrivateMethodList.addElement(staticPrivateMethod);
+	}
+
+	public void addPublicMethod(Method publicMethod) {
+		publicMethodList.addElement(publicMethod);
+	}
+
+	public void addPrivateMethod(Method privateMethod) {
+		privateMethodList.addElement(privateMethod);
+	}
+
+	public Method getPublicMethod(String string) {
+		return publicMethodList.getMethod(string);
+	}
+
+	public Method getPrivateMethod(String string) {
+		return privateMethodList.getMethod(string);
+	}
+
+	public Method getStaticPublicMethod(String string) {
+		return staticPublicMethodList.getMethod(string);
+	}
+
+	public Method getStaticPrivateMethod(String string) {
+		return staticPrivateMethodList.getMethod(string);
+	}
+	
+	public Variable getInstanceVariable(String string) {
+		return instanceVariableList.getInstanceVariable(string);
+	}
+	
+	public Variable getStaticVariable(String string) {
+		return staticVariableList.getInstanceVariable(string);
 	}
 
 	private String name;
 	private KraClass superclass;
 	private InstanceVariableList instanceVariableList;
-	private InstanceVariableList staticVariableList;
 	private MethodList publicMethodList, privateMethodList;
-	private boolean isFinal = false;
-
-	public boolean containsStaticVariable(String varName) {
-		if (this.staticVariableList.containsVariable(varName)) {
-			return true;
-		} else
-			return false;
-	}
-
-	public boolean containsStaticPrivateMethod(String methodName) {
-		if (this.staticPrivateMethodList.containsMethod(methodName)) {
-			return true;
-		} else
-			return false;
-	}
-
-	public boolean containsStaticPublicMethod(String methodName) {
-		if (this.staticPublicMethodList.containsMethod(methodName)) {
-			return true;
-		} else
-			return false;
-	}
-
-	public void addStaticVariable(InstanceVariable var) {
-		this.staticVariableList.addElement(var);
-	}
-
 	private MethodList staticPublicMethodList, staticPrivateMethodList;
-
-	public void addStaticPublicMethod(Method method) {
-		this.staticPublicMethodList.addElement(method);
-	}
-
-	public void addStaticPrivateMethod(Method method) {
-		this.staticPrivateMethodList.addElement(method);
-	}
-
-	public Variable getInstanceVariable(String name) {
-		return instanceVariableList.getVariable(name);
-	}
-
-	public Method getStaticPrivateMethod(String method) {
-		return this.staticPrivateMethodList.getMethod(method);
-	}
-
-	public Method getStaticPublicMethod(String method) {
-		return this.staticPublicMethodList.getMethod(method);
-	}
+	private InstanceVariableList staticVariableList;
+	private boolean isFinal;
 
 }

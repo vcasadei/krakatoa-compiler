@@ -30,6 +30,7 @@ public class Lexer {
 
 		keywordsTable.put( "true", Symbol.TRUE );
 		keywordsTable.put( "false", Symbol.FALSE );
+		keywordsTable.put( "static", Symbol.STATIC);
 		keywordsTable.put( "final", Symbol.FINAL );
 		keywordsTable.put( "void", Symbol.VOID );
 		keywordsTable.put( "null", Symbol.NULL );
@@ -39,7 +40,7 @@ public class Lexer {
 		keywordsTable.put( "read", Symbol.READ );
 		keywordsTable.put( "write", Symbol.WRITE );
 		keywordsTable.put( "writeln", Symbol.WRITELN );
-		keywordsTable.put( "static",  Symbol.STATIC);
+
 		keywordsTable.put( "break", Symbol.BREAK );
 		keywordsTable.put( "int", Symbol.INT );
 		keywordsTable.put( "boolean", Symbol.BOOLEAN );

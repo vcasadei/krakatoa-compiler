@@ -1,13 +1,3 @@
-/**
- * Laborat�rio de Compiladores 2015/2
- * Universidade Federal de S�o Carlos
- * Orienta��o: Prof. Dr. Jos� de O. Guimar�es
- * 
- * @author Maur�cio Spinardi 408174
- * @author Vitor Casadei 408301
- * 
- * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
- */
 
 package ast;
 
@@ -22,7 +12,6 @@ public class UnaryExpr extends Expr {
 
 	@Override
 	public void genC(PW pw, boolean putParenthesis) {
-
 		switch (op) {
 		case PLUS:
 			pw.print("+");
@@ -35,8 +24,8 @@ public class UnaryExpr extends Expr {
 			break;
 		default:
 			pw.print(" internal error at UnaryExpr::genC");
-		}
 
+		}
 		expr.genC(pw, false);
 	}
 
@@ -45,13 +34,11 @@ public class UnaryExpr extends Expr {
 		return expr.getType();
 	}
 
-	private Expr expr;
-	private Symbol op;
-
+	private Expr	expr;
+	private Symbol	op;
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
 }

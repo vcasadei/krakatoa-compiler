@@ -1,14 +1,3 @@
-/**
- * Laborat�rio de Compiladores 2015/2
- * Universidade Federal de S�o Carlos
- * Orienta��o: Prof. Dr. Jos� de O. Guimar�es
- * 
- * @author Maur�cio Spinardi 408174
- * @author Vitor Casadei 408301
- * 
- * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
- */
-
 package ast;
 
 import java.util.*;
@@ -16,27 +5,24 @@ import java.util.*;
 public class MethodList {
 
 	public MethodList() {
-		methodList = new ArrayList<Method>();
+		this.methodList = new ArrayList<Method>();
 	}
-
-	public void addElement(Method v) {
-		methodList.add(v);
-	}
-
-	public int getSize() {
-		return methodList.size();
-	}
-
-	public Method getMethod(String methodName) {
+	
+	public Method getMethod(String m) {
 		for (Method method : methodList)
-			if (method.getName().equals(methodName))
+			if (method.getName().equals(m))
 				return method;
 		return null;
 	}
 
-	public boolean containsMethod(String methodName) {
-		if (this.getMethod(methodName) != null)
-			return true;
+	public boolean addElement(Method v) {
+		return methodList.add(v);
+	}
+
+	public boolean containsMethod(String m) {
+		for (Method method : methodList)
+			if (method.getName().equals(m))
+				return true;
 		return false;
 	}
 
