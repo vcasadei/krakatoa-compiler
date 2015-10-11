@@ -1,28 +1,39 @@
+/**
+ * Laboratório de Compiladores [2015/2] <br>
+ * Orientação: Prof. Dr. José de O. Guimarães <br>
+ * 
+ * @author Maurício Spinardi | 401874 <br>
+ * @author Vitor Casadei | 408301 <br>
+ * 
+ * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
+ */
+
 package ast;
 
 public class MessageSendToSuper extends MessageSend {
 
-    public Type getType() { 
-        return methodMessage.getReturnType();
-    }
+	public Type getType() {
+		return methodMessage.getReturnType();
+	}
 
-    public void genC( PW pw, boolean putParenthesis ) {
-        // To do ....
-    }
+	public void genC(PW pw, boolean putParenthesis) {
+		// To do ....
+	}
 
-	public MessageSendToSuper(Method methodMessage, ExprList exprList, KraClass kraClassSender) {
+	public MessageSendToSuper(Method methodMessage, ExprList exprList,
+			KraClass kraClassSender) {
 		this.methodMessage = methodMessage;
 		this.exprList = exprList;
 		this.kraClassSender = kraClassSender;
 	}
-	
+
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
 		// Calls super and the method
-    	pw.print("super." + methodMessage.getName() + "(");    	
-    	// The list of expressions
-    	//exprList.genKra(pw);
-    	pw.print(")");	
+		pw.print("super." + methodMessage.getName() + "(");
+		// The list of expressions
+		// exprList.genKra(pw);
+		pw.print(")");
 	}
 
 	public Method getMethodMessage() {

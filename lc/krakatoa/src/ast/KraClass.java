@@ -1,3 +1,13 @@
+/**
+ * Laboratório de Compiladores [2015/2] <br>
+ * Orientação: Prof. Dr. José de O. Guimarães <br>
+ * 
+ * @author Maurício Spinardi | 401874 <br>
+ * @author Vitor Casadei | 408301 <br>
+ * 
+ * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
+ */
+
 package ast;
 
 /*
@@ -100,11 +110,11 @@ public class KraClass extends Type {
 	public Method getStaticPrivateMethod(String string) {
 		return staticPrivateMethodList.getMethod(string);
 	}
-	
+
 	public Variable getInstanceVariable(String string) {
 		return instanceVariableList.getInstanceVariable(string);
 	}
-	
+
 	public Variable getStaticVariable(String string) {
 		return staticVariableList.getInstanceVariable(string);
 	}

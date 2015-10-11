@@ -1,3 +1,13 @@
+/**
+ * Laboratório de Compiladores [2015/2] <br>
+ * Orientação: Prof. Dr. José de O. Guimarães <br>
+ * 
+ * @author Maurício Spinardi | 401874 <br>
+ * @author Vitor Casadei | 408301 <br>
+ * 
+ * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
+ */
+
 package ast;
 
 public class Method {
@@ -42,11 +52,11 @@ public class Method {
 	public void setParamList(ParamList paramList) {
 		this.paramList = paramList;
 	}
-	
+
 	public void setLocalVariable(Variable v) {
 		this.localVariableList.addElement(v);
 	}
-	
+
 	public void addParam(Parameter param) {
 		this.paramList.addElement(param);
 	}
@@ -54,7 +64,7 @@ public class Method {
 	public boolean isStatic() {
 		return this.isStatic;
 	}
-	
+
 	private String name;
 	private ParamList paramList;
 	private LocalVariableList localVariableList;

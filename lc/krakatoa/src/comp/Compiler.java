@@ -1,3 +1,13 @@
+/**
+ * Laboratório de Compiladores [2015/2] <br>
+ * Orientação: Prof. Dr. José de O. Guimarães <br>
+ * 
+ * @author Maurício Spinardi | 401874 <br>
+ * @author Vitor Casadei | 408301 <br>
+ * 
+ * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
+ */
+
 package comp;
 
 import ast.*;
@@ -722,10 +732,8 @@ public class Compiler {
 
 	}
 
-	/*
-	 * retorne true se 'name' � uma classe declarada anteriormente. � necess�rio
-	 * fazer uma busca na tabela de s�mbolos para isto.
-	 */
+	
+	// retorne true se 'name' é uma classe declarada anteriormente.
 	private boolean isType(String name) {
 		return this.symbolTable.getInGlobal(name) != null;
 	}
@@ -780,7 +788,7 @@ public class Compiler {
 				if (lexer.token != Symbol.SEMICOLON)
 					signalError.show("';' expected", true);
 				else
-					lexer.nextToken(); // consome ';'
+					lexer.nextToken();
 
 				return new AssignmentStatement(esq, dir);
 			} else {
@@ -954,7 +962,7 @@ public class Compiler {
 		// If there is an else
 		if (lexer.token == Symbol.ELSE) {
 
-			lexer.nextToken(); // consome 'else'
+			lexer.nextToken();
 
 			statementElse = statement();
 		}
@@ -1040,7 +1048,7 @@ public class Compiler {
 
 				Variable classVar = currentClass.getInstanceVariable(name);
 
-				// só é possível ler tipo int e String.
+				// só é possível ler tipos 'int' e 'String'.
 				if (classVar.getType() != Type.intType
 						&& classVar.getType() != Type.stringType) {
 					signalError.show("Can only read int and String types");

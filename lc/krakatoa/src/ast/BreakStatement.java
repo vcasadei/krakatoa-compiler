@@ -1,10 +1,9 @@
 /**
- * Laborat�rio de Compiladores 2015/2
- * Universidade Federal de S�o Carlos
- * Orienta��o: Prof. Dr. Jos� de O. Guimar�es
+ * Laboratório de Compiladores [2015/2] <br>
+ * Orientação: Prof. Dr. José de O. Guimarães <br>
  * 
- * @author Maur�cio Spinardi 408174
- * @author Vitor Casadei 408301
+ * @author Maurício Spinardi | 401874 <br>
+ * @author Vitor Casadei | 408301 <br>
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
  */
