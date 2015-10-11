@@ -51,6 +51,10 @@ public class Method {
 		this.paramList.addElement(param);
 	}
 
+	public boolean isStatic() {
+		return this.isStatic;
+	}
+	
 	private String name;
 	private ParamList paramList;
 	private LocalVariableList localVariableList;

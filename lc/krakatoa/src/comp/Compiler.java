@@ -410,8 +410,12 @@ public class Compiler {
 			}
 			if (qualifier == Symbol.PUBLIC)
 				currentClass.addPublicMethod(currentMethod);
-			else
-				currentClass.addPrivateMethod(currentMethod);
+			else if (currentClass.getName().equals("Program")
+					&& currentMethod.getName().equals("run")) {
+				signalError
+						.show("Method 'run' of class Program cannot be private");
+			}
+			currentClass.addPrivateMethod(currentMethod);
 		}
 
 		Method superclassMethod = null;
@@ -475,11 +479,12 @@ public class Compiler {
 	private void localDec() {
 
 		Type type = type();
-		// get current token string value
-		String currentTokenValue = lexer.getStringValue();
 		// expect to be IDENT
 		if (lexer.token != Symbol.IDENT)
 			signalError.show("Identifier expected");
+
+		// get current token string value
+		String currentTokenValue = lexer.getStringValue();
 		// creates variable
 		Variable v = new Variable(lexer.getStringValue(), type);
 		// checks if it was previously declared
@@ -499,9 +504,10 @@ public class Compiler {
 		while (lexer.token == Symbol.COMMA) {
 			lexer.nextToken();
 
-			currentTokenValue = lexer.getStringValue();
 			if (lexer.token != Symbol.IDENT)
 				signalError.show("Identifier expected");
+
+			currentTokenValue = lexer.getStringValue();
 			v = new Variable(lexer.getStringValue(), type);
 
 			if (!isInLocal(currentTokenValue)) {
@@ -678,8 +684,7 @@ public class Compiler {
 
 	/**
 	 * Statement ::= AssignExprLocalDec ";" | IfStat | WhileStat | ReturnStat
-	 * ";" | ReadStat ";" | WriteStat ";" | "break" ";" | ";" |
-	 * CompStatement <br>
+	 * ";" | ReadStat ";" | WriteStat ";" | "break" ";" | ";" | CompStatement <br>
 	 */
 	private Statement statement() {
 
@@ -732,27 +737,6 @@ public class Compiler {
 	 */
 	private Statement assignExprLocalDec() {
 
-		/*
-		 * if (lexer.token == Symbol.INT || lexer.token == Symbol.BOOLEAN ||
-		 * lexer.token == Symbol.STRING || // token � uma classe declarada
-		 * textualmente antes desta // instru��o (lexer.token == Symbol.IDENT &&
-		 * isType(lexer.getStringValue()))) { /* uma declara��o de vari�vel.
-		 * 'lexer.token' � o tipo da vari�vel
-		 * 
-		 * AssignExprLocalDec ::= Expression [ ``$=$'' Expression ] | LocalDec
-		 * LocalDec ::= Type IdList ``;''
-		 */
-		//localDec();
-		/*
-		 * } else { /* AssignExprLocalDec ::= Expression [ ``$=$'' Expression ]
-		 */
-		/*
-		 * expr(); if (lexer.token == Symbol.ASSIGN) { lexer.nextToken();
-		 * expr(); if (lexer.token != Symbol.SEMICOLON)
-		 * signalError.show("';' expected", true); else lexer.nextToken(); } }
-		 * return null;
-		 */
-
 		if (lexer.token == Symbol.INT
 				|| lexer.token == Symbol.BOOLEAN
 				|| lexer.token == Symbol.STRING
@@ -766,7 +750,6 @@ public class Compiler {
 
 			if (lexer.token != Symbol.SEMICOLON)
 				signalError.show("; expected");
-
 			lexer.nextToken();
 
 		} else {
@@ -1405,23 +1388,22 @@ public class Compiler {
 
 		switch (lexer.token) {
 
-		// IntValue
 		case LITERALINT:
 			return literalInt();
-			// BooleanValue
+
 		case FALSE:
 			lexer.nextToken();
 			return LiteralBoolean.False;
-			// BooleanValue
+
 		case TRUE:
 			lexer.nextToken();
 			return LiteralBoolean.True;
-			// StringValue
+
 		case LITERALSTRING:
 			String literalString = lexer.getLiteralStringValue();
 			lexer.nextToken();
 			return new LiteralString(literalString);
-			// "(" Expression ")" |
+
 		case LEFTPAR:
 			lexer.nextToken();
 			e = expr();
@@ -1430,12 +1412,10 @@ public class Compiler {
 			lexer.nextToken();
 			return new ParenthesisExpr(e);
 
-			// "null"
 		case NULL:
 			lexer.nextToken();
 			return new NullExpr();
 
-			// "!" Factor
 		case NOT:
 			lexer.nextToken();
 			e = expr();
@@ -1449,7 +1429,6 @@ public class Compiler {
 
 			return new UnaryExpr(e, Symbol.NOT);
 
-			// ObjectCreation ::= "new" Id "(" ")"
 		case NEW:
 			lexer.nextToken();
 			if (lexer.token != Symbol.IDENT)
@@ -1478,38 +1457,34 @@ public class Compiler {
 
 			return new ObjectBuilder(aClass);
 
-			/*
-			 * PrimaryExpr ::= "super" "." Id "(" [ ExpressionList ] ")" | Id |
-			 * Id "." Id | Id "." Id "(" [ ExpressionList ] ")" | Id "." Id "."
-			 * Id "(" [ ExpressionList ] ")" | "this" | "this" "." Id | "this"
-			 * "." Id "(" [ ExpressionList ] ")" | "this" "." Id "." Id "(" [
-			 * ExpressionList ] ")"
-			 */
 		case SUPER:
-			// "super" "." Id "(" [ ExpressionList ] ")"
 			lexer.nextToken();
-			if (lexer.token != Symbol.DOT) {
+
+			if (lexer.token != Symbol.DOT)
 				signalError.show("LINE:" + lexer.getCurrentLine()
 						+ "=> Expected to find '.', but found "
 						+ lexer.getStringValue() + " instead.");
-			} else {
-				lexer.nextToken();
-			}
-			if (lexer.token != Symbol.IDENT) {
+			lexer.nextToken();
+
+			if (lexer.token != Symbol.IDENT)
 				signalError.show("LINE:" + lexer.getCurrentLine()
 						+ "=> Expected to find 'identifier', but found "
 						+ lexer.getStringValue() + " instead.");
-			}
+
 			messageName = lexer.getStringValue();
+
 			// Search on superclass in order to find messageName
 			KraClass superKraClass = currentClass.getSuperclass();
+
 			// The class should have a superclass
 			if (superKraClass == null) {
 				signalError.show("LINE:" + lexer.getCurrentLine()
 						+ "=> Expected " + currentClass.getName()
 						+ " to have a superclass.");
 			}
+
 			boolean superKraClassFound = false;
+
 			// Iterates over all superclasses on the hierarchy until a valid
 			// superclass is found (or not)
 			while (superKraClass != null) {
@@ -1531,10 +1506,11 @@ public class Compiler {
 			}
 
 			lexer.nextToken();
-			exprList = realParameters();
 
+			exprList = realParameters();
 			method = superKraClass.getPublicMethod(messageName);
 			paramListMethod = method.getParamList();
+
 			// Checks if the number of parameters is equal to the number of
 			// expressions
 			if (paramListMethod.getSize() == exprList.getSize()) {
@@ -1545,12 +1521,12 @@ public class Compiler {
 				int parametersCounter = 1;
 
 				// Iterates over the parameters and expressions and checks if
-				// they match on type or can
-				// be converted between them
+				// they match on type or can be converted between them
 				while (exprListIterator.hasNext()
 						&& paramListMethodIterador.hasNext()) {
 					Expr expr = exprListIterator.next();
 					Parameter parameter = paramListMethodIterador.next();
+
 					// Checks if the can convert the types
 					if (!canConvertType(parameter.getType(), expr.getType())) {
 						signalError
@@ -1575,32 +1551,21 @@ public class Compiler {
 			return new MessageSendToSuper(method, exprList, currentClass);
 
 		case IDENT:
-			/*
-			 * PrimaryExpr ::= Id | Id "." Id | Id "." Id "(" [ ExpressionList ]
-			 * ")" | Id "." Id "." Id "(" [ ExpressionList ] ")" |
-			 */
-
-			Method IdentMethod = null;
-
 			String firstId = lexer.getStringValue();
 			lexer.nextToken();
-			if (lexer.token != Symbol.DOT) {
-				// Id
-				// retorne um objeto da ASA que representa um identificador
 
+			if (lexer.token != Symbol.DOT) {
 				boolean found = currentClass
 						.containsStaticPrivateMethod(firstId)
 						|| currentClass.containsStaticPublicMethod(firstId);
-				if (found) {
+				if (found)
 					signalError.show("Wrong call of static method " + firstId);
-				}
 
 				found = currentClass.containsPrivateMethod(firstId)
 						|| currentClass.containsPublicMethod(firstId);
-				if (found) {
+				if (found)
 					signalError.show("Wrong call of method " + firstId
 							+ " (need to use 'this'");
-				}
 
 				if (symbolTable.getInLocal(firstId) == null
 						&& currentClass.containsInstanceVariable(firstId)) {
@@ -1614,109 +1579,48 @@ public class Compiler {
 				}
 
 				return new VariableExpr(symbolTable.getInLocal(firstId));
-			} else { // Id "."
-				lexer.nextToken(); // coma o "."
+			} else {
+				lexer.nextToken();
 				if (lexer.token != Symbol.IDENT) {
 					signalError.show("Identifier expected");
 				} else {
-					// Id "." Id
-					if (symbolTable.getInLocal(firstId) == null) {
+					if (symbolTable.getInLocal(firstId) == null)
 						signalError.show("Variable " + firstId
 								+ "was not declared");
-					}
 
 					if (!isType(symbolTable.getInLocal(firstId).getType()
-							.getName())) {
+							.getName()))
 						signalError.show("Variable " + firstId
 								+ " was not declared");
-					}
 
 					ident = lexer.getStringValue();
 					lexer.nextToken();
 
 					if (lexer.token == Symbol.DOT) {
-						// Id "." Id "." Id "(" [ ExpressionList ] ")"
+
 						/*
-						 * se o compilador permite variáveis estáticas, é
+						 * Se o compilador permite variáveis estáticas, é
 						 * possível ter esta opçãoo, como
 						 * Clock.currentDay.setDay(12); Contudo, se variáveis
 						 * estáticas não estiver nas especificações, sinalize um
 						 * erro neste ponto.
 						 */
 
-						lexer.nextToken();
-						if (lexer.token != Symbol.IDENT) {
-							signalError.show("Identifier expected");
-						}
-						messageName = lexer.getStringValue();
-
-						KraClass classOfIdent = symbolTable
-								.getInGlobal(symbolTable.getInLocal(ident)
-										.getType().getName());
-						while (classOfIdent != null) {
-							if (!(classOfIdent
-									.containsStaticPrivateMethod(messageName)
-									|| classOfIdent
-											.containsStaticPublicMethod(messageName)
-									|| classOfIdent
-											.containsPrivateMethod(messageName) || classOfIdent
-										.containsPublicMethod(messageName))) {
-								signalError.show("No method " + messageName
-										+ " was found");
-							}
-							if (classOfIdent
-									.containsStaticPrivateMethod(messageName)) {
-								method = classOfIdent
-										.getStaticPrivateMethod(messageName);
-								break;
-							}
-							if (classOfIdent
-									.containsStaticPublicMethod(messageName)) {
-								method = classOfIdent
-										.getStaticPublicMethod(messageName);
-								break;
-							}
-							if (classOfIdent.containsPublicMethod(messageName)) {
-								method = classOfIdent
-										.getPublicMethod(messageName);
-								break;
-							}
-							if (classOfIdent.containsPrivateMethod(messageName)) {
-								method = classOfIdent
-										.getPrivateMethod(messageName);
-								break;
-							}
-							classOfIdent = classOfIdent.getSuperclass();
-						}
-						lexer.nextToken();
-						exprList = this.realParameters();
-
-						ParamList currentMethodPL = method.getParamList();
-
-						if (exprList.getSize() == currentMethodPL.getSize()) {
-							signalError.show("Wrong number of parameters");
-						}
-
-						// TODO PARAMETERS CHECK
-
-						return new MessageSendToVariable(
-								symbolTable.getInLocal(firstId), method,
-								exprList);
+						signalError
+								.show("'static' support to be fully developed");
 
 					} else if (lexer.token == Symbol.LEFTPAR) {
-						// Id "." Id "(" [ ExpressionList ] ")"
 
 						KraClass classOfIdent = symbolTable
 								.getInGlobal(symbolTable.getInLocal(ident)
 										.getType().getName());
 
 						if (currentClass.getName() == classOfIdent.getName()) {
-							if (classOfIdent.containsPrivateMethod(ident)) {
+							if (classOfIdent.containsPrivateMethod(ident))
 								method = classOfIdent.getPrivateMethod(ident);
-							}
-							if (classOfIdent.containsPublicMethod(ident)) {
+							if (classOfIdent.containsPublicMethod(ident))
 								method = classOfIdent.getPublicMethod(ident);
-							}
+
 							if (method == null) {
 								classOfIdent = classOfIdent.getSuperclass();
 								while (classOfIdent != null) {
@@ -1725,20 +1629,22 @@ public class Compiler {
 										method = classOfIdent
 												.getPublicMethod(ident);
 										break;
-									}
-									classOfIdent = classOfIdent.getSuperclass();
+									} else
+										classOfIdent = classOfIdent
+												.getSuperclass();
 								}
 							}
-							if (method == null) {
+
+							if (method == null)
 								signalError.show("No method " + ident
 										+ " was found");
-							}
 						} else {
-							if (classOfIdent.containsPublicMethod(ident)) {
+							if (classOfIdent.containsPublicMethod(ident))
 								method = classOfIdent.getPublicMethod(ident);
-							}
+
 							if (method == null) {
 								classOfIdent = classOfIdent.getSuperclass();
+
 								while (classOfIdent != null) {
 									if (classOfIdent
 											.containsPublicMethod(ident)) {
@@ -1749,6 +1655,7 @@ public class Compiler {
 									classOfIdent = classOfIdent.getSuperclass();
 								}
 							}
+
 							if (method == null) {
 								signalError.show("No public method "
 										+ ident
@@ -1757,21 +1664,51 @@ public class Compiler {
 												.getType().getName());
 							}
 						}
-						exprList = this.realParameters();
 
+						exprList = realParameters();
 						ParamList currentMethodPL = method.getParamList();
 
 						if (exprList.getSize() == currentMethodPL.getSize()) {
 							signalError.show("Wrong number of parameters");
 						}
 
-						// TODO PARAMETERS CHECK
+						Iterator<Expr> exprListIterator = exprList
+								.getElements();
+						Iterator<Parameter> paramListMethodIterador = currentMethodPL
+								.getElements();
+						// Parameter Counter, only for better error messages
+						int parametersCounter = 1;
+
+						// Iterates over the parameters and expressions and
+						// checks if
+						// they match on type or can be converted between them
+						while (exprListIterator.hasNext()
+								&& paramListMethodIterador.hasNext()) {
+							Expr expr = exprListIterator.next();
+							Parameter parameter = paramListMethodIterador
+									.next();
+
+							// Checks if the can convert the types
+							if (!canConvertType(parameter.getType(),
+									expr.getType())) {
+								signalError
+										.show("LINE:"
+												+ lexer.getCurrentLine()
+												+ "=> Expected expression type to be convertible to parameter "
+												+ parametersCounter + " type."
+												+ " The expression type is "
+												+ expr.getType()
+												+ " and the return type is "
+												+ parameter.getType());
+							}
+
+							parametersCounter++;
+						}
 
 						return new MessageSendToVariable(
 								symbolTable.getInLocal(firstId), method,
 								exprList);
 					} else {
-						// retorne o objeto da ASA que representa Id "." Id
 
 						KraClass classOfIdent = symbolTable
 								.getInGlobal(symbolTable.getInLocal(firstId)
@@ -1790,48 +1727,163 @@ public class Compiler {
 			}
 
 		case THIS:
-			/*
-			 * Este 'case THIS:' trata os seguintes casos: PrimaryExpr ::=
-			 * "this" | "this" "." Id | "this" "." Id "(" [ ExpressionList ] ")"
-			 * | "this" "." Id "." Id "(" [ ExpressionList ] ")"
-			 */
+
+			Method thisMethod = null;
+
+			if (currentMethod.isStatic())
+				signalError.show("Cant use 'this' in a 'static' method");
+
 			lexer.nextToken();
+
 			if (lexer.token != Symbol.DOT) {
-				// only 'this'
-				// retorne um objeto da ASA que representa 'this'
-				// confira se n�o estamos em um m�todo est�tico
-				return null;
+				return new MessageSendToSelf(currentClass, null, null, null);
 			} else {
 				lexer.nextToken();
+
 				if (lexer.token != Symbol.IDENT)
 					signalError.show("Identifier expected");
+
 				ident = lexer.getStringValue();
 				lexer.nextToken();
-				// j� analisou "this" "." Id
+
 				if (lexer.token == Symbol.LEFTPAR) {
-					// "this" "." Id "(" [ ExpressionList ] ")"
-					/*
-					 * Confira se a classe corrente possui um m�todo cujo nome �
-					 * 'ident' e que pode tomar os par�metros de ExpressionList
-					 */
+
+					if (currentClass.containsPrivateMethod(ident))
+						thisMethod = currentClass.getPrivateMethod(ident);
+					else if (currentClass.containsPublicMethod(ident))
+						thisMethod = currentClass.getPublicMethod(ident);
+					else if (currentClass.containsStaticPrivateMethod(ident))
+						thisMethod = currentClass.getStaticPrivateMethod(ident);
+					else if (currentClass.containsStaticPublicMethod(ident))
+						thisMethod = currentClass.getStaticPublicMethod(ident);
+					else
+						thisMethod = currentClass.getSuperclass()
+								.getPublicMethod(ident);
+
+					if (thisMethod == null)
+						signalError
+								.show("Method was not found in class or superclass");
+
 					exprList = this.realParameters();
+					ParamList currentMethodPL = thisMethod.getParamList();
+
+					if (exprList.getSize() == currentMethodPL.getSize()) {
+						signalError.show("Wrong number of parameters");
+					}
+
+					Iterator<Expr> exprListIterator = exprList.getElements();
+					Iterator<Parameter> paramListMethodIterador = currentMethodPL
+							.getElements();
+					// Parameter Counter, only for better error messages
+					int parametersCounter = 1;
+
+					// Iterates over the parameters and expressions and checks
+					// if
+					// they match on type or can be converted between them
+					while (exprListIterator.hasNext()
+							&& paramListMethodIterador.hasNext()) {
+						Expr expr = exprListIterator.next();
+						Parameter parameter = paramListMethodIterador.next();
+
+						// Checks if the can convert the types
+						if (!canConvertType(parameter.getType(), expr.getType())) {
+							signalError
+									.show("LINE:"
+											+ lexer.getCurrentLine()
+											+ "=> Expected expression type to be convertible to parameter "
+											+ parametersCounter + " type."
+											+ " The expression type is "
+											+ expr.getType()
+											+ " and the return type is "
+											+ parameter.getType());
+						}
+
+						parametersCounter++;
+					}
+
+					return new MessageSendToSelf(currentClass, null,
+							thisMethod, exprList);
 				} else if (lexer.token == Symbol.DOT) {
-					// "this" "." Id "." Id "(" [ ExpressionList ] ")"
 					lexer.nextToken();
+
 					if (lexer.token != Symbol.IDENT)
 						signalError.show("Identifier expected");
 					lexer.nextToken();
+
+					String identIdent = lexer.getStringValue();
+					lexer.nextToken();
+
+					if (!currentClass.containsInstanceVariable(identIdent))
+						signalError.show("Instance variable not found");
+
+					InstanceVariable instVar = (InstanceVariable) currentClass
+							.getInstanceVariable(identIdent);
+
+					if (!isType(instVar.getType().getName()))
+						signalError
+								.show("Variable is not an object of any class or basic type");
+
+					KraClass thisClass = symbolTable.getInGlobal(instVar
+							.getType().getName());
+
+					if (!thisClass.containsPublicMethod(identIdent))
+						signalError.show("Method not found");
+					else
+						thisMethod = thisClass.getPublicMethod(identIdent);
+
 					exprList = this.realParameters();
+					ParamList currentMethodPL = thisMethod.getParamList();
+
+					if (exprList.getSize() == currentMethodPL.getSize()) {
+						signalError.show("Wrong number of parameters");
+					}
+
+					Iterator<Expr> exprListIterator = exprList.getElements();
+					Iterator<Parameter> paramListMethodIterador = currentMethodPL
+							.getElements();
+					// Parameter Counter, only for better error messages
+					int parametersCounter = 1;
+
+					// Iterates over the parameters and expressions and checks
+					// if
+					// they match on type or can be converted between them
+					while (exprListIterator.hasNext()
+							&& paramListMethodIterador.hasNext()) {
+						Expr expr = exprListIterator.next();
+						Parameter parameter = paramListMethodIterador.next();
+
+						// Checks if the can convert the types
+						if (!canConvertType(parameter.getType(), expr.getType())) {
+							signalError
+									.show("LINE:"
+											+ lexer.getCurrentLine()
+											+ "=> Expected expression type to be convertible to parameter "
+											+ parametersCounter + " type."
+											+ " The expression type is "
+											+ expr.getType()
+											+ " and the return type is "
+											+ parameter.getType());
+						}
+
+						parametersCounter++;
+					}
+
+					return new MessageSendToSelf(currentClass, instVar,
+							thisMethod, exprList);
 				} else {
-					// retorne o objeto da ASA que representa "this" "." Id
-					/*
-					 * confira se a classe corrente realmente possui uma
-					 * vari�vel de inst�ncia 'ident'
-					 */
-					return null;
+					String nameOfIdent = lexer.getStringValue();
+
+					if (!currentClass.containsInstanceVariable(nameOfIdent))
+						signalError
+								.show("Class does not have the wanted variable");
+
+					InstanceVariable lastVar = (InstanceVariable) currentClass
+							.getInstanceVariable(nameOfIdent);
+
+					return new MessageSendToSelf(currentClass, lastVar, null,
+							null);
 				}
 			}
-			break;
 		default:
 			signalError.show("Expression expected");
 		}
