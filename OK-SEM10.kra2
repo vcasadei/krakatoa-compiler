@@ -18,9 +18,9 @@ class Program {
       A a;
       B b;
       C c;
-            a = new A();;
-            b = new B();;
-            c = new C();;
+            a = new A();
+            b = new B();
+            c = new C();
             a.first(0);
 ;
             b.first(0);

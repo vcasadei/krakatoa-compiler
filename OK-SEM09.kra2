@@ -13,7 +13,7 @@ class A {
 class Program {
    public void run() {
       A a;
-            a = new A();;
+            a = new A();
             a.m(5, a);
 ;
    }

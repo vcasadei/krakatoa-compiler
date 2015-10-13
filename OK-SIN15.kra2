@@ -11,7 +11,7 @@ class Program {
             s = "Ola !!!";
             write(s);
             read(s);
-            t = new Test();;
+            t = new Test();
             write(t.fakeClone("Dolly Parton");
 );
             write("barra   \\");

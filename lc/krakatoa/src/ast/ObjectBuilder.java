@@ -30,7 +30,8 @@ public class ObjectBuilder extends Expr {
 			}
 		}
 		
-		pw.print("new " + obj.getName() + "();");
+		//pw.print("new " + obj.getName() + "();");
+		pw.print("new " + obj.getName() + "()");
 	}
 
 	@Override

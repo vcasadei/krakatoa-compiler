@@ -1,7 +1,7 @@
 class A {
    public int m(int n) {
       A a;
-            a = new A();;
+            a = new A();
       if ((n) > 1) {
                   return ((n) * (a.m((n) - 1))
 );
@@ -14,7 +14,7 @@ class A {
 class Program {
    public void run() {
       A a;
-            a = new A();;
+            a = new A();
             write(a.m(5);
 );
    }

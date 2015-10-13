@@ -17,7 +17,7 @@ class B extends A {
 class Program {
    public void run() {
       B b;
-            b = new B();;
+            b = new B();
             b.m();
 ;
    }

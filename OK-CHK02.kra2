@@ -90,10 +90,10 @@ class Program {
    public void run() {
       B b;
       C c;
-            b = new B();;
+            b = new B();
             b.m();
 ;
-            c = new C();;
+            c = new C();
             c.method();
 ;
    }

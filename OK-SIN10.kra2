@@ -25,7 +25,7 @@ class B extends A {
 class Program {
    public void run() {
       B b;
-            b = new B();;
+            b = new B();
             b.set(1);
 ;
             b.m();

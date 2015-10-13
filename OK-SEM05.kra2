@@ -19,20 +19,20 @@ class Program {
    public B m(A a) {
             a.set(0);
 ;
-            return (new B(););
+            return (new B());
    }
    public A p(int i) {
       if ((i) > 0) {
-                  return (new A(););
+                  return (new A());
       }
  else {
-         return (new B(););
+         return (new B());
       }   }
    public void run() {
       A a;
       B b;
-            a = new A();;
-            b = new B();;
+            a = new A();
+            b = new B();
             a = b;
             a.set(0);
 ;
