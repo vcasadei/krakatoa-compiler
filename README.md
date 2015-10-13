@@ -98,6 +98,6 @@ Classes:
 
 Arquivos gerados com falha:
 ================
-OK-SIN09.KRA2	(erro desconhecido)
-OK-SIN10.KRA2	(ausência de 'this' em ReadStatement)
-...
+OK-SIN09.KRA2	(erro desconhecido)  
+OK-SIN10.KRA2	(ausência de 'this' em ReadStatement)  
+...  
