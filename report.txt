@@ -1,30 +1,16 @@
 Relat�rio do Compilador
 
 0 de um total de 133 erros que deveriam ser sinalizados n�o o foram (0%)
-3 erros foram sinalizados na linha errada (2%)
+0 erros foram sinalizados na linha errada (0%)
 24 erros foram sinalizados em 76 arquivos sem erro (31%)
 Todos os erros que deveriam ter sido sinalizados o foram
-######################################################
-Erros que foram sinalizados na linha errada:
-
-ER-SEM40.KRA
-    correto:    40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
-    sinalizado: 10, LINE:   public void set(int n) {=> Duplicated declariation of variable n
-
-ER-SEM44.KRA
-    correto:    26, Command 'write' does not accept objects (comp.Compiler.writeStatement())
-    sinalizado: 9, LINE:   public void set(int n) {=> Duplicated declariation of variable n
-
-ER-SEM47.KRA
-    correto:    24, Method 'm' was not found in superclass 'B' or its superclasses (comp.Compiler.factor())
-    sinalizado: 9, LINE:   public void set(int n) {=> Duplicated declariation of variable n
-
+Um ou mais arquivos de teste tinham erros, mas estes foram sinalizados nos n�meros de linhas corretos
 ######################################################
 Erros que foram sinalizados mas n�o deveriam ter sido:
 
 OK-CHK06.KRA, 39, Instance variable not found
 
-OK-CHK07.KRA, 61, LINE:   public void set(Person first, Person second) {=> Duplicated declariation of variable first
+OK-CHK07.KRA, 75, Instance variable not found
 
 OK-GER17.KRA, 27, Variable Awas not declared
 
@@ -34,13 +20,13 @@ OK-GER19.KRA, 15, Variable Awas not declared
 
 OK-GER20.KRA, 16, Variable Awas not declared
 
-OK-GER21.KRA, 12, LINE:   public void set(int n) { this.n = n; }=> Duplicated declariation of variable n
+OK-GER21.KRA, 19, Instance variable not found
 
 OK-GER22.KRA, 43, The last class must be the Program class
 
 OK-SEM01.KRA, 6, Identifier expected
 
-OK-SEM05.KRA, 50, LINE:         return new B();=> Method type not convertible to return type. The method type is ast.KraClass@511d50c0 and the return type is ast.KraClass@60e53b93
+OK-SEM05.KRA, 50, LINE:         return new B();=> Method type not convertible to return type. The method type is ast.KraClass@5e2de80c and the return type is ast.KraClass@1d44bcfa
 
 OK-SEM06.KRA, 15, => Duplicated declariation of variable n
 
@@ -48,7 +34,7 @@ OK-SEM10.KRA, 50, Uncompatible types in assignment
 
 OK-SEM14.KRA, 27, Invalid operation (incompatible types in comparison)
 
-OK-SEM15.KRA, 25, LINE:      super.accept(this);=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@5e2de80c and the return type is ast.KraClass@1d44bcfa
+OK-SEM15.KRA, 25, LINE:      super.accept(this);=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@266474c2 and the return type is ast.KraClass@6f94fa3e
 
 OK-SEM17.KRA, 15, Variable Awas not declared
 
@@ -58,7 +44,7 @@ OK-SEM19.KRA, 30, Identifier expected
 
 OK-SEM20.KRA, 28, The last class must be the Program class
 
-OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@266474c2 instead. Mult(*) and Div(/) operations only accept variables of type int
+OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@5e481248 instead. Mult(*) and Div(/) operations only accept variables of type int
 
 OK-SIN07.KRA, 94, Cant assignment a void call to a variable
 
@@ -66,7 +52,7 @@ OK-SIN08.KRA, 24, Can only write int and String types
 
 OK-SIN09.KRA, 43, Can only write int and String types
 
-OK-SIN14.KRA, 17, LINE:   public void set(int x, int y) {=> Duplicated declariation of variable x
+OK-SIN14.KRA, 39, Instance variable not found
 
 OK-SIN15.KRA, 29, Can only write int and String types
 
@@ -285,6 +271,11 @@ The compiler message was: "LINE:      return new A();   //#=> Method type not co
 The 'ce' message is:      "Type error: type of the expression returned is not subclass of the method return type"
 
 
+ER-SEM40.KRA
+The compiler message was: "LINE:      this.m(a);    //#=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@511d50c0 and the return type is ast.KraClass@60e53b93"
+The 'ce' message is:      "Type error: the type of the real parameter is not subclass of the type of the formal parameter"
+
+
 ER-SEM41.KRA
 The compiler message was: "Uncompatible types in assignment"
 The 'ce' message is:      "Type error: the type of the expression of the right-hand side is a basic type and the type of the variable of the left-hand side is a class"
@@ -300,9 +291,19 @@ The compiler message was: "Uncompatible types in assignment"
 The 'ce' message is:      "Type error: 'null' cannot be assigned to a variable of a basic type"
 
 
+ER-SEM44.KRA
+The compiler message was: "Can only write int and String types"
+The 'ce' message is:      "Command 'write' does not accept objects"
+
+
 ER-SEM46.KRA
 The compiler message was: "LINE:       super.run();   //#=> Expected Program to have a superclass."
 The 'ce' message is:      "'super' used in class 'Program' that does not have a superclass"
+
+
+ER-SEM47.KRA
+The compiler message was: "LINE:      super.m();       //#=> Expected B to have a superclass with a public method called m"
+The 'ce' message is:      "Method 'm' was not found in superclass 'B' or its superclasses"
 
 
 ER-SEM48.KRA

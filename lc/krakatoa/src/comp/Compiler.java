@@ -586,21 +586,13 @@ public class Compiler {
 		Type t = type();
 		// Expects the token to be an identifier
 		String currentTokenValue = lexer.getStringValue();
-		if (lexer.token != Symbol.IDENT)
+		if (lexer.token != Symbol.IDENT) {
 			signalError.show("Identifier expected");
-		// Verifies if there already exists another parameter of the same type
-		// and name on local
-		if (!isInLocal(currentTokenValue)) {
-			// Creates the param and sets in the method's params and local
-			// symbol table
-			Parameter param = new Parameter(currentTokenValue, t);
-			currentMethod.addParam(param);
-			symbolTable.putInLocal(currentTokenValue, param);
-		} else {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Duplicated declariation of variable "
-					+ currentTokenValue);
 		}
+		Parameter param = new Parameter(currentTokenValue, t);
+		currentMethod.addParam(param);
+		symbolTable.putInLocal(currentTokenValue, param);
+		
 		lexer.nextToken();
 
 	}
