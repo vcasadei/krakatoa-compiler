@@ -9,7 +9,7 @@ class A {
             write(this.n);
    }
    public void s() {
-            read(nint n, );
+            read(nn, );
    }
 }
 

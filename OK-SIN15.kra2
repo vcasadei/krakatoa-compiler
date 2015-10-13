@@ -1,5 +1,5 @@
 class Test {
-   public String fakeClone(String String s) {
+   public String fakeClone(String s) {
             return (s);
    }
 }
@@ -10,7 +10,7 @@ class Program {
       Test t;
             s = "Ola !!!";
             write(s);
-            read(sString s, );
+            read(ss, );
             t = new Test();;
             write(t.fakeClone("Dolly Parton");
 );

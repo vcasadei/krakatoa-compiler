@@ -4,7 +4,7 @@ class Program {
       String s;
             r = "Ola";
             s = "Tudo bem?";
-      if (((((((((((String rr) == (String ss)) && ((String rr) != (String ss))) && ((String rr) == null)) && (null == (String rr))) && ((String rr) == "Ola")) && ("Ola" == (String rr))) && ((String rr) != null)) && ((String rr) != "Ola")) && ("Ola" != (String rr))) && ("null" == null)) {
+      if (((((((((((rr) == (ss)) && ((rr) != (ss))) && ((rr) == null)) && (null == (rr))) && ((rr) == "Ola")) && ("Ola" == (rr))) && ((rr) != null)) && ((rr) != "Ola")) && ("Ola" != (rr))) && ("null" == null)) {
          write("impossivel");
       }
    }

@@ -2,7 +2,7 @@ class A {
    public void print() {
             write(0);
    }
-   public void accept(A A x) {
+   public void accept(A x) {
             x.print();
 ;
    }

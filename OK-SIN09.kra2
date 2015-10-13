@@ -15,7 +15,7 @@ class A {
             return ((this.n)
  + 1);
    }
-   private void m2(int int pk) {
+   private void m2(int pk) {
             this.k = pk;
    }
 }

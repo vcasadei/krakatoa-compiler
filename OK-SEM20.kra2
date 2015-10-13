@@ -1,19 +1,19 @@
 class A {
-   public int m1(boolean boolean ok) {
+   public int m1(boolean ok) {
             return (0);
    }
    public void m2() {
    }
-   public final String m3(String String sboolean boolean ok) {
+   public final String m3(String sboolean ok) {
             return ("A");
    }
-   public String m4(int int iboolean boolean ok) {
+   public String m4(int iboolean ok) {
             return ("Am4");
    }
 }
 
 class B extends A {
-   public int m1(boolean boolean ok) {
+   public int m1(boolean ok) {
             return (1);
    }
    public final void m2() {
@@ -24,10 +24,10 @@ class B extends A {
 }
 
 class C extends B {
-   public int m1(boolean boolean ok) {
+   public int m1(boolean ok) {
             return (2);
    }
-   public final String m4(int int iboolean boolean ok) {
+   public final String m4(int iboolean ok) {
             return ("C");
    }
    public final String m5() {
@@ -39,12 +39,12 @@ final class D extends A {
 }
 
 final class E extends A {
-   public int m1(boolean boolean ok) {
+   public int m1(boolean ok) {
             return (5);
    }
    public void m2() {
    }
-   public String m4(int int iboolean boolean ok) {
+   public String m4(int iboolean ok) {
             return ("Em4");
    }
 }

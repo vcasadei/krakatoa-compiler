@@ -1,6 +1,6 @@
 class A {
-   public int m(int int x, int int yboolean boolean ok) {
-            return ((int xx) + (int yy));
+   public int m(int x, int yboolean ok) {
+            return ((xx) + (yy));
    }
 }
 

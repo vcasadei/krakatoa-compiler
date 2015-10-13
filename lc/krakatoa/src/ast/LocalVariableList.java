@@ -33,6 +33,7 @@ public class LocalVariableList {
 	public void genKra(PW pw) {
 		for (Variable var : localList) {
 			pw.printIdent("");
+			pw.print(var.getType().getName() + " ");
 			var.genKra(pw);
 			pw.println(";");
 		}

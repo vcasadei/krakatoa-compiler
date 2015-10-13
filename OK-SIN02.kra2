@@ -14,19 +14,19 @@ class A {
 }
             i = ((1 * 4) + 3) - (5 / 2);
             b = false;
-      if ((!((boolean bb) && ((int ii) < 0))) || ((int ii) > 10)) {
+      if ((!((bb) && ((ii) < 0))) || ((ii) > 10)) {
                   b = true;
                   i = -1;
-                  read(iint i, jint j, );
-         while ((int ii) > 0) {
+                  read(ii, jj, );
+         while ((ii) > 0) {
                         write(i);
-                        i = (int ii) - 1;
+                        i = (ii) - 1;
 }
       }
  else {
                   b = true;
                   write(i);
-      }      if (((((((int ii) == 1) || ((int ii) < 1)) || ((int ii) <= 5)) || ((int ii) > 1)) || ((int ii) >= 1)) || ((int ii) != 3)) {
+      }      if (((((((ii) == 1) || ((ii) < 1)) || ((ii) <= 5)) || ((ii) > 1)) || ((ii) >= 1)) || ((ii) != 3)) {
                   i = 0;
       }
    }

@@ -1,10 +1,10 @@
 class A {
    private int n;
-   public void set(int int pn) {
+   public void set(int pn) {
       int n;
             this.n = pn;
    }
-   public int put(int int nString String set) {
+   public int put(int nString set) {
       boolean put;
             this.n = n;
             return (n);

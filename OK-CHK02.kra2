@@ -10,31 +10,31 @@ class A {
    public boolean m_returns_boolean() {
             return (this.b);
    }
-   public void m_integer(int int n) {
+   public void m_integer(int n) {
             this.n = n;
    }
-   public void m_integer_boolean_String(int int n, boolean boolean bString String s) {
+   public void m_integer_boolean_String(int n, boolean bString s) {
             this.n = n;
             this.b = b;
             this.s = s;
             write(this.s);
    }
-   public boolean m_integer_returns_boolean(int int n) {
+   public boolean m_integer_returns_boolean(int n) {
       if ((this.n)
- > (int nn)) {
+ > (nn)) {
                   return (false);
       }
  else {
          return (this.b);
       }   }
-   public boolean m_integer_boolean_String_return(int int n, boolean boolean bString String s) {
+   public boolean m_integer_boolean_String_return(int n, boolean bString s) {
             this.s = s;
       if (b) {
-                  return (((int nn) + (int nn)) > 0);
+                  return (((nn) + (nn)) > 0);
       }
  else {
          return ((this.b)
- && (boolean bb));
+ && (bb));
       }   }
 }
 
@@ -55,7 +55,7 @@ class C {
    public boolean method_returns_boolean() {
             return (this.letter);
    }
-   public void method_integer(int int n) {
+   public void method_integer(int n) {
             write(this.name, n, this.time);
       if (this.letter) {
                   write("true");
@@ -63,7 +63,7 @@ class C {
  else {
          write("false");
       }   }
-   public void method_integer_boolean_String(int int n, boolean boolean bString String name) {
+   public void method_integer_boolean_String(int n, boolean bString name) {
             this.name = name;
             write(n);
       if (b) {
@@ -72,15 +72,15 @@ class C {
  else {
          write(1);
       }   }
-   public boolean method_integer_returns_boolean(int int n) {
+   public boolean method_integer_returns_boolean(int n) {
             return ((this.n)
- > (int nn));
+ > (nn));
    }
-   public boolean method_integer_boolean_String_r(int int n, boolean boolean bString String name) {
+   public boolean method_integer_boolean_String_r(int n, boolean bString name) {
             write(name);
             this.name = name;
             return (((this.n)
- > (int nn)) && !(((boolean bb) && (this.letter)
+ > (nn)) && !(((bb) && (this.letter)
 ) && ((this.time)
  > 0)));
    }

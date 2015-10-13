@@ -1,21 +1,21 @@
 class A {
    private int i;
-   public void put(int int x, int int yboolean boolean ok) {
-      if (((int xx) > (int yy)) && (boolean okok)) {
+   public void put(int x, int yboolean ok) {
+      if (((xx) > (yy)) && (okok)) {
                   this.i = 0;
       }
    }
    public int get() {
             return (this.i);
    }
-   public void set(int int i) {
+   public void set(int i) {
             this.i = i;
    }
 }
 
 class B extends A {
-   public void put(int int a, int int bboolean boolean c) {
-      if ((((int aa) + (int bb)) < 1) && !(boolean cc)) {
+   public void put(int a, int bboolean c) {
+      if ((((aa) + (bb)) < 1) && !(cc)) {
                   write(0);
       }
    }

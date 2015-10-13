@@ -1,5 +1,5 @@
 class A {
-   public void first(int int pn) {
+   public void first(int pn) {
    }
 }
 

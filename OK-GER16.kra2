@@ -3,7 +3,7 @@ class A {
    public int get_A() {
             return (this.k);
    }
-   public void set(int int k) {
+   public void set(int k) {
             this.k = k;
    }
    public void print() {

@@ -14,7 +14,7 @@ public class Variable {
     }
 
     public void genKra(PW pw) {
-    	pw.print(type.getName() + " " + name);
+    	pw.print(name);
 	}
     
     private String name;

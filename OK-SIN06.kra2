@@ -1,9 +1,9 @@
 class A {
-   public int m(int int n) {
+   public int m(int n) {
       A a;
             a = new A();;
-      if ((int nn) > 1) {
-                  return ((int nn) * (a.m((int nn) - 1))
+      if ((nn) > 1) {
+                  return ((nn) * (a.m((nn) - 1))
 );
       }
  else {

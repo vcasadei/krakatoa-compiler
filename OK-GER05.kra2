@@ -6,7 +6,7 @@ class A {
       int d;
       int e;
       int f;
-            read(aint a, bint b, cint c, dint d, eint e, fint f, );
+            read(aa, bb, cc, dd, ee, ff, );
             write(a, b, c, d, e, f);
    }
 }

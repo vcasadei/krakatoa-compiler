@@ -1,6 +1,6 @@
 class A {
    private int n;
-   public void put(int int pn) {
+   public void put(int pn) {
             this.n = pn;
    }
    public int get() {
@@ -11,13 +11,13 @@ class A {
 class No {
    private No next;
    private A a;
-   public void setNext(No No p_next) {
+   public void setNext(No p_next) {
             this.next = p_next;
    }
    public No getNext() {
             return (this.next);
    }
-   public void set(A A pa) {
+   public void set(A pa) {
             this.a = pa;
    }
    public A get() {
@@ -32,7 +32,7 @@ class B extends A {
             write(this.k);
             return (super.get());
    }
-   public void init(int int pk) {
+   public void init(int pk) {
             this.k = pk;
    }
    public void buildList() {
@@ -51,8 +51,8 @@ class B extends A {
             w.set(a);
 ;
       while (true) {
-                  i = (int ii) - 1;
-         if ((int ii) <= 0) {
+                  i = (ii) - 1;
+         if ((ii) <= 0) {
             break;
          }
                   newNo = new No();;
@@ -70,7 +70,7 @@ class B extends A {
       No w;
       A a;
             w = this.first;
-      while ((No ww) != null) {
+      while ((ww) != null) {
                   a = w.get();
 ;
                   write(a.get();

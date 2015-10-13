@@ -16,11 +16,16 @@ public class InstanceVariable extends Variable {
 		super(name, type);
 		this.isStatic = isStatic;
 	}
+	
+	public boolean isStatic() {
+		return isStatic;
+	}
+
+	public void setStatic(boolean isStatic) {
+		this.isStatic = isStatic;
+	}
 
 	public void genKra(PW pw) {
-		if (isStatic) {
-			pw.print("static ");
-		}
 		super.genKra(pw);	
 	}
 	

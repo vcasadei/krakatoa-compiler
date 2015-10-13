@@ -1,7 +1,7 @@
 class Point {
    private int x;
    private int y;
-   public void set(int int xint int y) {
+   public void set(int xint y) {
             this.x = x;
             this.y = y;
    }

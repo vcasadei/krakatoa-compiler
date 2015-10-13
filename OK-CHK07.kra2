@@ -6,16 +6,16 @@ class Person {
    public String getCourse() {
             return (this.course);
    }
-   public void setCourse(String String course) {
+   public void setCourse(String course) {
             this.course = course;
    }
    public int getNumber() {
             return (this.number);
    }
-   public void setNumber(int int number) {
+   public void setNumber(int number) {
             this.number = number;
    }
-   public void init(String String nameint int age) {
+   public void init(String nameint age) {
             this.name = name;
             this.age = age;
    }

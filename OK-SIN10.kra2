@@ -3,7 +3,7 @@ class A {
    public int get() {
             return (this.n);
    }
-   public void set(int int pn) {
+   public void set(int pn) {
             this.n = pn;
    }
 }
@@ -12,8 +12,8 @@ class B extends A {
    private int k;
    public void m() {
       int i;
-            read(iint i, );
-            read(kint k, );
+            read(ii, );
+            read(kk, );
             super.set(0);
             write(super.get(), this.get(), this.k, i);
    }

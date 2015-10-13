@@ -1,6 +1,6 @@
 class A {
    private int n;
-   public void set(int int n) {
+   public void set(int n) {
             this.n = n;
    }
    public int get() {
