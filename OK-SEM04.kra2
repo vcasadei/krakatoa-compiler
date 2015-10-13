@@ -1,0 +1,16 @@
+class Program {
+   public void run() {
+      a;
+      b;
+      e;
+      f;
+            a = 1;
+            b = 1;
+            e = true;
+            f = false;
+      if (((((((((aa) == (bb)) && ((aa) == 1)) && (1 == (bb))) && ((aa) != (bb))) && ((ee) == (ff))) && (true == (ff))) && ((ee) != (ff))) && (true != (ff))) {
+         write("impossivel");
+      }
+   }
+}
+

@@ -2,27 +2,11 @@ Relat�rio do Compilador
 
 0 de um total de 133 erros que deveriam ser sinalizados n�o o foram (0%)
 0 erros foram sinalizados na linha errada (0%)
-24 erros foram sinalizados em 76 arquivos sem erro (31%)
+13 erros foram sinalizados em 76 arquivos sem erro (17%)
 Todos os erros que deveriam ter sido sinalizados o foram
 Um ou mais arquivos de teste tinham erros, mas estes foram sinalizados nos n�meros de linhas corretos
 ######################################################
 Erros que foram sinalizados mas n�o deveriam ter sido:
-
-OK-CHK06.KRA, 39, Instance variable not found
-
-OK-CHK07.KRA, 75, Instance variable not found
-
-OK-GER17.KRA, 27, Variable Awas not declared
-
-OK-GER18.KRA, 14, Variable Awas not declared
-
-OK-GER19.KRA, 15, Variable Awas not declared
-
-OK-GER20.KRA, 16, Variable Awas not declared
-
-OK-GER21.KRA, 19, Instance variable not found
-
-OK-GER22.KRA, 43, The last class must be the Program class
 
 OK-SEM01.KRA, 6, Identifier expected
 
@@ -36,13 +20,9 @@ OK-SEM14.KRA, 27, Invalid operation (incompatible types in comparison)
 
 OK-SEM15.KRA, 25, LINE:      super.accept(this);=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@266474c2 and the return type is ast.KraClass@6f94fa3e
 
-OK-SEM17.KRA, 15, Variable Awas not declared
-
-OK-SEM18.KRA, 13, Variable Awas not declared
-
 OK-SEM19.KRA, 30, Identifier expected
 
-OK-SEM20.KRA, 28, The last class must be the Program class
+OK-SEM20.KRA, 44, Can only write int and String types
 
 OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@5e481248 instead. Mult(*) and Div(/) operations only accept variables of type int
 
@@ -51,8 +31,6 @@ OK-SIN07.KRA, 94, Cant assignment a void call to a variable
 OK-SIN08.KRA, 24, Can only write int and String types
 
 OK-SIN09.KRA, 43, Can only write int and String types
-
-OK-SIN14.KRA, 39, Instance variable not found
 
 OK-SIN15.KRA, 29, Can only write int and String types
 
@@ -272,7 +250,7 @@ The 'ce' message is:      "Type error: type of the expression returned is not su
 
 
 ER-SEM40.KRA
-The compiler message was: "LINE:      this.m(a);    //#=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@511d50c0 and the return type is ast.KraClass@60e53b93"
+The compiler message was: "=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@511d50c0 and the return type is ast.KraClass@60e53b93"
 The 'ce' message is:      "Type error: the type of the real parameter is not subclass of the type of the formal parameter"
 
 

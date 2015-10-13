@@ -1,0 +1,22 @@
+class A {
+   public void m() {
+      i;
+      j;
+      k;
+            write(7);
+            i = 1;
+            j = (ii) + 1;
+            k = (jj) + 1;
+            write(i);
+            write(j);
+            write(k);
+            i = ((((3 + 1) * 3) / 2) / 2) + 1;
+            write(i);
+            i = ((100 - 95) * 2) - 5;
+            write(i);
+            i = (100 - (45 * 2)) - 4;
+            write(i);
+            write(7);
+   }
+}
+

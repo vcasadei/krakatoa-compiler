@@ -1,0 +1,12 @@
+class A {
+   public void m() {
+            write(6);
+            write(1);
+            write(1 + 1);
+            write(4 - 1);
+            write((6 - 3) + 1);
+            write(10 / 2);
+            write(2 * 3);
+   }
+}
+

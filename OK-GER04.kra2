@@ -1,0 +1,18 @@
+class A {
+   public void m() {
+      i;
+      b;
+            write(6);
+            i = 1;
+      while ((ii) <= 5) {
+                  write(i);
+                  i = (ii) + 1;
+}
+            b = false;
+      while ((bb) != true) {
+                  write(6);
+                  b = !(bb);
+}
+   }
+}
+

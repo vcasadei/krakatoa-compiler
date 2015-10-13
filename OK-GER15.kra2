@@ -1,0 +1,105 @@
+class A {
+   private i;
+   private j;
+   public void init_A() {
+            this.i;
+ = 1;
+            this.j;
+ = 2;
+   }
+   public void call_p() {
+            ast.Method.p();
+;
+   }
+   public void call_q() {
+            ast.Method.q();
+;
+   }
+   public void r() {
+            write(this.i;
+);
+   }
+   public void s() {
+            write(this.j;
+);
+   }
+   private void p() {
+            write(this.i;
+);
+   }
+   private void q() {
+            write(this.j;
+);
+   }
+}
+
+class B extends A {
+   private i;
+   private j;
+   public void init_B() {
+            this.i;
+ = 3;
+            this.j;
+ = 4;
+   }
+   public void call_p() {
+            ast.Method.p();
+;
+   }
+   public void call_q() {
+            ast.Method.q();
+;
+   }
+   public void r() {
+            write(this.i;
+);
+   }
+   public void s() {
+            write(this.j;
+);
+   }
+   private void p() {
+            write(this.i;
+);
+   }
+   private void q() {
+            write(this.j;
+);
+   }
+}
+
+class C extends A {
+   private i;
+   private j;
+   public void init_C() {
+            this.i;
+ = 5;
+            this.j;
+ = 6;
+   }
+   public void call_p() {
+            ast.Method.p();
+;
+   }
+   public void call_q() {
+            ast.Method.q();
+;
+   }
+   public void r() {
+            write(this.i;
+);
+   }
+   public void s() {
+            write(this.j;
+);
+   }
+   private void p() {
+            write(this.i;
+);
+   }
+   private void q() {
+            write(this.j;
+);
+   }
+}
+

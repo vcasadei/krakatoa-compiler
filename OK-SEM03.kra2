@@ -1,0 +1,12 @@
+class Program {
+   public void run() {
+      r;
+      s;
+            r = "Ola";
+            s = "Tudo bem?";
+      if (((((((((((rr) == (ss)) && ((rr) != (ss))) && ((rr) == null)) && (null == (rr))) && ((rr) == "Ola")) && ("Ola" == (rr))) && ((rr) != null)) && ((rr) != "Ola")) && ("Ola" != (rr))) && ("null" == null)) {
+         write("impossivel");
+      }
+   }
+}
+

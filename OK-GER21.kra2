@@ -1,0 +1,12 @@
+class A {
+   private n;
+   public void set(int n) {
+            this.n;
+ = n;
+   }
+   public int get() {
+            return (this.n;
+);
+   }
+}
+

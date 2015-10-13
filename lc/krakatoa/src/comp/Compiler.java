@@ -51,17 +51,28 @@ public class Compiler {
 			while (lexer.token == Symbol.MOCall) {
 				metaobjectCallList.add(metaobjectCall());
 			}
-
-			classDec();
+			
+			if (lexer.token == Symbol.FINAL) {
+				lexer.nextToken();
+				classDec(true);
+			} else {
+				classDec(false);
+			}
 			if (currentClass != null)
 				kraClassList.add(currentClass);
 			
 			String token = lexer.getStringValue();
-			while (lexer.token == Symbol.CLASS) {
-				classDec();
+			while (lexer.token == Symbol.FINAL || lexer.token == Symbol.CLASS) {
+				if (lexer.token == Symbol.FINAL) {
+					lexer.nextToken();
+					classDec(true);
+				} else {
+					classDec(false);
+				}
 				token = lexer.getStringValue();
-				if (currentClass != null)
+				if (currentClass != null) {
 					kraClassList.add(currentClass);
+				}
 			}
 
 			/**
@@ -155,16 +166,9 @@ public class Compiler {
 	 * Qualifier ::= ["final"] ["static"] ("private"|"public") <br>
 	 * Member ::= InstVarDec | MethodDec <br>
 	 */
-	private void classDec() {
+	private void classDec(boolean isFinal) {
 
-		boolean isFinal = false;
 		boolean isStatic = false;
-
-		// classes também podem ser qualificadas como 'final'.
-		if (lexer.token == Symbol.FINAL) {
-			isFinal = true;
-			lexer.nextToken();
-		}
 
 		if (lexer.token != Symbol.CLASS)
 			signalError.show("'class' expected");
@@ -1632,14 +1636,11 @@ public class Compiler {
 				if (lexer.token != Symbol.IDENT) {
 					signalError.show("Identifier expected");
 				} else {
-					if (symbolTable.getInLocal(firstId) == null)
-						signalError.show("Variable " + firstId
-								+ "was not declared");
-
 					if (!isType(symbolTable.getInLocal(firstId).getType()
-							.getName()))
+							.getName())) {
 						signalError.show("Variable " + firstId
 								+ " was not declared");
+					}
 
 					ident = lexer.getStringValue();
 					lexer.nextToken();
@@ -1839,9 +1840,7 @@ public class Compiler {
 						// Checks if the can convert the types
 						if (!canConvertType(parameter.getType(), expr.getType())) {
 							signalError
-									.show("LINE:"
-											+ lexer.getCurrentLine()
-											+ "=> Expected expression type to be convertible to parameter "
+									.show("=> Expected expression type to be convertible to parameter "
 											+ parametersCounter + " type."
 											+ " The expression type is "
 											+ expr.getType()
@@ -1863,9 +1862,6 @@ public class Compiler {
 
 					String identIdent = lexer.getStringValue();
 					lexer.nextToken();
-
-					if (!currentClass.containsInstanceVariable(identIdent))
-						signalError.show("Instance variable not found");
 
 					InstanceVariable instVar = (InstanceVariable) currentClass
 							.getInstanceVariable(identIdent);

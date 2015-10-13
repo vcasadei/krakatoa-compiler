@@ -1,0 +1,30 @@
+class A {
+   private n;
+   public void m() {
+      k;
+            k = this.n;
+;
+            write(k);
+   }
+   public void p() {
+            write(this.n;
+);
+   }
+   public void s() {
+            read(nn, );
+   }
+}
+
+class Program {
+   public void run() {
+      a;
+            a = new A();;
+            a.s();
+;
+            a.m();
+;
+            a.p();
+;
+   }
+}
+

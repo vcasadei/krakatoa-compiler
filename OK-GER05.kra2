@@ -1,0 +1,13 @@
+class A {
+   public void m() {
+      a;
+      b;
+      c;
+      d;
+      e;
+      f;
+            read(aa, bb, cc, dd, ee, ff, );
+            write(a, b, c, d, e, f);
+   }
+}
+

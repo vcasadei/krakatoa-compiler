@@ -1,0 +1,51 @@
+class A {
+   private k;
+   public int get_A() {
+            return (this.k;
+);
+   }
+   public void init() {
+            this.k;
+ = 1;
+   }
+}
+
+class B extends A {
+   private k;
+   public int get_B() {
+            return (this.k;
+);
+   }
+   public void init() {
+            super.init();
+            this.k;
+ = 2;
+   }
+}
+
+class C extends B {
+   private k;
+   public int get_C() {
+            return (this.k;
+);
+   }
+   public void init() {
+            super.init();
+            this.k;
+ = 3;
+   }
+}
+
+class D extends C {
+   private k;
+   public int get_D() {
+            return (this.k;
+);
+   }
+   public void init() {
+            super.init();
+            this.k;
+ = 4;
+   }
+}
+
