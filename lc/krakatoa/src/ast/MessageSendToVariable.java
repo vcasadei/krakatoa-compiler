@@ -20,7 +20,11 @@ public class MessageSendToVariable extends MessageSend {
 	}
 
 	public Type getType() {
-		return Type.voidType;
+		if (method != null) {
+			return method.getReturnType();
+		} else {
+			return Type.undefinedType;
+		}
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {

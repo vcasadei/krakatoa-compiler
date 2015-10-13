@@ -520,8 +520,8 @@ public class Compiler {
 		currentTokenValue = lexer.getStringValue();
 		// creates variable
 		v = new Variable(lexer.getStringValue(), type);
-		// checks if it was previously declared
-		if (!isInLocal(currentTokenValue)) {
+		// checks if it was previously declared or if is an instance variable
+		if (!isInLocal(currentTokenValue) || currentClass.containsInstanceVariable(currentTokenValue)) {
 			symbolTable.putInLocal(currentTokenValue, v);
 			currentMethod.setLocalVariable(v);
 		} else {
@@ -1604,8 +1604,8 @@ public class Compiler {
 			lexer.nextToken();
 			
 			String debug = lexer.getStringValue();
-
 			if (lexer.token != Symbol.DOT) {
+				
 				boolean found = (currentClass.containsStaticPrivateMethod(firstId)
 						|| currentClass.containsStaticPublicMethod(firstId));
 
@@ -1628,9 +1628,6 @@ public class Compiler {
 				if(var instanceof InstanceVariable && currentClass.containsInstanceVariable(firstId)) {
 					signalError.show("Cant use instance variables without 'this'. Identifier '" + firstId + "' was not declared");
 				}
-
-				
-
 				return new VariableExpr(var);
 			} else {
 				lexer.nextToken();
@@ -1647,7 +1644,7 @@ public class Compiler {
 					lexer.nextToken();
 
 					if (lexer.token == Symbol.DOT) {
-
+						
 						/*
 						 * Se o compilador permite variáveis estáticas, é
 						 * possível ter esta opçãoo, como
@@ -1660,7 +1657,6 @@ public class Compiler {
 								.show("'static' support to be fully developed");
 
 					} else if (lexer.token == Symbol.LEFTPAR) {
-						
 						KraClass classOfIdent = symbolTable
 								.getInGlobal(symbolTable.getInLocal(firstId).getType().getName());
 
@@ -1688,8 +1684,9 @@ public class Compiler {
 								signalError.show("No method " + ident
 										+ " was found");
 						} else {
-							if (classOfIdent.containsPublicMethod(ident))
+							if (classOfIdent.containsPublicMethod(ident)) {
 								method = classOfIdent.getPublicMethod(ident);
+							}
 
 							if (method == null) {
 								classOfIdent = classOfIdent.getSuperclass();
@@ -1713,7 +1710,7 @@ public class Compiler {
 												.getType().getName());
 							}
 						}
-
+						// method.getReturnType()
 						exprList = realParameters();
 						ParamList currentMethodPL = method.getParamList();
 						

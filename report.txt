@@ -2,7 +2,7 @@ Relat�rio do Compilador
 
 0 de um total de 133 erros que deveriam ser sinalizados n�o o foram (0%)
 0 erros foram sinalizados na linha errada (0%)
-9 erros foram sinalizados em 76 arquivos sem erro (11%)
+2 erros foram sinalizados em 76 arquivos sem erro (2%)
 Todos os erros que deveriam ter sido sinalizados o foram
 Um ou mais arquivos de teste tinham erros, mas estes foram sinalizados nos n�meros de linhas corretos
 ######################################################
@@ -10,21 +10,7 @@ Erros que foram sinalizados mas n�o deveriam ter sido:
 
 OK-SEM01.KRA, 6, Identifier expected
 
-OK-SEM06.KRA, 15, => Duplicated declariation of variable n
-
 OK-SEM19.KRA, 30, Identifier expected
-
-OK-SEM20.KRA, 44, Can only write int and String types
-
-OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@5e2de80c instead. Mult(*) and Div(/) operations only accept variables of type int
-
-OK-SIN07.KRA, 94, Cant assignment a void call to a variable
-
-OK-SIN08.KRA, 24, Can only write int and String types
-
-OK-SIN09.KRA, 43, Can only write int and String types
-
-OK-SIN15.KRA, 29, Can only write int and String types
 
 ######################################################
 Em todos os testes abaixo, o compilador sinalizou o erro na linha correta (quando o teste tinha erros) ou n�o sinalizou o erro (quando o teste N�O tinha erros). Mas � necess�rio conferir se as mensagens emitidas pelo compilador s�o compat�veis com as mensagens de erro sugeridas pelas chamadas aos metaobjetos dos testes. 
