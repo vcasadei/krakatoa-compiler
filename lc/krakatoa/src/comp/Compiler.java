@@ -630,21 +630,20 @@ public class Compiler {
 			if (isType(currentTokenValue)) {
 				o = symbolTable.get(currentTokenValue);
 			} else {
-				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Class "
+				signalError.show("=> Class "
 						+ currentTokenValue + " was not declared before use.");
 				result = null;
 			}
 
 			if (o == null) {
-				signalError.show("LINE:" + lexer.getCurrentLine() + "=> Class "
+				signalError.show("=> Class "
 						+ currentTokenValue + " was not declared before use.");
 				result = null;
 			}
 
 			// Expect current token to be a class instance
 			if (!isClass(o)) {
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected identifier " + currentTokenValue
+				signalError.show("=> Expected identifier " + currentTokenValue
 						+ " to be a class.");
 				result = null;
 			}
@@ -652,8 +651,7 @@ public class Compiler {
 			result = (KraClass) o;
 			break;
 		default:
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Expected type, but got " + lexer.getStringValue());
+			signalError.show("=> Expected type, but got " + lexer.getStringValue());
 			result = Type.undefinedType;
 		}
 		lexer.nextToken();
@@ -934,8 +932,7 @@ public class Compiler {
 		String currentTokenValue = lexer.getStringValue();
 		// Expects to find leftpar
 		if (lexer.token != Symbol.LEFTPAR) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Expected to find '(' but got " + currentTokenValue
+			signalError.show("=> Expected to find '(' but got " + currentTokenValue
 					+ " instead.");
 		}
 
@@ -943,15 +940,13 @@ public class Compiler {
 
 		Expr expr = expr();
 		if (expr.getType() != Type.booleanType) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Expected expression to be boolean, but got "
+			signalError.show("=> Expected expression to be boolean, but got "
 					+ expr.getType().getName() + " instead.");
 		}
 		currentTokenValue = lexer.getStringValue();
 		// Expects to find rightpar
 		if (lexer.token != Symbol.RIGHTPAR) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Expected to find ')' but got " + currentTokenValue
+			signalError.show("=> Expected to find ')' but got " + currentTokenValue
 					+ " instead.");
 		}
 
@@ -983,8 +978,7 @@ public class Compiler {
 
 		// Expect the expression to be a boolean
 		if (expr.getType() != Type.booleanType) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Expected expression to be boolean, but got "
+			signalError.show("=> Expected expression to be boolean, but got "
 					+ expr.getType().getName() + " instead.");
 		}
 
@@ -1027,14 +1021,11 @@ public class Compiler {
 		// The type of the method with return must not be void
 		if (currentMethod.getReturnType() == Type.voidType) {
 			signalError
-					.show("LINE:"
-							+ lexer.getCurrentLine()
-							+ "=> Return statement found on void method. Cannot return a void method");
+					.show("=> Return statement found on void method. Cannot return a void method");
 		}
 		// Or at least be convertible between one and another
 		if (!canConvertType(currentMethod.getReturnType(), returnExpr.getType())) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Method type not convertible to return type."
+			signalError.show("=> Method type not convertible to return type."
 					+ " The method type is " + currentMethod.getReturnType()
 					+ " and the return type is " + returnExpr.getType());
 		}
@@ -1201,13 +1192,11 @@ public class Compiler {
 		// If there is no while statements on the stack
 		// It means that the break statement is outside a while
 		if (whileStatements.empty()) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Break statement called outside while statement.");
+			signalError.show("=> Break statement called outside while statement.");
 		}
 		// Expected to have ; after break
 		if (lexer.token != Symbol.SEMICOLON) {
-			signalError.show("LINE:" + lexer.getCurrentLine()
-					+ "=> Expected to find ';' but got "
+			signalError.show("=> Expected to find ';' but got "
 					+ lexer.getStringValue() + " instead.");
 		}
 		lexer.nextToken();
@@ -1364,9 +1353,7 @@ public class Compiler {
 				if (leftExpr.getType() != Type.intType
 						|| rightExpr.getType() != Type.intType) {
 					signalError
-							.show("LINE:"
-									+ lexer.getCurrentLine()
-									+ "=> Exprected int type, but got "
+							.show("=> Exprected int type, but got "
 									+ leftExpr.getType()
 									+ " and "
 									+ rightExpr.getType()
@@ -1408,8 +1395,7 @@ public class Compiler {
 			Expr expr = factor();
 			// Signals only work with int type
 			if (expr.getType() != Type.intType) {
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected int type, but got " + expr.getType()
+				signalError.show("=> Expected int type, but got " + expr.getType()
 						+ " instead.");
 			}
 
@@ -1470,8 +1456,7 @@ public class Compiler {
 			e = expr();
 			// Not operator only works with a boolean expression
 			if (e.getType() != Type.booleanType) {
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected type to be boolean, but got "
+				signalError.show("=> Expected type to be boolean, but got "
 						+ e.getType() + " instead."
 						+ " Not (!) operator accepts only boolean values.");
 			}
@@ -1489,9 +1474,7 @@ public class Compiler {
 			KraClass aClass = symbolTable.getInGlobal(className);
 			if (aClass == null) {
 				signalError
-						.show("LINE:"
-								+ lexer.getCurrentLine()
-								+ "=> Class "
+						.show("=> Class "
 								+ className
 								+ " was used before it was declared or was not declared.");
 			}
@@ -1510,14 +1493,12 @@ public class Compiler {
 			lexer.nextToken();
 
 			if (lexer.token != Symbol.DOT)
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected to find '.', but found "
+				signalError.show("=> Expected to find '.', but found "
 						+ lexer.getStringValue() + " instead.");
 			lexer.nextToken();
 
 			if (lexer.token != Symbol.IDENT)
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected to find 'identifier', but found "
+				signalError.show("=> Expected to find 'identifier', but found "
 						+ lexer.getStringValue() + " instead.");
 
 			messageName = lexer.getStringValue();
@@ -1527,8 +1508,7 @@ public class Compiler {
 
 			// The class should have a superclass
 			if (superKraClass == null) {
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected " + currentClass.getName()
+				signalError.show("=> Expected " + currentClass.getName()
 						+ " to have a superclass.");
 			}
 
@@ -1548,8 +1528,7 @@ public class Compiler {
 
 			// If couldn't find any
 			if (!superKraClassFound) {
-				signalError.show("LINE:" + lexer.getCurrentLine()
-						+ "=> Expected " + currentClass.getName()
+				signalError.show("=> Expected " + currentClass.getName()
 						+ " to have a superclass with a public method "
 						+ "called " + messageName);
 			}
@@ -1579,9 +1558,7 @@ public class Compiler {
 					// Checks if the can convert the types
 					if (!canConvertType(parameter.getType(), expr.getType())) {
 						signalError
-								.show("LINE:"
-										+ lexer.getCurrentLine()
-										+ "=> Expected expression type to be convertible to parameter "
+								.show("=> Expected expression type to be convertible to parameter "
 										+ parametersCounter + " type."
 										+ " The expression type is "
 										+ expr.getType()
@@ -1593,9 +1570,7 @@ public class Compiler {
 				}
 			} else {
 				signalError
-						.show("LINE:"
-								+ lexer.getCurrentLine()
-								+ "=> The number of parameters is different from the number of expressions.");
+						.show("=> The number of parameters is different from the number of expressions.");
 			}
 			return new MessageSendToSuper(method, exprList, currentClass);
 
@@ -1738,9 +1713,7 @@ public class Compiler {
 							if (!canConvertType(parameter.getType(),
 									expr.getType())) {
 								signalError
-										.show("LINE:"
-												+ lexer.getCurrentLine()
-												+ "=> Expected expression type to be convertible to parameter "
+										.show("=> Expected expression type to be convertible to parameter "
 												+ parametersCounter + " type."
 												+ " The expression type is "
 												+ expr.getType()
@@ -1900,9 +1873,7 @@ public class Compiler {
 						// Checks if the can convert the types
 						if (!canConvertType(parameter.getType(), expr.getType())) {
 							signalError
-									.show("LINE:"
-											+ lexer.getCurrentLine()
-											+ "=> Expected expression type to be convertible to parameter "
+									.show("=> Expected expression type to be convertible to parameter "
 											+ parametersCounter + " type."
 											+ " The expression type is "
 											+ expr.getType()
