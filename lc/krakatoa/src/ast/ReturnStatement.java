@@ -18,9 +18,9 @@ public class ReturnStatement extends Statement {
 	}
 
 	public void genKra(PW pw) {
-		pw.printIdent("return ");
+		pw.printIdent("return (");
 		expr.genKra(pw, false);
-		pw.println(";");
+		pw.println(");");
 	}
 
 	public ReturnStatement(Expr expr) {

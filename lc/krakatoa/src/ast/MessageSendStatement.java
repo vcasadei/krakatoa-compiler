@@ -12,7 +12,7 @@ package ast;
 
 public class MessageSendStatement extends Statement {
 
-	public MessageSendStatement(Expr esq) {
+	public MessageSendStatement(Expr messageSend) {
 		this.messageSend = messageSend;
 	}
 
@@ -25,10 +25,10 @@ public class MessageSendStatement extends Statement {
 	@Override
 	public void genKra(PW pw) {
 		pw.printIdent("");
-		//messageSend.genKra(pw, true);
+		messageSend.genKra(pw, false);
 		pw.println(";");
 	}
 
-	private MessageSend messageSend;
+	private Expr messageSend;
 
 }

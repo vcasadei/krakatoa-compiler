@@ -25,8 +25,7 @@ public class MessageSendToInstance extends Expr {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
-
+		pw.printIdent(var.getName() + "." + instanceVariable.getName());
 	}
 
 	@Override

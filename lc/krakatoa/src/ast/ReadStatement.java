@@ -26,13 +26,17 @@ public class ReadStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.print("read(");
-		int size = ReadStmt.size();
-		for (Variable var : ReadStmt) {
-			pw.print(var.getName());
-			if (--size > 0)
+		pw.printIdent("read(");
+		int i = 0;
+		for (Variable v : ReadStmt) {
+			pw.print(v.getName());
+			v.genKra(pw);
+			if (i < ReadStmt.size()) {
 				pw.print(", ");
+			}
+			i++;
 		}
+		pw.println(");");
 	}
 
 	private ArrayList<Variable> ReadStmt;

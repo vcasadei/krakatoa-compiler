@@ -62,6 +62,6 @@ public class UnaryExpr extends Expr {
 			pw.print(" internal error at UnaryExpr::genKra");
 
 		}
-		expr.genKra(pw, false);
+		expr.genKra(pw, true);
 	}
 }

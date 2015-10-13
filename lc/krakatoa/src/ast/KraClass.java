@@ -120,11 +120,13 @@ public class KraClass extends Type {
 	}
 
 	public void genKra(PW pw) {
-		if (isFinal)
+		if (isFinal) {
 			pw.print("final ");
-		pw.print("class " + this.getCname());
-		if (superclass != null)
+		}
+		pw.print("class " + this.getName());
+		if (superclass != null) {
 			pw.print(" extends " + superclass.getName());
+		}
 		pw.println(" {");
 		pw.add();
 		instanceVariableList.genKra(pw);

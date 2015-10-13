@@ -28,6 +28,6 @@ public class LiteralString extends Expr {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		pw.print(literalString);
+		pw.print("\"" + literalString + "\"");
 	}
 }

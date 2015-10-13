@@ -25,10 +25,11 @@ public class AssignmentStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		esq.genKra(pw, true);
+		pw.printIdent("");
+		esq.genKra(pw, false);
 		if (dir != null) {
 			pw.print(" = ");
-			dir.genKra(pw, true);
+			dir.genKra(pw, false);
 		}
 		pw.println(";");
 	}

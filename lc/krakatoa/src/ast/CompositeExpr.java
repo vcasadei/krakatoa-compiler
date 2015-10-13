@@ -40,12 +40,13 @@ public class CompositeExpr extends Expr {
 	public Type getType() {
 		// left and right must be the same type
 		if (oper == Symbol.EQ || oper == Symbol.NEQ || oper == Symbol.LE
-				|| oper == Symbol.LT || oper == Symbol.GE || oper == Symbol.GT)
+				|| oper == Symbol.LT || oper == Symbol.GE || oper == Symbol.GT) {
 			return Type.booleanType;
-		else if (oper == Symbol.AND || oper == Symbol.OR)
+		} else if (oper == Symbol.AND || oper == Symbol.OR) {
 			return Type.booleanType;
-		else
+		} else {
 			return Type.intType;
+		}
 	}
 
 	private Expr left, right;
@@ -70,17 +71,25 @@ public class CompositeExpr extends Expr {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		if (putParenthesis)
+		if (putParenthesis) {
 			pw.print("(");
+		}
+       
 		left.genKra(pw, true);
+       
 		String strSymbol = arrayOper.get(oper);
+       
 		if (strSymbol == null) {
-			pw.println("internal error in CompositeExpr::genC");
-		} else
-			pw.print(" " + strSymbol + " ");
+			pw.println("internal error in CompositeExpr::genKra");
+		} else {
+           pw.print(" " + strSymbol + " ");
+		}
+       
 		right.genKra(pw, true);
-		if (putParenthesis)
+       
+		if (putParenthesis) {
 			pw.print(")");
+		}
 	}
 
 }

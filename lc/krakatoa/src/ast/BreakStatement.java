@@ -7,7 +7,6 @@
  * 
  * @see http://www.cyan-lang.org/jose/courses/15-2/lc/index.htm
  */
-
 package ast;
 
 public class BreakStatement extends Statement {

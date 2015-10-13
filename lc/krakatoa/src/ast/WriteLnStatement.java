@@ -28,9 +28,9 @@ public class WriteLnStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.print("writeln(");
+		pw.printIdent("writeln(");
 		writeLnStmt.genKra(pw);
-		pw.println(")");
+		pw.println(");");
 	}
 
 	private ExprList writeLnStmt;

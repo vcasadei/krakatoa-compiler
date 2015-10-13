@@ -32,6 +32,6 @@ public class LiteralInt extends Expr {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		pw.print("" + value);
+		pw.print(String.valueOf(value));
 	}
 }

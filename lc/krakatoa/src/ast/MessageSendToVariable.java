@@ -29,8 +29,19 @@ public class MessageSendToVariable extends MessageSend {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
-
+		if (putParenthesis) {
+			pw.print("(");
+		}
+		
+		pw.print(var.getName() + "." + method.getName() + "(");
+		exprList.genKra(pw);
+		pw.print(")");
+		
+		if (putParenthesis) {
+			pw.println(")");
+		} else {
+			pw.println(";");
+		}
 	}
 
 	private Variable var;

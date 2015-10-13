@@ -12,13 +12,14 @@ package ast;
 
 public class Method {
 
-	public Method(String name, Type type, boolean isStatic) {
+	public Method(String name, Type type, boolean isStatic, boolean isFinal) {
 		this.name = name;
 		this.paramList = new ParamList();
 		this.localVariableList = new LocalVariableList();
 		this.returnType = type;
 		this.stmtList = new StatementList();
 		this.isStatic = isStatic;
+		this.isFinal = isFinal;
 	}
 
 	public String getName() {
@@ -64,11 +65,19 @@ public class Method {
 	public boolean isStatic() {
 		return this.isStatic;
 	}
+	
+	public boolean isFinal() {
+		return this.isFinal;
+	}
 
-	public void genKra(PW pw) {
-		if (isStatic)
+	public void genKra(PW pw, boolean printedStatic) {
+		if (isStatic && !printedStatic) {
 			pw.print("static ");
-		pw.print(returnType.getCname() + " ");
+		}
+		if (isFinal) {
+			pw.print("final ");
+		}
+		pw.print(returnType.getName() + " ");
 		pw.print(name + "(");
 		paramList.genKra(pw);
 		pw.println(") {");
@@ -85,5 +94,6 @@ public class Method {
 	private Type returnType;
 	private StatementList stmtList;
 	private boolean isStatic;
+	private boolean isFinal;
 
 }

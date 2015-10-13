@@ -14,10 +14,14 @@ import java.util.*;
 
 public class WriteStatement extends Statement {
 
-	public WriteStatement(ArrayList<Expr> writeStmt) {
-		for (Expr expr : writeStmt) {
-			this.writeStmt.addElement(expr);
-		}
+	public WriteStatement(ExprList writeStmt) {
+//		for (Expr expr : writeStmt) {
+//			if (writeStmt != null) {
+//				this.writeStmt.addElement(expr);
+//			}
+//			
+//		}
+		this.writeStmt = writeStmt;
 	}
 
 	@Override
@@ -28,9 +32,9 @@ public class WriteStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.print("write(");
+		pw.printIdent("write(");
 		writeStmt.genKra(pw);
-		pw.println(")");
+		pw.println(");");
 	}
 
 	private ExprList writeStmt;

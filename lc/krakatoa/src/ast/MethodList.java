@@ -36,13 +36,18 @@ public class MethodList {
 		return false;
 	}
 	
-	public void genKra(PW pw, boolean b) {
+	public void genKra(PW pw, boolean publicMethod) {
 		for (Method method : methodList) {
-			if (b)
-				pw.printIdent("public ");
-			else
-				pw.printIdent("private ");
-			method.genKra(pw);
+			pw.printIdent("");
+			if (method.isStatic()) {
+				pw.print("static ");
+			}
+			if (publicMethod) {
+				pw.print("public ");
+			} else {
+				pw.print("private ");
+			}
+			method.genKra(pw, true);
 		}
 	}
 	

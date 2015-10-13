@@ -21,7 +21,13 @@ public class MessageSendToSelf extends MessageSend {
 	}
 
 	public Type getType() {
-		return null;
+		if (instanceVariable == null && method == null) {
+        	return kraClass;
+        } else if (instanceVariable != null && method == null) {
+        	return instanceVariable.getType();
+        } else {
+        	return method.getReturnType();
+        }
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {
@@ -29,7 +35,32 @@ public class MessageSendToSelf extends MessageSend {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
+	
+		if (putParenthesis) {
+			pw.print("(");
+		}
+		
+		if (instanceVariable == null && method == null && exprList == null) {
+			pw.print("this");
+		} else if (instanceVariable != null) {
+			pw.print("this." + instanceVariable.getName());
+		} else if (instanceVariable == null && method != null) {
+			// If is private
+			if (kraClass.containsPrivateMethod(method.getName())) {
+				pw.print(method.getClass().getName() + "." + method.getName() + "(");
+				exprList.genKra(pw);
+				pw.print(")");
+			} else {
+				pw.print("this." + method.getName() + "(");
+				exprList.genKra(pw);
+				pw.print(")");
+			}
+		}
+		if (putParenthesis) {
+			pw.println(")");
+		} else {
+			pw.println(";");
+		}
 
 	}
 
