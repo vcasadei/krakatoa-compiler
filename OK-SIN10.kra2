@@ -12,8 +12,8 @@ class B extends A {
    private int k;
    public void m() {
       int i;
-            read(ii, );
-            read(kk, );
+            read(i);
+            read(k);
             super.set(0);
             write(super.get(), this.get(), this.k, i);
    }

@@ -17,7 +17,7 @@ class A {
       if ((!((b) && ((i) < 0))) || ((i) > 10)) {
                   b = true;
                   i = -1;
-                  read(ii, jj, );
+                  read(i, j, );
          while ((i) > 0) {
                         write(i);
                         i = (i) - 1;

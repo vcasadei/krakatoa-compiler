@@ -10,7 +10,7 @@ class Program {
       Test t;
             s = "Ola !!!";
             write(s);
-            read(ss, );
+            read(s);
             t = new Test();;
             write(t.fakeClone("Dolly Parton");
 );

@@ -27,11 +27,11 @@ public class ReadStatement extends Statement {
 	@Override
 	public void genKra(PW pw) {
 		pw.printIdent("read(");
-		int i = 0;
+		int i = ReadStmt.size();
 		for (Variable v : ReadStmt) {
-			pw.print(v.getName());
+			//pw.print(v.getName());
 			v.genKra(pw);
-			if (i < ReadStmt.size()) {
+			if (--i > 0) {
 				pw.print(", ");
 			}
 			i++;
