@@ -7,7 +7,7 @@ class B extends A {
    public void p() {
       B A;
       A = new B();
-            A.m();
+      A.m();
    }
 }
 
@@ -17,8 +17,8 @@ class Program {
       B b;
       a = new A();
       b = new B();
-            a.m();
-            b.p();
+      a.m();
+      b.p();
    }
 }
 

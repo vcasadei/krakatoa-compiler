@@ -13,7 +13,7 @@ class A {
    public void m_integer(int n) {
       this.n = n;
    }
-   public void m_integer_boolean_String(int n, boolean bString s) {
+   public void m_integer_boolean_String(int n, boolean b, String s) {
       this.n = n;
       this.b = b;
       this.s = s;
@@ -27,7 +27,7 @@ class A {
          return (this.b);
       }
    }
-   public boolean m_integer_boolean_String_return(int n, boolean bString s) {
+   public boolean m_integer_boolean_String_return(int n, boolean b, String s) {
       this.s = s;
       if (b) {
          return (((n) + (n)) > 0);
@@ -64,7 +64,7 @@ class C {
          write("false");
       }
    }
-   public void method_integer_boolean_String(int n, boolean bString name) {
+   public void method_integer_boolean_String(int n, boolean b, String name) {
       this.name = name;
       write(n);
       if (b) {
@@ -77,7 +77,7 @@ class C {
    public boolean method_integer_returns_boolean(int n) {
       return ((this.n) > (n));
    }
-   public boolean method_integer_boolean_String_r(int n, boolean bString name) {
+   public boolean method_integer_boolean_String_r(int n, boolean b, String name) {
       write(name);
       this.name = name;
       return (((this.n) > (n)) && !(((b) && (this.letter)) && ((this.time) > 0)));
@@ -89,9 +89,9 @@ class Program {
       B b;
       C c;
       b = new B();
-            b.m();
+      b.m();
       c = new C();
-            c.method();
+      c.method();
    }
 }
 

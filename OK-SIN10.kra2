@@ -14,7 +14,7 @@ class B extends A {
       int i;
       read(i);
       read(k);
-            super.set(0);
+      super.set(0);
       write(super.get(), this.get(), this.k, i);
    }
    public void print() {
@@ -26,8 +26,8 @@ class Program {
    public void run() {
       B b;
       b = new B();
-            b.set(1);
-            b.m();
+      b.set(1);
+      b.m();
    }
 }
 

@@ -1,10 +1,10 @@
 class A {
-   public void m(int nA x) {
+   public void m(int n, A x) {
       A other;
       other = this;
       n = (n) - 1;
       if ((n) > 0) {
-                  other.m(n, this);
+         other.m(n, this);
       }
    }
 }
@@ -13,7 +13,7 @@ class Program {
    public void run() {
       A a;
       a = new A();
-            a.m(5, a);
+      a.m(5, a);
    }
 }
 

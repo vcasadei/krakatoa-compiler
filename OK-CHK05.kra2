@@ -17,7 +17,7 @@ class Program {
    public void run() {
       C c;
       c = new C();
-            c.m();
+      c.m();
    }
 }
 

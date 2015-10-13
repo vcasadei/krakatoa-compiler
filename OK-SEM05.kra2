@@ -11,13 +11,13 @@ class A {
 class B extends A {
    public void set(int pn) {
       write(pn);
-            super.set(pn);
+      super.set(pn);
    }
 }
 
 class Program {
    public B m(A a) {
-            a.set(0);
+      a.set(0);
       return (new B());
    }
    public A p(int i) {
@@ -34,7 +34,7 @@ class Program {
       a = new A();
       b = new B();
       a = b;
-            a.set(0);
+      a.set(0);
       a = this.m(a);
       b = this.m(b);
       a = this.p(0);

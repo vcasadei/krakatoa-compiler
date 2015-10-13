@@ -3,13 +3,13 @@ class A {
       write(0);
    }
    public void accept(A x) {
-            x.print();
+      x.print();
    }
 }
 
 class B extends A {
    public void m() {
-            super.accept(this);
+      super.accept(this);
    }
 }
 
@@ -17,7 +17,7 @@ class Program {
    public void run() {
       B b;
       b = new B();
-            b.m();
+      b.m();
    }
 }
 

@@ -43,20 +43,20 @@ class B extends A {
       i = this.get();
       this.first = new No();
       w = this.first;
-            w.setNext(null);
+      w.setNext(null);
       a = new A();
-            a.put(i);
-            w.set(a);
+      a.put(i);
+      w.set(a);
       while (true) {
          i = (i) - 1;
          if ((i) <= 0) {
             break;
          }
          newNo = new No();
-                  newNo.setNext(this.first);
+         newNo.setNext(this.first);
          a = new A();
-                  a.put(i);
-                  newNo.set(a);
+         a.put(i);
+         newNo.set(a);
          this.first = newNo;
 }
    }
@@ -76,9 +76,9 @@ class Program {
    public void run() {
       B b;
       b = new B();
-            b.put(10);
-            b.buildList();
-            b.list();
+      b.put(10);
+      b.buildList();
+      b.list();
    }
 }
 

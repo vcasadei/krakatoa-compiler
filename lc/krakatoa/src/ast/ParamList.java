@@ -41,7 +41,7 @@ public class ParamList {
 			pw.print(" ");
 			param.genKra(pw);
 
-			if (--size > 1) {
+			if (--size > 0) {
 				pw.print(", ");
 			}
 		}

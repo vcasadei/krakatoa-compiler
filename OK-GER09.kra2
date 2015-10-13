@@ -6,18 +6,18 @@ class A {
 
 class B extends A {
    public void m2(int n) {
-            super.m1(1);
+      super.m1(1);
       write(2, n);
    }
 }
 
 class C extends B {
    public void m3(int n) {
-            super.m2(2);
+      super.m2(2);
       write(3, n);
    }
    public void m4(int n) {
-            this.m3(3);
+      this.m3(3);
       write(4, n);
    }
 }

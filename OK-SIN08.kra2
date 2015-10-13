@@ -1,5 +1,5 @@
 class A {
-   public int m(int x, int yboolean ok) {
+   public int m(int x, int y, boolean ok) {
       return ((x) + (y));
    }
 }

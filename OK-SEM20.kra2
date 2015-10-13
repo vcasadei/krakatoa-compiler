@@ -4,10 +4,10 @@ class A {
    }
    public void m2() {
    }
-   public final String m3(String sboolean ok) {
+   public final String m3(String s, boolean ok) {
       return ("A");
    }
-   public String m4(int iboolean ok) {
+   public String m4(int i, boolean ok) {
       return ("Am4");
    }
 }
@@ -27,7 +27,7 @@ class C extends B {
    public int m1(boolean ok) {
       return (2);
    }
-   public final String m4(int iboolean ok) {
+   public final String m4(int i, boolean ok) {
       return ("C");
    }
    public final String m5() {
@@ -44,7 +44,7 @@ final class E extends A {
    }
    public void m2() {
    }
-   public String m4(int iboolean ok) {
+   public String m4(int i, boolean ok) {
       return ("Em4");
    }
 }
@@ -58,30 +58,30 @@ class Program {
       E e;
       c = new C();
       write(c.m1(true));
-            c.m2();
+      c.m2();
       write(c.m3("ok", false));
       write(c.m4(0, false));
       write(c.m5());
       write((c.mB()) + 1);
       b = new B();
       write(b.m1(true));
-            b.m2();
+      b.m2();
       write(b.m3("ok", false));
       write(b.m4(0, false));
       write((c.mB()) + 1);
       a = new A();
       write(a.m1(true));
-            a.m2();
+      a.m2();
       write(a.m3("ok", false));
       write(a.m4(0, false));
       d = new D();
       write(d.m1(true));
-            d.m2();
+      d.m2();
       write(d.m3("ok", false));
       write(d.m4(0, false));
       e = new E();
       write(e.m1(true));
-            e.m2();
+      e.m2();
       write(e.m3("ok", false));
       write(e.m4(0, false));
    }

@@ -17,9 +17,9 @@ class Program {
    public void run() {
       A a;
       a = new A();
-            a.s();
-            a.m();
-            a.p();
+      a.s();
+      a.m();
+      a.p();
    }
 }
 

@@ -2,7 +2,7 @@ class A {
    private int n;
    private int k;
    public int m() {
-            ast.Method.m2(0);
+      ast.Method.m2(0);
       return ((ast.Method.m1()) + (this.k));
    }
    public void init() {

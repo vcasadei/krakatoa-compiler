@@ -15,7 +15,7 @@ class Person {
    public void setNumber(int number) {
       this.number = number;
    }
-   public void init(String nameint age) {
+   public void init(String name, int age) {
       this.name = name;
       this.age = age;
    }

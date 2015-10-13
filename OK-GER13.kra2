@@ -21,7 +21,7 @@ class C extends B {
       write(8);
    }
    public void teste() {
-            super.m1();
+      super.m1();
    }
 }
 
