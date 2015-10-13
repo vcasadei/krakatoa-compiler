@@ -1,12 +1,12 @@
 class A {
    public void m() {
-      i;
-      j;
-      k;
+      int i;
+      int j;
+      int k;
             write(7);
             i = 1;
-            j = (ii) + 1;
-            k = (jj) + 1;
+            j = (int ii) + 1;
+            k = (int jj) + 1;
             write(i);
             write(j);
             write(k);

@@ -1,51 +1,40 @@
 class A {
-   private n;
-   private b;
-   private s;
+   private int n;
+   private boolean b;
+   private String s;
    public void m() {
-            this.n;
- = 0;
-            this.b;
- = false;
-            this.s;
- = "";
+            this.n = 0;
+            this.b = false;
+            this.s = "";
    }
    public boolean m_returns_boolean() {
-            return (this.b;
-);
+            return (this.b);
    }
-   public void m_integer(int n) {
-            this.n;
- = n;
+   public void m_integer(int int n) {
+            this.n = n;
    }
-   public void m_integer_boolean_String(int n, boolean bString s) {
-            this.n;
- = n;
-            this.b;
- = b;
-            this.s;
- = s;
-            write(this.s;
-);
+   public void m_integer_boolean_String(int int n, boolean boolean bString String s) {
+            this.n = n;
+            this.b = b;
+            this.s = s;
+            write(this.s);
    }
-   public boolean m_integer_returns_boolean(int n) {
+   public boolean m_integer_returns_boolean(int int n) {
       if ((this.n)
- > (nn)) {
+ > (int nn)) {
                   return (false);
       }
  else {
-         return (this.b;
-);
+         return (this.b);
       }   }
-   public boolean m_integer_boolean_String_return(int n, boolean bString s) {
-            this.s;
- = s;
+   public boolean m_integer_boolean_String_return(int int n, boolean boolean bString String s) {
+            this.s = s;
       if (b) {
-                  return (((nn) + (nn)) > 0);
+                  return (((int nn) + (int nn)) > 0);
       }
  else {
          return ((this.b)
- && (bb));
+ && (boolean bb));
       }   }
 }
 
@@ -53,38 +42,29 @@ class B extends A {
 }
 
 class C {
-   private name;
-   private letter;
-   private n;
-   private time;
+   private String name;
+   private boolean letter;
+   private int n;
+   private int time;
    public void method() {
-            this.name;
- = "";
-            this.letter;
- = false;
-            this.n;
- = 0;
-            this.time;
- = 0;
+            this.name = "";
+            this.letter = false;
+            this.n = 0;
+            this.time = 0;
    }
    public boolean method_returns_boolean() {
-            return (this.letter;
-);
+            return (this.letter);
    }
-   public void method_integer(int n) {
-            write(this.name;
-, n, this.time;
-);
-      if (this.letter;
-) {
+   public void method_integer(int int n) {
+            write(this.name, n, this.time);
+      if (this.letter) {
                   write("true");
       }
  else {
          write("false");
       }   }
-   public void method_integer_boolean_String(int n, boolean bString name) {
-            this.name;
- = name;
+   public void method_integer_boolean_String(int int n, boolean boolean bString String name) {
+            this.name = name;
             write(n);
       if (b) {
                   write(0);
@@ -92,16 +72,15 @@ class C {
  else {
          write(1);
       }   }
-   public boolean method_integer_returns_boolean(int n) {
+   public boolean method_integer_returns_boolean(int int n) {
             return ((this.n)
- > (nn));
+ > (int nn));
    }
-   public boolean method_integer_boolean_String_r(int n, boolean bString name) {
+   public boolean method_integer_boolean_String_r(int int n, boolean boolean bString String name) {
             write(name);
-            this.name;
- = name;
+            this.name = name;
             return (((this.n)
- > (nn)) && !(((bb) && (this.letter)
+ > (int nn)) && !(((boolean bb) && (this.letter)
 ) && ((this.time)
  > 0)));
    }
@@ -109,8 +88,8 @@ class C {
 
 class Program {
    public void run() {
-      b;
-      c;
+      B b;
+      C c;
             b = new B();;
             b.m();
 ;

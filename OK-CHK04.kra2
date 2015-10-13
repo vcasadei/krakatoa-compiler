@@ -1,23 +1,21 @@
 class A {
-   private n;
+   private int n;
    public void m() {
-      k;
+      int k;
             k = this.n;
-;
             write(k);
    }
    public void p() {
-            write(this.n;
-);
+            write(this.n);
    }
    public void s() {
-            read(nn, );
+            read(nint n, );
    }
 }
 
 class Program {
    public void run() {
-      a;
+      A a;
             a = new A();;
             a.s();
 ;

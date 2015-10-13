@@ -1,39 +1,31 @@
 class A {
-   private k;
+   private int k;
    public int get_A() {
-            return (this.k;
-);
+            return (this.k);
    }
-   public void set(int k) {
-            this.k;
- = k;
+   public void set(int int k) {
+            this.k = k;
    }
    public void print() {
-            write(this.get_A();
-);
+            write(this.get_A());
    }
    public void init() {
             this.set(0);
-;
    }
 }
 
 class B extends A {
-   private k;
+   private int k;
    public int get_B() {
-            return (this.k;
-);
+            return (this.k);
    }
    public void init() {
             super.init();
-            this.k;
- = 2;
+            this.k = 2;
    }
    public void print() {
-            write(this.get_B();
-);
-            write(this.get_A();
-);
+            write(this.get_B());
+            write(this.get_A());
             super.print();
    }
 }

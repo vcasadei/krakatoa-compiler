@@ -1,0 +1,112 @@
+class A {
+   public int m1(boolean boolean ok) {
+            return (0);
+   }
+   public void m2() {
+   }
+   public final String m3(String String sboolean boolean ok) {
+            return ("A");
+   }
+   public String m4(int int iboolean boolean ok) {
+            return ("Am4");
+   }
+}
+
+class B extends A {
+   public int m1(boolean boolean ok) {
+            return (1);
+   }
+   public final void m2() {
+   }
+   public final int mB() {
+            return (1);
+   }
+}
+
+class C extends B {
+   public int m1(boolean boolean ok) {
+            return (2);
+   }
+   public final String m4(int int iboolean boolean ok) {
+            return ("C");
+   }
+   public final String m5() {
+            return ("finally");
+   }
+}
+
+final class D extends A {
+}
+
+final class E extends A {
+   public int m1(boolean boolean ok) {
+            return (5);
+   }
+   public void m2() {
+   }
+   public String m4(int int iboolean boolean ok) {
+            return ("Em4");
+   }
+}
+
+class Program {
+   public void run() {
+      C c;
+      B b;
+      A a;
+      D d;
+      E e;
+            c = new C();;
+            write(c.m1(true);
+);
+            c.m2();
+;
+            write(c.m3("ok", false);
+);
+            write(c.m4(0, false);
+);
+            write(c.m5();
+);
+            write((c.mB())
+ + 1);
+            b = new B();;
+            write(b.m1(true);
+);
+            b.m2();
+;
+            write(b.m3("ok", false);
+);
+            write(b.m4(0, false);
+);
+            write((c.mB())
+ + 1);
+            a = new A();;
+            write(a.m1(true);
+);
+            a.m2();
+;
+            write(a.m3("ok", false);
+);
+            write(a.m4(0, false);
+);
+            d = new D();;
+            write(d.m1(true);
+);
+            d.m2();
+;
+            write(d.m3("ok", false);
+);
+            write(d.m4(0, false);
+);
+            e = new E();;
+            write(e.m1(true);
+);
+            e.m2();
+;
+            write(e.m3("ok", false);
+);
+            write(e.m4(0, false);
+);
+   }
+}
+

@@ -1,0 +1,24 @@
+class Test {
+   public String fakeClone(String String s) {
+            return (s);
+   }
+}
+
+class Program {
+   public void run() {
+      String s;
+      Test t;
+            s = "Ola !!!";
+            write(s);
+            read(sString s, );
+            t = new Test();;
+            write(t.fakeClone("Dolly Parton");
+);
+            write("barra   \\");
+            write("barra n  \n");
+            write("barra a  \a");
+            write("barra barra \\\\");
+            write("barra no final  \ ");
+   }
+}
+

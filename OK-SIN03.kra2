@@ -1,10 +1,10 @@
 class Program {
    public void run() {
-      i;
-      b;
+      int i;
+      boolean b;
             i = (-7) + ((2) * (3 + 5));
             i = (-7) + 8;
-            b = ((((((!true) || ((ii) <= 0)) || ((ii) < 0)) || ((ii) >= 0)) || ((ii) > 0)) || ((ii) == 7)) || ((ii) != 3);
+            b = ((((((!true) || ((int ii) <= 0)) || ((int ii) < 0)) || ((int ii) >= 0)) || ((int ii) > 0)) || ((int ii) == 7)) || ((int ii) != 3);
    }
 }
 

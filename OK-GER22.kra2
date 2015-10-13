@@ -3,8 +3,7 @@ class A {
             return (0);
    }
    public final void m() {
-            write(this.f();
-);
+            write(this.f());
    }
 }
 
@@ -45,8 +44,7 @@ final class F {
             return (3);
    }
    public void m() {
-            write(this.f();
-);
+            write(this.f());
    }
 }
 

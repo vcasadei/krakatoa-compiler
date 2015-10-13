@@ -1,19 +1,15 @@
 class Point {
-   private x;
-   private y;
-   public void set(int xint y) {
-            this.x;
- = x;
-            this.y;
- = y;
+   private int x;
+   private int y;
+   public void set(int int xint int y) {
+            this.x = x;
+            this.y = y;
    }
    public int getX() {
-            return (this.x;
-);
+            return (this.x);
    }
    public int getY() {
-            return (this.y;
-);
+            return (this.y);
    }
 }
 

@@ -5,7 +5,7 @@ class A {
    static public int get1() {
             return (1);
    }
-   static public int ident(int n) {
+   static public int ident(int int n) {
             return (n);
    }
 }

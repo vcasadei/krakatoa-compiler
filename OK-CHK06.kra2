@@ -2,7 +2,7 @@ class A {
    public void run() {
    }
    public void m() {
-      a;
+      A a;
             a = null;
             a.m();
 ;
@@ -10,7 +10,7 @@ class A {
 }
 
 class B {
-   public int run(int n) {
+   public int run(int int n) {
             return (n);
    }
    public void m() {

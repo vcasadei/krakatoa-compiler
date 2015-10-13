@@ -1,5 +1,8 @@
 class A {
-   public void A() {
+   public void m() {
+   }
+   public void p() {
+      int m;
    }
 }
 
@@ -7,7 +10,7 @@ class Program {
    public void run() {
       A a;
             a = new A();;
-            a.A();
+            a.p();
 ;
    }
 }

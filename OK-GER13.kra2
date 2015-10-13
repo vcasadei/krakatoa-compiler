@@ -1,16 +1,13 @@
 class A {
-   private n;
+   private int n;
    public int get() {
-            return (this.n;
-);
+            return (this.n);
    }
-   public void set(int n) {
-            this.n;
- = n;
+   public void set(int int n) {
+            this.n = n;
    }
    public void m1() {
-            write(this.n;
-);
+            write(this.n);
    }
 }
 

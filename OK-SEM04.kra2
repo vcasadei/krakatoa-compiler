@@ -1,14 +1,14 @@
 class Program {
    public void run() {
-      a;
-      b;
-      e;
-      f;
+      int a;
+      int b;
+      boolean e;
+      boolean f;
             a = 1;
             b = 1;
             e = true;
             f = false;
-      if (((((((((aa) == (bb)) && ((aa) == 1)) && (1 == (bb))) && ((aa) != (bb))) && ((ee) == (ff))) && (true == (ff))) && ((ee) != (ff))) && (true != (ff))) {
+      if (((((((((int aa) == (int bb)) && ((int aa) == 1)) && (1 == (int bb))) && ((int aa) != (int bb))) && ((boolean ee) == (boolean ff))) && (true == (boolean ff))) && ((boolean ee) != (boolean ff))) && (true != (boolean ff))) {
          write("impossivel");
       }
    }

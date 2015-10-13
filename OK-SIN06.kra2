@@ -1,0 +1,22 @@
+class A {
+   public int m(int int n) {
+      A a;
+            a = new A();;
+      if ((int nn) > 1) {
+                  return ((int nn) * (a.m((int nn) - 1))
+);
+      }
+ else {
+         return (1);
+      }   }
+}
+
+class Program {
+   public void run() {
+      A a;
+            a = new A();;
+            write(a.m(5);
+);
+   }
+}
+

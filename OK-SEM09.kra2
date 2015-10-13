@@ -1,12 +1,10 @@
 class A {
-   public void m(int nA x) {
-      other;
+   public void m(int int nA A x) {
+      A other;
             other = this;
-;
-            n = (nn) - 1;
-      if ((nn) > 0) {
-                  other.m(n, this;
-);
+            n = (int nn) - 1;
+      if ((int nn) > 0) {
+                  other.m(n, this);
 ;
       }
    }
@@ -14,7 +12,7 @@ class A {
 
 class Program {
    public void run() {
-      a;
+      A a;
             a = new A();;
             a.m(5, a);
 ;

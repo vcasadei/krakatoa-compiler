@@ -1,0 +1,15 @@
+class A {
+   public int m(int int x, int int yboolean boolean ok) {
+            return ((int xx) + (int yy));
+   }
+}
+
+class Program {
+   public void run() {
+      A a;
+            a = new A();;
+            write(a.m(3, 4, true);
+);
+   }
+}
+

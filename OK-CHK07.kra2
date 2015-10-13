@@ -1,43 +1,33 @@
 class Person {
-   private course;
-   private number;
-   private age;
-   private name;
+   private String course;
+   private int number;
+   private int age;
+   private String name;
    public String getCourse() {
-            return (this.course;
-);
+            return (this.course);
    }
-   public void setCourse(String course) {
-            this.course;
- = course;
+   public void setCourse(String String course) {
+            this.course = course;
    }
    public int getNumber() {
-            return (this.number;
-);
+            return (this.number);
    }
-   public void setNumber(int number) {
-            this.number;
- = number;
+   public void setNumber(int int number) {
+            this.number = number;
    }
-   public void init(String nameint age) {
-            this.name;
- = name;
-            this.age;
- = age;
+   public void init(String String nameint int age) {
+            this.name = name;
+            this.age = age;
    }
    public String getName() {
-            return (this.name;
-);
+            return (this.name);
    }
    public int getAge() {
-            return (this.age;
-);
+            return (this.age);
    }
    public void print() {
-            write("Name = ", this.name;
-);
-            write("Age = ", this.age;
-);
+            write("Name = ", this.name);
+            write("Age = ", this.age);
    }
 }
 

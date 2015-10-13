@@ -1,8 +1,8 @@
 class A {
    public void m() {
-      i;
-      j;
-      b;
+      int i;
+      int j;
+      boolean b;
             b = false;
       if (b) {
       }
@@ -14,19 +14,19 @@ class A {
 }
             i = ((1 * 4) + 3) - (5 / 2);
             b = false;
-      if ((!((bb) && ((ii) < 0))) || ((ii) > 10)) {
+      if ((!((boolean bb) && ((int ii) < 0))) || ((int ii) > 10)) {
                   b = true;
                   i = -1;
-                  read(ii, jj, );
-         while ((ii) > 0) {
+                  read(iint i, jint j, );
+         while ((int ii) > 0) {
                         write(i);
-                        i = (ii) - 1;
+                        i = (int ii) - 1;
 }
       }
  else {
                   b = true;
                   write(i);
-      }      if (((((((ii) == 1) || ((ii) < 1)) || ((ii) <= 5)) || ((ii) > 1)) || ((ii) >= 1)) || ((ii) != 3)) {
+      }      if (((((((int ii) == 1) || ((int ii) < 1)) || ((int ii) <= 5)) || ((int ii) > 1)) || ((int ii) >= 1)) || ((int ii) != 3)) {
                   i = 0;
       }
    }
@@ -34,7 +34,7 @@ class A {
 
 class Program {
    public void run() {
-      a;
+      A a;
             a = new A();;
             a.m();
 ;
