@@ -2,7 +2,7 @@ Relat�rio do Compilador
 
 0 de um total de 133 erros que deveriam ser sinalizados n�o o foram (0%)
 0 erros foram sinalizados na linha errada (0%)
-13 erros foram sinalizados em 76 arquivos sem erro (17%)
+9 erros foram sinalizados em 76 arquivos sem erro (11%)
 Todos os erros que deveriam ter sido sinalizados o foram
 Um ou mais arquivos de teste tinham erros, mas estes foram sinalizados nos n�meros de linhas corretos
 ######################################################
@@ -10,21 +10,13 @@ Erros que foram sinalizados mas n�o deveriam ter sido:
 
 OK-SEM01.KRA, 6, Identifier expected
 
-OK-SEM05.KRA, 50, LINE:         return new B();=> Method type not convertible to return type. The method type is ast.KraClass@5e2de80c and the return type is ast.KraClass@1d44bcfa
-
 OK-SEM06.KRA, 15, => Duplicated declariation of variable n
-
-OK-SEM10.KRA, 50, Uncompatible types in assignment
-
-OK-SEM14.KRA, 27, Invalid operation (incompatible types in comparison)
-
-OK-SEM15.KRA, 25, LINE:      super.accept(this);=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@266474c2 and the return type is ast.KraClass@6f94fa3e
 
 OK-SEM19.KRA, 30, Identifier expected
 
 OK-SEM20.KRA, 44, Can only write int and String types
 
-OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@5e481248 instead. Mult(*) and Div(/) operations only accept variables of type int
+OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@5e2de80c instead. Mult(*) and Div(/) operations only accept variables of type int
 
 OK-SIN07.KRA, 94, Cant assignment a void call to a variable
 

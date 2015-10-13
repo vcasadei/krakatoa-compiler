@@ -852,34 +852,35 @@ public class Compiler {
 
 	// verifies if a type can be converted to another type
 	private boolean canConvertType(Type type1, Type type2) {
-
 		// If both types are the same
 		if (type1 == type2) {
 			// And are basic types
 			if (type1 == Type.intType || type1 == Type.stringType
 					|| type1 == Type.booleanType) {
 				return true;
+			}
+		}
+		
+		// If are classes in hierarchy
+		if (isType(type1.getName()) && isType(type2.getName())) {
+			if (type1 == type2) {
+				return true;
 			} else {
-				// If are classes in hierarchy
-				if (isType(type1.getName()) && isType(type2.getName())) {
-					return true;
-				} else {
-					// Gets the supperclass of type2
-					KraClass secondClass = symbolTable.getInGlobal(type2
-							.getName());
-					secondClass = secondClass.getSuperclass();
-					// Runs on all hierarchy looking for a superclass compatible
-					// with type1
-					while (secondClass != null) {
-						if (secondClass == type1) {
-							// If found a compatible superclass
-							return true;
-						}
-						secondClass = secondClass.getSuperclass();
+				// Gets the supperclass of type2
+				KraClass secondClass = symbolTable.getInGlobal(type2
+						.getName());
+				secondClass = secondClass.getSuperclass();
+				// Runs on all hierarchy looking for a superclass compatible
+				// with type1
+				while (secondClass != null) {
+					if (secondClass == type1) {
+						// If found a compatible superclass
+						return true;
 					}
-					// If it came here, no compatible class was found
-					return false;
+					secondClass = secondClass.getSuperclass();
 				}
+				// If it came here, no compatible class was found
+				return false;
 			}
 		}
 
