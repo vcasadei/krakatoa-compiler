@@ -1,5 +1,4 @@
-@ce(7, "Falta ';' após declaração do 'i'", 
-  "Missing ';'", "comp.Compiler.localDec()")
+@ce(6, "Falta ';' após declaração do 'i'", "Missing ';'", "comp.Compiler.localDec()")
       
 class Program {
   

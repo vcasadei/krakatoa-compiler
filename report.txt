@@ -1,15 +1,11 @@
 Relat�rio do Compilador
 
 0 de um total de 133 erros que deveriam ser sinalizados n�o o foram (0%)
-4 erros foram sinalizados na linha errada (3%)
-31 erros foram sinalizados em 76 arquivos sem erro (40%)
+3 erros foram sinalizados na linha errada (2%)
+24 erros foram sinalizados em 76 arquivos sem erro (31%)
 Todos os erros que deveriam ter sido sinalizados o foram
 ######################################################
 Erros que foram sinalizados na linha errada:
-
-ER-SEM34.KRA
-    correto:    19, Message send 'a.m()' returns a value that is not used (comp.Compiler.statement())
-    sinalizado: 8, Method 'm' must have a return
 
 ER-SEM40.KRA
     correto:    40, Type error: the type of the real parameter is not subclass of the type of the formal parameter (comp.Compiler.factor())
@@ -26,21 +22,11 @@ ER-SEM47.KRA
 ######################################################
 Erros que foram sinalizados mas n�o deveriam ter sido:
 
-OK-CHK02.KRA, 30, Method 'm_returns_boolean' must have a return
+OK-CHK06.KRA, 39, Instance variable not found
 
-OK-CHK06.KRA, 26, Method 'run' must have a return
+OK-CHK07.KRA, 61, LINE:   public void set(Person first, Person second) {=> Duplicated declariation of variable first
 
-OK-CHK07.KRA, 21, Method 'getCourse' must have a return
-
-OK-GER10.KRA, 23, Method 'getK' must have a return
-
-OK-GER13.KRA, 15, Method 'get' must have a return
-
-OK-GER14.KRA, 20, Method 'get_A' must have a return
-
-OK-GER16.KRA, 17, Method 'get_A' must have a return
-
-OK-GER17.KRA, 13, Method 'get0' must have a return
+OK-GER17.KRA, 27, Variable Awas not declared
 
 OK-GER18.KRA, 14, Variable Awas not declared
 
@@ -50,43 +36,39 @@ OK-GER20.KRA, 16, Variable Awas not declared
 
 OK-GER21.KRA, 12, LINE:   public void set(int n) { this.n = n; }=> Duplicated declariation of variable n
 
-OK-GER22.KRA, 13, Method 'f' must have a return
+OK-GER22.KRA, 43, The last class must be the Program class
 
 OK-SEM01.KRA, 6, Identifier expected
 
-OK-SEM05.KRA, 22, Method 'get' must have a return
+OK-SEM05.KRA, 50, LINE:         return new B();=> Method type not convertible to return type. The method type is ast.KraClass@511d50c0 and the return type is ast.KraClass@60e53b93
 
 OK-SEM06.KRA, 15, => Duplicated declariation of variable n
-
-OK-SEM08.KRA, 24, Method 'get' must have a return
 
 OK-SEM10.KRA, 50, Uncompatible types in assignment
 
 OK-SEM14.KRA, 27, Invalid operation (incompatible types in comparison)
 
-OK-SEM15.KRA, 25, LINE:      super.accept(this);=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@511d50c0 and the return type is ast.KraClass@60e53b93
+OK-SEM15.KRA, 25, LINE:      super.accept(this);=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@5e2de80c and the return type is ast.KraClass@1d44bcfa
 
 OK-SEM17.KRA, 15, Variable Awas not declared
 
 OK-SEM18.KRA, 13, Variable Awas not declared
 
-OK-SEM19.KRA, 17, Method 'getAnInt' must have a return
+OK-SEM19.KRA, 30, Identifier expected
 
-OK-SEM20.KRA, 4, Method 'm1' must have a return
+OK-SEM20.KRA, 28, The last class must be the Program class
 
-OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@5e2de80c instead. Mult(*) and Div(/) operations only accept variables of type int
+OK-SIN06.KRA, 17, LINE:         return n * a.m(n - 1);=> Exprected int type, but got ast.TypeInt@6e0be858 and ast.TypeVoid@266474c2 instead. Mult(*) and Div(/) operations only accept variables of type int
 
-OK-SIN07.KRA, 21, Method 'get' must have a return
+OK-SIN07.KRA, 94, Cant assignment a void call to a variable
 
-OK-SIN08.KRA, 13, Method 'm' must have a return
+OK-SIN08.KRA, 24, Can only write int and String types
 
-OK-SIN09.KRA, 19, Method 'm1' must have a return
-
-OK-SIN10.KRA, 15, Method 'get' must have a return
+OK-SIN09.KRA, 43, Can only write int and String types
 
 OK-SIN14.KRA, 17, LINE:   public void set(int x, int y) {=> Duplicated declariation of variable x
 
-OK-SIN15.KRA, 14, Method 'fakeClone' must have a return
+OK-SIN15.KRA, 29, Can only write int and String types
 
 ######################################################
 Em todos os testes abaixo, o compilador sinalizou o erro na linha correta (quando o teste tinha erros) ou n�o sinalizou o erro (quando o teste N�O tinha erros). Mas � necess�rio conferir se as mensagens emitidas pelo compilador s�o compat�veis com as mensagens de erro sugeridas pelas chamadas aos metaobjetos dos testes. 
@@ -271,6 +253,11 @@ The 'ce' message is:      "Method 'm' is being redeclared"
 ER-SEM33.KRA
 The compiler message was: "Method m already declared"
 The 'ce' message is:      "Method 'm' is being redeclared"
+
+
+ER-SEM34.KRA
+The compiler message was: "Message send 'a.m()' returns a value that is not used"
+The 'ce' message is:      "Message send 'a.m()' returns a value that is not used"
 
 
 ER-SEM35.KRA

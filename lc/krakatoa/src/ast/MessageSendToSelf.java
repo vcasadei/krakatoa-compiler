@@ -29,6 +29,34 @@ public class MessageSendToSelf extends MessageSend {
         	return method.getReturnType();
         }
 	}
+	
+	public InstanceVariable getInstanceVariable() {
+		return this.instanceVariable;
+	}
+
+	public KraClass getKraClass() {
+		return kraClass;
+	}
+
+	public void setKraClass(KraClass kraClass) {
+		this.kraClass = kraClass;
+	}
+
+	public Method getMethod() {
+		return method;
+	}
+
+	public void setMethod(Method method) {
+		this.method = method;
+	}
+
+	public ExprList getExprList() {
+		return exprList;
+	}
+
+	public void setExprList(ExprList exprList) {
+		this.exprList = exprList;
+	}
 
 	public void genC(PW pw, boolean putParenthesis) {
 	}

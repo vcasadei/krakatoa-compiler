@@ -480,8 +480,8 @@ public class Compiler {
 			signalError.show("{ expected");
 
 		lexer.nextToken();
-		StatementList stmtList = statementList();
 		hasReturnStmt = false;
+		StatementList stmtList = statementList();
 		if (stmtList != null) {
 			currentMethod.setStatementList(stmtList);
 		}
@@ -783,7 +783,7 @@ public class Compiler {
 		} else {
 
 			Expr esq;
-			Expr dir;
+			Expr dir = null;
 
 			esq = expr();
 			
@@ -821,11 +821,26 @@ public class Compiler {
 
 				Type debugType = esq.getType();
 				
+				// Checks is the return type is used
+				if (esq instanceof MessageSendToVariable) {
+					// If it is a message send to variable
+					if (esq.getType() != null && dir == null) {
+						// If the return type of the method is not null
+						if (((MessageSendToVariable) esq).getMethod().getReturnType() != Type.voidType) {
+							signalError.show("Message send '" + ((MessageSendToVariable)esq).getVar().getName()
+									+ "." + ((MessageSendToVariable)esq).getMethod().getName() + "()'"
+									+ " returns a value that is not used");
+						}
+						
+					}
+				}
+				
 				if (esq.getType() == Type.voidType) {
 					if (lexer.token != Symbol.SEMICOLON)
 						signalError.show("';' expected", true);
 					else {
 						lexer.nextToken(); // consome ';'
+						
 
 						return new MessageSendStatement(esq);
 					}

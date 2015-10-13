@@ -27,6 +27,30 @@ public class MessageSendToVariable extends MessageSend {
 
 	}
 
+	public Variable getVar() {
+		return var;
+	}
+
+	public void setVar(Variable var) {
+		this.var = var;
+	}
+
+	public Method getMethod() {
+		return method;
+	}
+
+	public void setMethod(Method method) {
+		this.method = method;
+	}
+
+	public ExprList getExprList() {
+		return exprList;
+	}
+
+	public void setExprList(ExprList exprList) {
+		this.exprList = exprList;
+	}
+
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
 		if (putParenthesis) {
