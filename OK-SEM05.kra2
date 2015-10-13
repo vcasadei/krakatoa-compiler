@@ -22,7 +22,7 @@ class Program {
             return (new B(););
    }
    public A p(int i) {
-      if ((ii) > 0) {
+      if ((i) > 0) {
                   return (new A(););
       }
  else {

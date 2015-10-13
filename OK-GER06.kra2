@@ -5,8 +5,8 @@ class A {
       int k;
             write(7);
             i = 1;
-            j = (ii) + 1;
-            k = (jj) + 1;
+            j = (i) + 1;
+            k = (j) + 1;
             write(i);
             write(j);
             write(k);

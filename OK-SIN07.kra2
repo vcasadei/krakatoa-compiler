@@ -51,8 +51,8 @@ class B extends A {
             w.set(a);
 ;
       while (true) {
-                  i = (ii) - 1;
-         if ((ii) <= 0) {
+                  i = (i) - 1;
+         if ((i) <= 0) {
             break;
          }
                   newNo = new No();;
@@ -70,7 +70,7 @@ class B extends A {
       No w;
       A a;
             w = this.first;
-      while ((ww) != null) {
+      while ((w) != null) {
                   a = w.get();
 ;
                   write(a.get();

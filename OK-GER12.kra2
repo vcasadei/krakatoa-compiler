@@ -10,7 +10,7 @@ class A {
 class B extends A {
    public void m2(int n) {
             write(n);
-            super.m2((nn) + 1);
+            super.m2((n) + 1);
    }
 }
 

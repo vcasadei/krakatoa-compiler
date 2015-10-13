@@ -4,14 +4,14 @@ class A {
       boolean b;
             write(6);
             i = 1;
-      while ((ii) <= 5) {
+      while ((i) <= 5) {
                   write(i);
-                  i = (ii) + 1;
+                  i = (i) + 1;
 }
             b = false;
-      while ((bb) != true) {
+      while ((b) != true) {
                   write(6);
-                  b = !(bb);
+                  b = !(b);
 }
    }
 }

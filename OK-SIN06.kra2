@@ -2,8 +2,8 @@ class A {
    public int m(int n) {
       A a;
             a = new A();;
-      if ((nn) > 1) {
-                  return ((nn) * (a.m((nn) - 1))
+      if ((n) > 1) {
+                  return ((n) * (a.m((n) - 1))
 );
       }
  else {

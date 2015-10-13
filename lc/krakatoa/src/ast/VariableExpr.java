@@ -31,7 +31,7 @@ public class VariableExpr extends Expr {
 		if (putParenthesis) {
 			pw.print("(");
 			v.genKra(pw);
-			pw.print(v.getName());
+			//pw.print(v.getName());
 			pw.print(")");
 		} else
 			pw.print(v.getName());

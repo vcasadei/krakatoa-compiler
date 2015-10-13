@@ -12,13 +12,13 @@ class Program {
             a = null;
             b = null;
             a2 = null;
-      if ((aa) == (bb)) {
+      if ((a) == (b)) {
                   write(0);
       }
-      if ((bb) == (aa)) {
+      if ((b) == (a)) {
                   write(1);
       }
-      if ((aa) == (a2a2)) {
+      if ((a) == (a2)) {
                   write(2);
       }
    }
