@@ -1,17 +1,16 @@
 class A {
    public void m() {
       int i;
-            i = 1;
-            write(i);
+      i = 1;
+      write(i);
    }
 }
 
 class Program {
    public void run() {
       A a;
-            a = new A();
+      a = new A();
             a.m();
-;
    }
 }
 

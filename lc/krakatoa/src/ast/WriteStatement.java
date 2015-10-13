@@ -32,7 +32,7 @@ public class WriteStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("write(");
+		pw.print("write(");
 		writeStmt.genKra(pw);
 		pw.println(");");
 	}

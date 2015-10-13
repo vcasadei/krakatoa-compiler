@@ -6,8 +6,8 @@ class A {
       int d;
       int e;
       int f;
-            read(a, b, c, d, e, f, );
-            write(a, b, c, d, e, f);
+      read(a, b, c, d, e, f, );
+      write(a, b, c, d, e, f);
    }
 }
 

@@ -1,22 +1,21 @@
 class A {
    public int m(int n) {
       A a;
-            a = new A();
+      a = new A();
       if ((n) > 1) {
-                  return ((n) * (a.m((n) - 1))
-);
+         return ((n) * (a.m((n) - 1)));
       }
- else {
+      else {
          return (1);
-      }   }
+      }
+   }
 }
 
 class Program {
    public void run() {
       A a;
-            a = new A();
-            write(a.m(5);
-);
+      a = new A();
+      write(a.m(5));
    }
 }
 

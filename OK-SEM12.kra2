@@ -6,9 +6,8 @@ class A {
 class B extends A {
    public void p() {
       B A;
-            A = new B();
+      A = new B();
             A.m();
-;
    }
 }
 
@@ -16,12 +15,10 @@ class Program {
    public void run() {
       A a;
       B b;
-            a = new A();
-            b = new B();
+      a = new A();
+      b = new B();
             a.m();
-;
             b.p();
-;
    }
 }
 

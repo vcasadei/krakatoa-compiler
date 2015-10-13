@@ -3,15 +3,14 @@ class A {
    }
    public void m() {
       A a;
-            a = null;
+      a = null;
             a.m();
-;
    }
 }
 
 class B {
    public int run(int n) {
-            return (n);
+      return (n);
    }
    public void m() {
    }

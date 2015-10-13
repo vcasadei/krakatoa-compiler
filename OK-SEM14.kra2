@@ -9,17 +9,17 @@ class Program {
       A a;
       A a2;
       B b;
-            a = null;
-            b = null;
-            a2 = null;
+      a = null;
+      b = null;
+      a2 = null;
       if ((a) == (b)) {
-                  write(0);
+         write(0);
       }
       if ((b) == (a)) {
-                  write(1);
+         write(1);
       }
       if ((a) == (a2)) {
-                  write(2);
+         write(2);
       }
    }
 }

@@ -1,13 +1,13 @@
 class A {
    private int n;
    public int get() {
-            return (this.n);
+      return (this.n);
    }
    public void set(int n) {
-            this.n = n;
+      this.n = n;
    }
    public void m1() {
-            write(this.n);
+      write(this.n);
    }
 }
 
@@ -18,7 +18,7 @@ class B extends A {
 
 class C extends B {
    public void m1() {
-            write(8);
+      write(8);
    }
    public void teste() {
             super.m1();
@@ -27,7 +27,7 @@ class C extends B {
 
 class D extends C {
    public void m1() {
-            write(9);
+      write(9);
    }
 }
 

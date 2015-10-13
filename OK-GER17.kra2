@@ -1,12 +1,12 @@
 class A {
    static public int get0() {
-            return (0);
+      return (0);
    }
    static public int get1() {
-            return (1);
+      return (1);
    }
    static public int ident(int n) {
-            return (n);
+      return (n);
    }
 }
 

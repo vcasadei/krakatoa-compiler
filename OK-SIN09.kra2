@@ -3,29 +3,25 @@ class A {
    private int k;
    public int m() {
             ast.Method.m2(0);
-            return ((ast.Method.m1())
- + (this.k)
-);
+      return ((ast.Method.m1()) + (this.k));
    }
    public void init() {
-            this.k = 1;
-            this.n = 0;
+      this.k = 1;
+      this.n = 0;
    }
    private int m1() {
-            return ((this.n)
- + 1);
+      return ((this.n) + 1);
    }
    private void m2(int pk) {
-            this.k = pk;
+      this.k = pk;
    }
 }
 
 class Program {
    public void run() {
       A a;
-            a = new A();
-            write(a.m();
-);
+      a = new A();
+      write(a.m());
    }
 }
 

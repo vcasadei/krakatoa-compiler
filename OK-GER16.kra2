@@ -1,13 +1,13 @@
 class A {
    private int k;
    public int get_A() {
-            return (this.k);
+      return (this.k);
    }
    public void set(int k) {
-            this.k = k;
+      this.k = k;
    }
    public void print() {
-            write(this.get_A());
+      write(this.get_A());
    }
    public void init() {
             this.set(0);
@@ -17,22 +17,22 @@ class A {
 class B extends A {
    private int k;
    public int get_B() {
-            return (this.k);
+      return (this.k);
    }
    public void init() {
             super.init();
-            this.k = 2;
+      this.k = 2;
    }
    public void print() {
-            write(this.get_B());
-            write(this.get_A());
+      write(this.get_B());
+      write(this.get_A());
             super.print();
    }
 }
 
 class C extends A {
    public int get_A() {
-            return (0);
+      return (0);
    }
 }
 

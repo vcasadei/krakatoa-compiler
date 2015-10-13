@@ -1,6 +1,6 @@
 class Test {
    public String fakeClone(String s) {
-            return (s);
+      return (s);
    }
 }
 
@@ -8,17 +8,16 @@ class Program {
    public void run() {
       String s;
       Test t;
-            s = "Ola !!!";
-            write(s);
-            read(s);
-            t = new Test();
-            write(t.fakeClone("Dolly Parton");
-);
-            write("barra   \\");
-            write("barra n  \n");
-            write("barra a  \a");
-            write("barra barra \\\\");
-            write("barra no final  \ ");
+      s = "Ola !!!";
+      write(s);
+      read(s);
+      t = new Test();
+      write(t.fakeClone("Dolly Parton"));
+      write("barra   \\");
+      write("barra n  \n");
+      write("barra a  \a");
+      write("barra barra \\\\");
+      write("barra no final  \ ");
    }
 }
 

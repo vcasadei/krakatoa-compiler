@@ -85,7 +85,7 @@ public class MessageSendToSelf extends MessageSend {
 			}
 		}
 		if (putParenthesis) {
-			pw.println(")");
+			pw.print(")");
 		} else {
 			//pw.println(";");
 		}

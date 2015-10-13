@@ -2,16 +2,16 @@ class A {
    public void m() {
       int i;
       boolean b;
-            write(6);
-            i = 1;
+      write(6);
+      i = 1;
       while ((i) <= 5) {
-                  write(i);
-                  i = (i) + 1;
+         write(i);
+         i = (i) + 1;
 }
-            b = false;
+      b = false;
       while ((b) != true) {
-                  write(6);
-                  b = !(b);
+         write(6);
+         b = !(b);
 }
    }
 }

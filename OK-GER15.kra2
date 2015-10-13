@@ -2,8 +2,8 @@ class A {
    private int i;
    private int j;
    public void init_A() {
-            this.i = 1;
-            this.j = 2;
+      this.i = 1;
+      this.j = 2;
    }
    public void call_p() {
             ast.Method.p();
@@ -12,16 +12,16 @@ class A {
             ast.Method.q();
    }
    public void r() {
-            write(this.i);
+      write(this.i);
    }
    public void s() {
-            write(this.j);
+      write(this.j);
    }
    private void p() {
-            write(this.i);
+      write(this.i);
    }
    private void q() {
-            write(this.j);
+      write(this.j);
    }
 }
 
@@ -29,8 +29,8 @@ class B extends A {
    private int i;
    private int j;
    public void init_B() {
-            this.i = 3;
-            this.j = 4;
+      this.i = 3;
+      this.j = 4;
    }
    public void call_p() {
             ast.Method.p();
@@ -39,16 +39,16 @@ class B extends A {
             ast.Method.q();
    }
    public void r() {
-            write(this.i);
+      write(this.i);
    }
    public void s() {
-            write(this.j);
+      write(this.j);
    }
    private void p() {
-            write(this.i);
+      write(this.i);
    }
    private void q() {
-            write(this.j);
+      write(this.j);
    }
 }
 
@@ -56,8 +56,8 @@ class C extends A {
    private int i;
    private int j;
    public void init_C() {
-            this.i = 5;
-            this.j = 6;
+      this.i = 5;
+      this.j = 6;
    }
    public void call_p() {
             ast.Method.p();
@@ -66,16 +66,16 @@ class C extends A {
             ast.Method.q();
    }
    public void r() {
-            write(this.i);
+      write(this.i);
    }
    public void s() {
-            write(this.j);
+      write(this.j);
    }
    private void p() {
-            write(this.i);
+      write(this.i);
    }
    private void q() {
-            write(this.j);
+      write(this.j);
    }
 }
 

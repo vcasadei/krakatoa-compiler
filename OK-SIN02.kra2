@@ -3,31 +3,33 @@ class A {
       int i;
       int j;
       boolean b;
-            b = false;
+      b = false;
       if (b) {
       }
- else {
-      }      while (b) {
+      else {
+               }
+      while (b) {
          ;
 }
       while (b) {
 }
-            i = ((1 * 4) + 3) - (5 / 2);
-            b = false;
+      i = ((1 * 4) + 3) - (5 / 2);
+      b = false;
       if ((!((b) && ((i) < 0))) || ((i) > 10)) {
-                  b = true;
-                  i = -1;
-                  read(i, j, );
+         b = true;
+         i = -1;
+         read(i, j, );
          while ((i) > 0) {
-                        write(i);
-                        i = (i) - 1;
+            write(i);
+            i = (i) - 1;
 }
       }
- else {
+      else {
                   b = true;
-                  write(i);
-      }      if (((((((i) == 1) || ((i) < 1)) || ((i) <= 5)) || ((i) > 1)) || ((i) >= 1)) || ((i) != 3)) {
-                  i = 0;
+         write(i);
+      }
+      if (((((((i) == 1) || ((i) < 1)) || ((i) <= 5)) || ((i) > 1)) || ((i) >= 1)) || ((i) != 3)) {
+         i = 0;
       }
    }
 }
@@ -35,9 +37,8 @@ class A {
 class Program {
    public void run() {
       A a;
-            a = new A();
+      a = new A();
             a.m();
-;
    }
 }
 
