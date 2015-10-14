@@ -24,7 +24,7 @@ public class MessageSendStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("");
+		pw.print("");
 		messageSend.genKra(pw, false);
 		pw.println(";");
 	}

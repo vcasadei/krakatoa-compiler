@@ -25,7 +25,7 @@ public class AssignmentStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.printIdent("");
+		//pw.printIdent("");
 		esq.genKra(pw, false);
 		if (dir != null) {
 			pw.print(" = ");

@@ -40,13 +40,14 @@ public class IfStatement extends Statement {
 		pw.printlnIdent("}");
 
 		if (statementElse != null) {
-			pw.println(" else {");
+			pw.printlnIdent("else {");
 
 			pw.add();
+			pw.printIdent("");
 			statementElse.genKra(pw);
 			pw.sub();
 
-			pw.printIdent("}");
+			pw.printlnIdent("}");
 		}
 	}
 }

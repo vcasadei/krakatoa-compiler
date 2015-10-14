@@ -33,6 +33,6 @@ public class WhileStatement extends Statement {
 		statement.genKra(pw);
 		pw.sub();
 
-		pw.println("}");
+		pw.printlnIdent("}");
 	}
 }

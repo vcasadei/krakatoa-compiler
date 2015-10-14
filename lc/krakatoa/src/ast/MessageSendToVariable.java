@@ -66,9 +66,9 @@ public class MessageSendToVariable extends MessageSend {
 		pw.print(")");
 		
 		if (putParenthesis) {
-			pw.println(")");
+			pw.print(")");
 		} else {
-			pw.println(";");
+			//pw.println(";");
 		}
 	}
 
