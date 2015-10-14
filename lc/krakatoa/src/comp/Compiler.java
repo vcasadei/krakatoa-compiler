@@ -81,7 +81,6 @@ public class Compiler {
 			}
 			
 			isStatic = isFinal = false;
-			String token = lexer.getStringValue();
 			while (lexer.token == Symbol.FINAL || lexer.token == Symbol.CLASS || lexer.token == Symbol.STATIC) {
 				switch (lexer.token) {
 					case STATIC:
@@ -103,7 +102,6 @@ public class Compiler {
 					case CLASS:
 						classDec(isFinal, isStatic);
 						isStatic = isFinal = false;
-						token = lexer.getStringValue();
 						if (currentClass != null) {
 							kraClassList.add(currentClass);
 						}
@@ -897,8 +895,6 @@ public class Compiler {
 				// "A method that does not return a value can be used as a statement."
 				// Otherwise, "must be called only within an expression".
 
-				Type debugType = esq.getType();
-				
 				// Checks is the return type is used
 				if (esq instanceof MessageSendToVariable) {
 					// If it is a message send to variable
@@ -1665,8 +1661,7 @@ public class Compiler {
 		case IDENT:
 			String firstId = lexer.getStringValue();
 			lexer.nextToken();
-			
-			String debug = lexer.getStringValue();
+
 			if (lexer.token != Symbol.DOT) {
 				
 				boolean found = (currentClass.containsStaticPrivateMethod(firstId)
