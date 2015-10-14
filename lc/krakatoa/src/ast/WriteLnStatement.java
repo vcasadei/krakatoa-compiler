@@ -14,10 +14,11 @@ import java.util.*;
 
 public class WriteLnStatement extends Statement {
 
-	public WriteLnStatement(ArrayList<Expr> writeLnStmt) {
-		for (Expr expr : writeLnStmt) {
-			this.writeLnStmt.addElement(expr);
-		}
+	public WriteLnStatement(ExprList writeLnStmt) {
+		//for (Expr expr : writeLnStmt) {
+			//this.writeLnStmt.addElement(expr);
+		//}
+		this.writeLnStmt = writeLnStmt;
 	}
 
 	@Override

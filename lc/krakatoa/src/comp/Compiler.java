@@ -1240,10 +1240,16 @@ public class Compiler {
 			signalError.show("( expected");
 		}
 		lexer.nextToken();
-		ArrayList<Expr> exprList = exprList().getExprList();
-		for (Expr expr : exprList) {
-			if (expr.getType() != Type.intType
-					&& expr.getType() != Type.stringType) {
+
+//		ArrayList<Expr> exprList = exprList().getExprList();
+		ExprList exprl = exprList();
+		Iterator<Expr> exprIt = exprl.getElements();	
+		while (exprIt.hasNext()) {
+			Expr e = exprIt.next();
+			
+			if (e.getType() != Type.intType
+				&& e.getType() != Type.stringType) {
+				
 				signalError.show("Can only write int and String types");
 			}
 		}
@@ -1257,7 +1263,7 @@ public class Compiler {
 		}
 		lexer.nextToken();
 
-		return new WriteLnStatement(exprList);
+		return new WriteLnStatement(exprl);
 
 	}
 
