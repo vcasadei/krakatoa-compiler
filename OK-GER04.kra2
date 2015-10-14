@@ -7,12 +7,12 @@ class A {
       while ((i) <= 5) {
          write(i);
          i = (i) + 1;
-}
+      }
       b = false;
       while ((b) != true) {
          write(6);
          b = !(b);
-}
+      }
    }
 }
 

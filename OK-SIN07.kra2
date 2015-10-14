@@ -58,7 +58,7 @@ class B extends A {
          a.put(i);
          newNo.set(a);
          this.first = newNo;
-}
+      }
    }
    public void list() {
       No w;
@@ -68,7 +68,7 @@ class B extends A {
          a = w.get();
          write(a.get());
          w = w.getNext();
-}
+      }
    }
 }
 

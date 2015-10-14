@@ -4,11 +4,11 @@ class Program {
          while (true) {
             while (true) {
                break;
-}
+            }
             break;
-}
+         }
          break;
-}
+      }
    }
 }
 

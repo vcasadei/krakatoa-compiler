@@ -10,9 +10,9 @@ class A {
                }
       while (b) {
          ;
-}
+      }
       while (b) {
-}
+      }
       i = ((1 * 4) + 3) - (5 / 2);
       b = false;
       if ((!((b) && ((i) < 0))) || ((i) > 10)) {
@@ -22,7 +22,7 @@ class A {
          while ((i) > 0) {
             write(i);
             i = (i) - 1;
-}
+         }
       }
       else {
                   b = true;
