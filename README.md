@@ -98,10 +98,12 @@ Classes:
 
 Arquivos gerados com falha:
 ================
+ER-SEM83.KRA	(não deveria ser gerado)
 OK-SIN09.KRA2	(erro desconhecido)  
 OK-SIN10.KRA2	(ausência de 'this' em ReadStatement)  
 OK-SEM19.KRA	(arquivo não é criado)  
 OK-SEM18.KRA	(arquivo em branco, provável exception)  
 OK-SEM17.KRA	(arquivo em branco, provável exception)  
 OK-SEM01.KRA	(arquivo não é criado)  
+OK-CHK06.KRA	(está ausente parte do código, provável exception)  
 ...  

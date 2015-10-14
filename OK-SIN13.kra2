@@ -1,6 +1,0 @@
-class Program {
-   public void run() {
-      write((1 + 2) + (-3));
-   }
-}
-
