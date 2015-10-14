@@ -51,12 +51,12 @@ final class E extends A {
 
 class Program {
    public void run() {
-      C c;
-      B b;
-      A a;
-      D d;
-      E e;
-            c = new C();
+      c;
+      b;
+      a;
+      d;
+      e;
+            c = new C();;
             write(c.m1(true);
 );
             c.m2();
@@ -69,7 +69,7 @@ class Program {
 );
             write((c.mB())
  + 1);
-            b = new B();
+            b = new B();;
             write(b.m1(true);
 );
             b.m2();
@@ -80,7 +80,7 @@ class Program {
 );
             write((c.mB())
  + 1);
-            a = new A();
+            a = new A();;
             write(a.m1(true);
 );
             a.m2();
@@ -89,7 +89,7 @@ class Program {
 );
             write(a.m4(0, false);
 );
-            d = new D();
+            d = new D();;
             write(d.m1(true);
 );
             d.m2();
@@ -98,7 +98,7 @@ class Program {
 );
             write(d.m4(0, false);
 );
-            e = new E();
+            e = new E();;
             write(e.m1(true);
 );
             e.m2();
