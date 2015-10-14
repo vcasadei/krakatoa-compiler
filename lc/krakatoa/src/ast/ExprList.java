@@ -30,16 +30,19 @@ public class ExprList {
 				pw.print(", ");
 		}
 	}
-
-	public void genKra( PW pw ) {
-        int size = exprList.size();
-        
-        for (Expr e : exprList) {
-        	e.genKra(pw, false);
-            if (--size > 0) {
-                pw.print(", ");
-            }
-        }
+	
+	public void genKra(PW pw){
+		if (!exprList.isEmpty()) {
+			int size = exprList.size();
+	        for ( Expr e : exprList ) {
+	        	if (e != null) {
+	        		e.genKra(pw, false);
+		            if ( --size > 0 ) {
+		                pw.print(", ");
+		            }
+	        	}
+	        }
+		}
     }
 
 	public int getSize() {

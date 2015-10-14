@@ -46,12 +46,10 @@ public class InstanceVariableList {
 	
 	public void genKra(PW pw) {
 		for (InstanceVariable instVar : instanceVariableList) {
-			pw.printIdent("private ");
-			if (instVar.isStatic())
-				pw.print("static ");
-			pw.print(instVar.getType().getName() + " ");
 			instVar.genKra(pw);
-			pw.println(";");
+		}
+		if(!this.instanceVariableList.isEmpty()) {
+            pw.println("");
 		}
 		
 	}

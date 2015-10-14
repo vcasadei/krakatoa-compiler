@@ -24,13 +24,12 @@ public class ObjectBuilder extends Expr {
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
 		// If cast is needed
-		if (castObject != null) {
+		if (castObject != null && obj != null) {
 			if (castObject.getName() != obj.getName()) {
 				pw.print("(" + castObject.getName() + " ) ");
 			}
 		}
 		
-		//pw.print("new " + obj.getName() + "();");
 		pw.print("new " + obj.getName() + "()");
 	}
 

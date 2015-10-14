@@ -31,11 +31,15 @@ public class LocalVariableList {
 	}
 
 	public void genKra(PW pw) {
-		for (Variable var : localList) {
-			pw.printIdent("");
-			pw.print(var.getType().getName() + " ");
-			var.genKra(pw);
-			pw.println(";");
+		if (!localList.isEmpty()) {
+			for (Variable var : localList) {
+				if (var != null) {
+					pw.printIdent("");
+					pw.print(var.getType().getName() + " ");
+					pw.print(var.getName());
+					pw.println(";");
+				}
+			}
 		}
 	}
 	

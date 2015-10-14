@@ -29,25 +29,28 @@ public class IfStatement extends Statement {
 
 	@Override
 	public void genKra(PW pw) {
-		pw.print("if (");
+		pw.printIdent("if (");
 		expr.genKra(pw, false);
-		pw.println(") {");
-
-		pw.add();
-		statementIf.genKra(pw);
-		pw.sub();
-
-		pw.printlnIdent("}");
-
-		if (statementElse != null) {
-			pw.printlnIdent("else {");
-
-			pw.add();
-			pw.printIdent("");
-			statementElse.genKra(pw);
-			pw.sub();
-
-			pw.printlnIdent("}");
+		pw.print(") ");
+		if (statementIf instanceof CompositeStatement) {
+			statementIf.genKra(pw);
+		} else {
+			pw.println("");
+			if (statementIf != null) {
+				pw.add();
+				statementIf.genKra(pw);
+				pw.sub();
+			}
 		}
+		
+
+		if (statementElse != null){
+            pw.printlnIdent("} else {");
+            pw.add();
+            statementElse.genKra(pw);
+            pw.sub();
+            pw.printlnIdent("}");
+        }
+
 	}
 }

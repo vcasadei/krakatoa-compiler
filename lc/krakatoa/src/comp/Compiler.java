@@ -125,7 +125,6 @@ public class Compiler {
 				signalError.show("End of file expected");
 			}
 		} catch (RuntimeException e) {
-//			throw (e);
 			// if there was an exception, there is a compilation signalError
 		}
 		return program;
@@ -1838,7 +1837,6 @@ public class Compiler {
 								symbolTable.getInLocal(firstId), method,
 								exprList);
 					} else {
-
 						KraClass classOfIdent = symbolTable
 								.getInGlobal(symbolTable.getInLocal(firstId)
 										.getType().getName());

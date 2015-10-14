@@ -121,6 +121,9 @@ public class KraClass extends Type {
 	}
 
 	public void genKra(PW pw) {
+		if (isStatic) {
+			pw.print("static ");
+		}
 		if (isFinal) {
 			pw.print("final ");
 		}
@@ -130,13 +133,14 @@ public class KraClass extends Type {
 		}
 		pw.println(" {");
 		pw.add();
-		instanceVariableList.genKra(pw);
-		staticVariableList.genKra(pw);
-		publicMethodList.genKra(pw, true);
-		privateMethodList.genKra(pw, false);
-		staticPublicMethodList.genKra(pw, true);
-		staticPrivateMethodList.genKra(pw, false);
-		pw.sub(); pw.println("}");
+		if (instanceVariableList != null) {instanceVariableList.genKra(pw);}
+		if (staticVariableList != null) {staticVariableList.genKra(pw);}
+		if (publicMethodList != null) {publicMethodList.genKra(pw, true);}
+		if (privateMethodList != null) {privateMethodList.genKra(pw, false);}
+		if (staticPublicMethodList != null) {staticPublicMethodList.genKra(pw, true);}
+		if (staticPrivateMethodList != null) {staticPrivateMethodList.genKra(pw, false);}
+		pw.sub(); 
+		pw.println("}");
 	}
 	
 	private KraClass superclass;

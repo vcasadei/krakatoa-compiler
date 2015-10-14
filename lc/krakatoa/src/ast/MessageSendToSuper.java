@@ -29,11 +29,17 @@ public class MessageSendToSuper extends MessageSend {
 
 	@Override
 	public void genKra(PW pw, boolean putParenthesis) {
+		if (putParenthesis) {
+			pw.print("(");
+		}
 		// Calls super and the method
 		pw.print("super." + methodMessage.getName() + "(");
 		// The list of expressions
 		exprList.genKra(pw);
 		pw.print(")");
+		if (putParenthesis) {
+			pw.print(")");
+		}
 	}
 
 	public Method getMethodMessage() {

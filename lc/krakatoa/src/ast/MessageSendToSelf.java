@@ -68,26 +68,18 @@ public class MessageSendToSelf extends MessageSend {
 			pw.print("(");
 		}
 		
-		if (instanceVariable == null && method == null && exprList == null) {
-			pw.print("this");
-		} else if (instanceVariable != null) {
-			pw.print("this." + instanceVariable.getName());
-		} else if (instanceVariable == null && method != null) {
-			// If is private
-			if (kraClass.containsPrivateMethod(method.getName())) {
-				pw.print(method.getClass().getName() + "." + method.getName() + "(");
-				exprList.genKra(pw);
-				pw.print(")");
-			} else {
-				pw.print("this." + method.getName() + "(");
-				exprList.genKra(pw);
-				pw.print(")");
-			}
+		pw.print("this");
+		
+		if (instanceVariable != null) {
+			pw.print("." + instanceVariable.getName());
+		} else if (method != null) {
+			pw.print("." + method.getName());
+            pw.print("(");
+            this.exprList.genKra(pw);
+            pw.print(")");
 		}
 		if (putParenthesis) {
 			pw.print(")");
-		} else {
-			//pw.println(";");
 		}
 
 	}

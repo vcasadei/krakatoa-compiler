@@ -27,12 +27,12 @@ public class WhileStatement extends Statement {
 	public void genKra(PW pw) {
 		pw.print("while (");
 		expr.genKra(pw, false);
-		pw.println(") {");
+		pw.print(") ");
 
 		pw.add();
 		statement.genKra(pw);
 		pw.sub();
 
-		pw.printlnIdent("}");
+		
 	}
 }

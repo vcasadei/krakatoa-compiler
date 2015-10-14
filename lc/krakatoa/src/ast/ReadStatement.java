@@ -29,8 +29,7 @@ public class ReadStatement extends Statement {
 		pw.print("read(");
 		int i = ReadStmt.size();
 		for (Variable v : ReadStmt) {
-			//pw.print(v.getName());
-			v.genKra(pw);
+			pw.print(v.getName());
 			if (--i > 0) {
 				pw.print(", ");
 			}

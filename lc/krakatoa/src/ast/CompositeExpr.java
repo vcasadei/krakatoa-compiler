@@ -75,7 +75,7 @@ public class CompositeExpr extends Expr {
 			pw.print("(");
 		}
        
-		left.genKra(pw, true);
+		left.genKra(pw, false);
        
 		String strSymbol = arrayOper.get(oper);
        

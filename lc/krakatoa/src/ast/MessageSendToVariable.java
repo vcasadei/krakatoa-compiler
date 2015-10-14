@@ -61,14 +61,16 @@ public class MessageSendToVariable extends MessageSend {
 			pw.print("(");
 		}
 		
-		pw.print(var.getName() + "." + method.getName() + "(");
-		exprList.genKra(pw);
-		pw.print(")");
+		pw.print(var.getName() + ".");
+		if (method != null) {
+			pw.print(method.getName() + "(");
+			exprList.genKra(pw);
+			pw.print(")");
+		}
+		
 		
 		if (putParenthesis) {
 			pw.print(")");
-		} else {
-			//pw.println(";");
 		}
 	}
 

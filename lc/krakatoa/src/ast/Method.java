@@ -70,20 +70,31 @@ public class Method {
 		return this.isFinal;
 	}
 
-	public void genKra(PW pw, boolean printedStatic) {
-		if (isStatic && !printedStatic) {
+	public void genKra(PW pw, boolean publicMethod) {
+		if (isStatic) {
 			pw.print("static ");
 		}
 		if (isFinal) {
 			pw.print("final ");
 		}
+		if (publicMethod) {
+			pw.print("public ");
+		} else {
+			pw.print("private ");
+		}
 		pw.print(returnType.getName() + " ");
 		pw.print(name + "(");
-		paramList.genKra(pw);
+		if (paramList != null) {
+			paramList.genKra(pw);
+		}
 		pw.println(") {");
 		pw.add();
-		localVariableList.genKra(pw);
-		stmtList.genKra(pw);
+		if (localVariableList != null) {
+			localVariableList.genKra(pw);
+		}
+		if (stmtList != null) {
+			stmtList.genKra(pw);
+		}
 		pw.sub();
 		pw.printlnIdent("}");
 	}

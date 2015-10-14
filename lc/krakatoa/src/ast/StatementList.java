@@ -27,10 +27,14 @@ public class StatementList {
 	}
 
 	public void genKra(PW pw) {
-		for (Statement stmt : statementList) {
-			pw.printIdent("");
-			stmt.genKra(pw);
+		if (!statementList.isEmpty()) {
+			for (Statement stmt : statementList) {
+				if (stmt != null) {
+					stmt.genKra(pw);
+				}
+			}
 		}
+		
 	}
 	
 	private ArrayList<Statement> statementList;
