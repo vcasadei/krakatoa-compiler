@@ -15,7 +15,7 @@ package ast;
  */
 public class KraClass extends Type {
 
-	public KraClass(String name, boolean isFinal) {
+	public KraClass(String name, boolean isFinal, boolean isStatic) {
 		super(name);
 		this.superclass = null;
 		this.instanceVariableList = new InstanceVariableList();
@@ -25,6 +25,7 @@ public class KraClass extends Type {
 		this.staticPrivateMethodList = new MethodList();
 		this.staticVariableList = new InstanceVariableList();
 		this.isFinal = isFinal;
+		this.isStatic = isStatic;
 	}
 
 	public String getCname() {
@@ -144,5 +145,6 @@ public class KraClass extends Type {
 	private MethodList staticPublicMethodList, staticPrivateMethodList;
 	private InstanceVariableList staticVariableList;
 	private boolean isFinal;
+	private boolean isStatic;
 
 }

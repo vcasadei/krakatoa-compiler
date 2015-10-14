@@ -51,27 +51,65 @@ public class Compiler {
 			while (lexer.token == Symbol.MOCall) {
 				metaobjectCallList.add(metaobjectCall());
 			}
+			boolean isStatic = false, isFinal = false;
 			
-			if (lexer.token == Symbol.FINAL) {
-				lexer.nextToken();
-				classDec(true);
-			} else {
-				classDec(false);
-			}
-			if (currentClass != null)
-				kraClassList.add(currentClass);
-			
-			String token = lexer.getStringValue();
-			while (lexer.token == Symbol.FINAL || lexer.token == Symbol.CLASS) {
-				if (lexer.token == Symbol.FINAL) {
-					lexer.nextToken();
-					classDec(true);
-				} else {
-					classDec(false);
+			while (lexer.token == Symbol.FINAL || lexer.token == Symbol.STATIC) {
+				switch (lexer.token) {
+					default:
+						break;
+					case STATIC:
+						if (!isStatic) {
+							isStatic = true;
+						} else {
+							signalError.show("redeclaration of 'static'");
+						}
+						break;
+					case FINAL:
+						if (!isFinal) {
+							isFinal = true;
+						} else {
+							signalError.show("redeclaration of 'final'");
+						}
+						break;
 				}
-				token = lexer.getStringValue();
-				if (currentClass != null) {
-					kraClassList.add(currentClass);
+				lexer.nextToken();
+			}
+			classDec(isFinal, isStatic);
+			
+			if (currentClass != null) {
+				kraClassList.add(currentClass);
+			}
+			
+			isStatic = isFinal = false;
+			String token = lexer.getStringValue();
+			while (lexer.token == Symbol.FINAL || lexer.token == Symbol.CLASS || lexer.token == Symbol.STATIC) {
+				switch (lexer.token) {
+					case STATIC:
+						if (!isStatic) {
+							isStatic = true;
+						} else {
+							signalError.show("redeclaration of 'static'");
+						}
+						lexer.nextToken();
+						break;
+					case FINAL:
+						if (!isFinal) {
+							isFinal = true;
+						} else {
+							signalError.show("redeclaration of 'final'");
+						}
+						lexer.nextToken();
+						break;
+					case CLASS:
+						classDec(isFinal, isStatic);
+						isStatic = isFinal = false;
+						token = lexer.getStringValue();
+						if (currentClass != null) {
+							kraClassList.add(currentClass);
+						}
+						break;
+					default:
+						break;
 				}
 			}
 
@@ -89,6 +127,7 @@ public class Compiler {
 				signalError.show("End of file expected");
 			}
 		} catch (RuntimeException e) {
+//			throw (e);
 			// if there was an exception, there is a compilation signalError
 		}
 		return program;
@@ -166,25 +205,26 @@ public class Compiler {
 	 * Qualifier ::= ["final"] ["static"] ("private"|"public") <br>
 	 * Member ::= InstVarDec | MethodDec <br>
 	 */
-	private void classDec(boolean isFinal) {
+	private void classDec(boolean isFinalClass, boolean isStaticClass) {
 
-		boolean isStatic = false;
-
-		if (lexer.token != Symbol.CLASS)
+		if (lexer.token != Symbol.CLASS) {
 			signalError.show("'class' expected");
+		}
 
 		lexer.nextToken();
 
-		if (lexer.token != Symbol.IDENT)
+		if (lexer.token != Symbol.IDENT) {
 			signalError.show(SignalError.ident_expected);
+		}
 
 		String className = lexer.getStringValue();
 
 		// verifica se a classe foi declarada anteriormente.
-		if (symbolTable.getInGlobal(className) != null)
+		if (symbolTable.getInGlobal(className) != null) {
 			signalError.show("Class " + className + " already declared");
+		}
 
-		currentClass = new KraClass(className, isFinal);
+		currentClass = new KraClass(className, isFinalClass, isStaticClass);
 		symbolTable.putInGlobal(className, currentClass);
 
 		lexer.nextToken();
@@ -193,18 +233,26 @@ public class Compiler {
 
 			lexer.nextToken();
 
-			if (lexer.token != Symbol.IDENT)
+			if (lexer.token != Symbol.IDENT) {
 				signalError.show(SignalError.ident_expected);
+			}
 
 			String superclassName = lexer.getStringValue();
+			KraClass superclass = symbolTable.getInGlobal(superclassName);
 
 			// valida a superclasse
-			if (className.equals(superclassName))
+			if (className.equals(superclassName)) {
 				signalError.show("Cant inheritance from the class itself");
+			}
 
-			if (symbolTable.getInGlobal(superclassName) == null)
+			if (superclass == null) {
 				signalError.show("Class " + superclassName
 						+ " was not declared");
+			}
+			
+			if (superclass != null && superclass.isFinal()) {
+				signalError.show("Class '" + className + "' inherits from final class '" + superclassName + "'");
+			}
 
 			switch (superclassName) {
 			case "int":
@@ -219,25 +267,41 @@ public class Compiler {
 			lexer.nextToken();
 		}
 
-		if (lexer.token != Symbol.LEFTCURBRACKET)
+		if (lexer.token != Symbol.LEFTCURBRACKET) {
 			signalError.show("{ expected", true);
+		}
 
 		lexer.nextToken();
 
 		while (lexer.token == Symbol.PRIVATE || lexer.token == Symbol.PUBLIC
 				|| lexer.token == Symbol.STATIC || lexer.token == Symbol.FINAL) {
 
-			isFinal = false;
-			isStatic = false;
-
-			if (lexer.token == Symbol.STATIC) {
-				isStatic = true;
+			boolean isFinal = false, isStatic = false;
+			
+			while (lexer.token == Symbol.STATIC || lexer.token == Symbol.FINAL) {
+				switch (lexer.token){
+					case STATIC:
+						if (!isStatic){
+							isStatic = true;
+						} else {
+							signalError.show("'static' already delared for class member");
+						}
+						break;
+					case FINAL:
+						if (!isFinal){
+							isFinal = true;
+						} else {
+							signalError.show("'final' already delared for class member");
+						}
+						break;
+					default:
+						break;
+				}
 				lexer.nextToken();
 			}
-
-			if (lexer.token == Symbol.FINAL) {
-				isFinal = true;
-				lexer.nextToken();
+			
+			if (isFinalClass && isFinal) {
+				signalError.show("invalid 'final' class member on 'final' class");
 			}
 
 			Symbol qualifier;
@@ -257,19 +321,28 @@ public class Compiler {
 
 			Type t = type();
 
-			if (lexer.token != Symbol.IDENT)
+			if (lexer.token != Symbol.IDENT) {
 				signalError.show("Identifier expected");
+			}
 
 			String name = lexer.getStringValue();
 			lexer.nextToken();
 
-			if (lexer.token == Symbol.LEFTPAR)
+			if (lexer.token == Symbol.LEFTPAR) {
+				if(qualifier == Symbol.PRIVATE){
+					if(isFinal){
+						signalError.show("'final' method must be 'public'");
+					}
+				}
 				methodDec(t, name, qualifier, isStatic, isFinal);
-			else if (qualifier != Symbol.PRIVATE)
+			} else if (qualifier != Symbol.PRIVATE) {
 				signalError
-						.show("Attempt to declare a public instance variable");
-			else
+						.show("Attempt to declare a 'public' instance variable");
+			} else if (t.getName().equals("void")) {
+				signalError.show("Attempt to declare 'void' instance class member");
+			} else {
 				instanceVarDec(t, name, isStatic, isFinal);
+			}
 		}
 
 		if (lexer.token != Symbol.RIGHTCURBRACKET)
@@ -288,7 +361,6 @@ public class Compiler {
 		}
 
 		lexer.nextToken();
-		String token = lexer.getStringValue();
 
 	}
 
@@ -314,13 +386,13 @@ public class Compiler {
 				signalError.show(name + " already declared as a method");
 
 			InstanceVariable staticVariable = new InstanceVariable(name, type,
-					isStatic);
+					isStatic, isFinal);
 			currentClass.addStaticVariable(staticVariable);
 			symbolTable.putInLocal(name, staticVariable);
 		} else {
 			if (currentClass.containsInstanceVariable(name))
 				signalError
-						.show("Static variable " + name + "already declared");
+						.show("Static variable '" + name + "' already declared");
 			if (currentClass.containsStaticPrivateMethod(name)
 					|| currentClass.containsStaticPublicMethod(name)
 					|| currentClass.containsPrivateMethod(name)
@@ -328,8 +400,9 @@ public class Compiler {
 				signalError.show(name + " already declared as a method");
 
 			InstanceVariable instanceVariable = new InstanceVariable(name,
-					type, isStatic);
+					type, isStatic, isFinal);
 			currentClass.addInstanceVariable(instanceVariable);
+			
 			symbolTable.putInLocal(name, instanceVariable);
 		}
 
@@ -354,7 +427,7 @@ public class Compiler {
 					signalError.show(name + " already declared as a method");
 
 				InstanceVariable staticVariable = new InstanceVariable(name,
-						type, isStatic);
+						type, isStatic, isFinal);
 				currentClass.addStaticVariable(staticVariable);
 				symbolTable.putInLocal(name, staticVariable);
 			} else {
@@ -368,7 +441,7 @@ public class Compiler {
 					signalError.show(name + " already declared as a method");
 
 				InstanceVariable instanceVariable = new InstanceVariable(name,
-						type, isStatic);
+						type, isStatic, isFinal);
 				currentClass.addInstanceVariable(instanceVariable);
 				symbolTable.putInLocal(name, instanceVariable);
 			}
@@ -416,9 +489,13 @@ public class Compiler {
 			if (currentClass.getName().equals("Program")
 					&& currentMethod.getName().equals("run"))
 				signalError
-						.show("Method 'run' of class Program cannot be static");
-			if (qualifier == Symbol.PUBLIC)
+						.show("Method 'run' of class Program cannot be static", true);
+			if (qualifier == Symbol.PUBLIC) {
 				currentClass.addStaticPublicMethod(currentMethod);
+			}
+			if (qualifier == Symbol.PRIVATE) {
+				currentClass.addStaticPrivateMethod(currentMethod);
+			}
 		} else {
 			if (currentClass.getName().equals("Program")
 					&& currentMethod.getName().equals("run")) {
@@ -513,7 +590,9 @@ public class Compiler {
 		Type type = type();
 		String currentTokenValue;
 		Variable v;
-		if (lexer.token != Symbol.IDENT) {
+		String token = lexer.getStringValue();
+		if (lexer.token != Symbol.IDENT && !(type instanceof KraClass)
+				) {
 			signalError.show("Identifier expected");
 		}
 		// get current token string value
@@ -551,8 +630,8 @@ public class Compiler {
 			
 			lexer.nextToken();
 		}
-		if (lexer.token != Symbol.SEMICOLON) {
-			signalError.show("=> ';' expected after Idlist ", true);
+		if (lexer.token != Symbol.SEMICOLON && !(type instanceof KraClass)) {
+			signalError.show("=> ';' expected after Idlist", true);
 		}
 	}
 
@@ -761,22 +840,27 @@ public class Compiler {
 		if (lexer.token == Symbol.INT
 				|| lexer.token == Symbol.BOOLEAN
 				|| lexer.token == Symbol.STRING
-				|| (lexer.token == Symbol.IDENT && isType(lexer
-						.getStringValue())
-						&& symbolTable.getInLocal(lexer.getStringValue()) == null)) {
+//				|| (lexer.token == Symbol.IDENT && isType(lexer
+//						.getStringValue())
+//						&& symbolTable.getInLocal(lexer.getStringValue()) == null)
+				) {
 
 			localDec();
-			
-			if (lexer.token != Symbol.SEMICOLON) {
-				signalError.show("';' expected");
-			}
 			
 			lexer.nextToken();
 			return null;
 
+		} else if ( lexer.token == Symbol.IDENT && lexer.viewNextToken() == Symbol.IDENT){
+			localDec();
+			lexer.nextToken();
+			return null;
 		} else {
+			
+			if ( lexer.viewNextToken() != Symbol.DOT && lexer.viewNextToken() != Symbol.ASSIGN) {
+				signalError.show("Expected '.' or '=' after an ident or statement");
+			}
 
-			Expr esq;
+			Expr esq = null;
 			Expr dir = null;
 
 			esq = expr();
@@ -1538,6 +1622,10 @@ public class Compiler {
 			exprList = realParameters();
 			method = superKraClass.getPublicMethod(messageName);
 			paramListMethod = method.getParamList();
+			
+			if (currentMethod.isStatic()){
+				signalError.show("'super' cannot be called inside 'static' method");
+			}
 
 			// Checks if the number of parameters is equal to the number of
 			// expressions
@@ -1600,7 +1688,7 @@ public class Compiler {
 					signalError.show("Identifier " + firstId + " was not declared");
 				}
 				
-				if(var instanceof InstanceVariable && currentClass.containsInstanceVariable(firstId)) {
+				if (var instanceof InstanceVariable && currentClass.containsInstanceVariable(firstId)) {
 					signalError.show("Cant use instance variables without 'this'. Identifier '" + firstId + "' was not declared");
 				}
 				return new VariableExpr(var);
@@ -1609,11 +1697,32 @@ public class Compiler {
 				if (lexer.token != Symbol.IDENT) {
 					signalError.show("Identifier expected");
 				} else {
-					if (!isType(symbolTable.getInLocal(firstId).getType()
-							.getName())) {
-						signalError.show("Variable " + firstId
-								+ " was not declared");
+					if (symbolTable.getInLocal(firstId) != null) {
+						if (!isType(symbolTable.getInLocal(firstId).getType()
+								.getName())) {
+							signalError.show("Variable " + firstId
+									+ " was not declared");
+						}
+					} else {
+						// Must be a tentative of static declaration
+						ident = lexer.getStringValue();
+						if (symbolTable.getInLocal(ident) == null) {
+							KraClass classOfIdent = symbolTable
+									.getInGlobal(firstId);
+							
+							if (classOfIdent.containsStaticPublicMethod(ident)
+									|| classOfIdent.containsStaticPublicMethod(ident)
+									|| classOfIdent.containsStaticVariable(ident)) {
+								
+							} else {
+								signalError.show("Static Method '" + ident
+										+ "' was not declared on class '" + firstId + "'");
+							}
+							
+						}
+						
 					}
+					
 
 					ident = lexer.getStringValue();
 					lexer.nextToken();
@@ -1766,6 +1875,8 @@ public class Compiler {
 				lexer.nextToken();
 
 				if (lexer.token == Symbol.LEFTPAR) {
+					if (currentMethod.isStatic())
+						signalError.show("Cant use 'this' in a 'static' method");
 					thisMethod = null;
 					if (currentClass.containsPrivateMethod(ident))
 						thisMethod = currentClass.getPrivateMethod(ident);
