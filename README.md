@@ -104,3 +104,7 @@ OK-SEM17-19.KRA	(arquivos em branco)
 OK-SEM01.KRA	(arquivo em branco)    
 OK-GER18-20.KRA	(arquivos em branco)  
 OK-CHK06.KRA	(está ausente a classe Program)  
+
+================================
+Fase 2 - Geração de código em C
+================================
