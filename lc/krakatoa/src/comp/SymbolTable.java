@@ -42,7 +42,7 @@ public class SymbolTable {
 
     public void removeLocalIdent() {
            // remove all local identifiers from the table
-         localTable.clear();         
+         localTable.clear();
     }
 
 

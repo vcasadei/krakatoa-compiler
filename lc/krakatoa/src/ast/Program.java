@@ -31,6 +31,49 @@ public class Program {
 	}
 
 	public void genC(PW pw) {
+		pw.println("/* deve-se incluir alguns headers porque algumas funções");
+		pw.println(" * da biblioteca padrão de C são utilizadas "
+				+ "na tradução. */");
+		pw.println("#include <malloc.h>");
+		pw.println("#include <stdlib.h>");
+		pw.println("#include <stdio.h>");
+		
+		pw.println("");
+		pw.println("/* define o tipo boolean */");
+		pw.println("typedef int boolean;");
+		pw.println("#define true 1");
+		pw.println("#define false 0");
+		
+		pw.println("");
+		pw.println("/* define um tipo Func que é um ponteiro para função */");
+		pw.println("typedef");
+		pw.add();
+		pw.printlnIdent("void (*Func)();");
+		pw.sub();
+		
+		pw.println("");
+		KraClass program = null;
+		for (KraClass kraClass : classList) {
+			//kraClass.genC(pw);
+			pw.printlnIdent("");	
+			if (kraClass.getName().equals("Program"))
+				program = kraClass;
+		}
+		
+		pw.add();
+		pw.println("int main() {");
+		pw.printlnIdent("_class_Program *program;");
+		
+		pw.println("");
+		pw.printlnIdent("/* crie objeto da classe Program e envie a mensagem"
+				+ " run para ele.");
+		pw.printlnIdent(" * Nem sempre o número de run no vetor é 0. */");
+		pw.printlnIdent("program = new_Program();");
+		pw.printlnIdent("( ( void (*)(_class_Program *) ) program->vt[0] )"
+				+ "(program);");
+		pw.printlnIdent("return 0");
+		pw.sub();
+		pw.println("}");
 	}
 
 	public ArrayList<KraClass> getClassList() {
