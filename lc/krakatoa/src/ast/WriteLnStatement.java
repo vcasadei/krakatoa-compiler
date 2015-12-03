@@ -23,8 +23,24 @@ public class WriteLnStatement extends Statement {
 
 	@Override
 	public void genC(PW pw) {
-		// TODO Auto-generated method stub
-
+		Iterator<Expr> it = this.writeLnStmt.getElements();
+		
+		while (it.hasNext()) {
+			Expr element = it.next();
+			
+			if (element.getType() == Type.intType) {
+				pw.printlnIdent("printf(\"%d\", ");
+				element.genC(pw, false);
+				pw.print(");");
+			} else {
+				if (element.getType() == Type.stringType) {
+					pw.printIdent("puts(");
+					element.genC(pw, false);
+					pw.print(");");
+				}
+			}	
+		}
+		pw.printlnIdent("printf(\"\\n\");");
 	}
 
 	@Override
