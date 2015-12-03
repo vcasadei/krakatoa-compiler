@@ -120,6 +120,19 @@ Fase 2 - Geração de código em C
 * LocalVariableList ✔
 * StatementList ✔
 * CompositeExpr ✔ *
+* Expr ✔ *
+* ExprList ✔ *
+* LiteralBoolean ✔ *
+* LiteralInt ✔ *
+* LiteralString ✔ *
+* NullExpr ✔ *
+* NullStatement ✔ 
+* ObjectBuilder ✔
+* ParenthesisExpr ✔
+* SignalExpr ✔
+* UnaryExpr ✔ *
+* Variable ✔
+* VariableExpr ✔ *
 * Type ✔ *
 * TypeBoolean ✔ *
 * TypeInt ✔ *

@@ -18,7 +18,14 @@ public class ObjectBuilder extends Expr {
 
 	@Override
 	public void genC(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
+		// If cast is needed
+		if (castObject != null && obj != null) {
+			if (castObject.getName() != obj.getName()) {
+				pw.print("(" + castObject.getName() + " *) ");
+			}
+		}
+		
+		pw.print("new_" + obj.getName() + "()");
 	}
 
 	@Override
