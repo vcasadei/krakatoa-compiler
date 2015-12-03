@@ -16,4 +16,8 @@ public class Parameter extends Variable {
 		super(name, type);
 	}
 
+	public void genC(PW pw) {
+		pw.print(getType().getCname() + " _" + getName());
+	}
+
 }

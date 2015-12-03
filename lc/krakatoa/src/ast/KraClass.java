@@ -10,6 +10,8 @@
 
 package ast;
 
+import java.util.ArrayList;
+
 /*
  * Krakatoa Class
  */
@@ -142,33 +144,54 @@ public class KraClass extends Type {
 		pw.sub(); 
 		pw.println("}");
 	}
-	
+
+	/*
+	 * Permite recursão para varrer classes superiores e gerar código para
+	 * as respectivas variáveis de instância
+	 */
+	private void varC(PW pw) {
+		if (superclass != null)
+			superclass.varC(pw);
+		instanceVariableList.genC(pw, getName());
+	}
+
 	public void genC(PW pw) {
 		pw.println("typedef");
 		pw.add();
 		pw.printlnIdent("struct _St_" + getName() + " {");
 		pw.add();
 		pw.printlnIdent("Func *vt;");
-		
-		/* TODO todas as variáveis declaradas em A */
-		
+		varC(pw);
 		pw.sub();
 		pw.printIdent("}");
 		pw.println(" _class_" + getName() + ";");
 		pw.sub();
 		pw.println("");
 		
-		//staticPublicMethodList.genC(pw);
-		//staticPrivateMethodList.genC(pw);
-		//publicMethodList.genC(pw);
-		//privateMethodList.genC(pw);
+		pw.println("_class_" + getName() + " *new_" + getName() + "(void);");
+		pw.println("");
+		
+		staticPublicMethodList.genC(pw, getName());
+		staticPrivateMethodList.genC(pw, getName());
+		publicMethodList.genC(pw, getName());
+		privateMethodList.genC(pw, getName());
+		pw.println("");
 		
 		pw.println("Func VTclass_" + getName() + "[] = {");
 		pw.add();
 		
-		/* TODO todos os nomes de métodos públicos concatenados:
-		 * "_" + getName() + "_" + <nome_método>
-		 * possívelmente seguidos de "," */
+		ArrayList<String> publicMethodNames = publicMethodList.getNames();
+		int size = publicMethodNames.size();
+				
+		for (String name : publicMethodNames) {
+			pw.printIdent("_" + getName() + "_" + name);
+			if (--size > 0) {
+				pw.println(",");
+			}
+			else {
+				pw.println("");
+			}
+		}
 		
 		pw.sub();
 		pw.println("};");

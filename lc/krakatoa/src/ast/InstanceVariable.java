@@ -49,6 +49,11 @@ public class InstanceVariable extends Variable {
         pw.println(";");
 	}
 	
+	public void genC(PW pw, String kraClass) {
+		pw.printIdent(getType().getCname());
+		pw.println(" _" + kraClass + "_" + getName() + ";");
+	}
+	
 	private boolean isStatic;
 	private boolean isFinal;
 

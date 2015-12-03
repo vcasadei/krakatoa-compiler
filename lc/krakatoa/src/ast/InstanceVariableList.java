@@ -53,6 +53,11 @@ public class InstanceVariableList {
 		}
 		
 	}
+	
+	public void genC(PW pw, String kraClass) {
+		for (InstanceVariable instVar : instanceVariableList)
+			instVar.genC(pw, kraClass);
+	}
 
 	private ArrayList<InstanceVariable> instanceVariableList;
 

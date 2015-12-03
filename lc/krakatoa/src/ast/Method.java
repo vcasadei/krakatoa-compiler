@@ -99,6 +99,30 @@ public class Method {
 		pw.printlnIdent("}");
 	}
 	
+	public void genC(PW pw, String kraClass) {
+		pw.print(returnType.getCname());
+		pw.print(" _" + kraClass + "_" + getName());
+		
+		if (isStatic) {
+			pw.print("(");
+		}
+		else {
+			pw.print("(_class_" + kraClass + " *this");
+			if (paramList.getSize() > 0) {
+				pw.print(", ");
+			}
+		}
+		
+		paramList.genC(pw);
+		pw.println(") {");
+		pw.add();
+		localVariableList.genC(pw);
+		//stmtList.genC(pw);
+		pw.sub();
+		pw.printlnIdent("}");
+		pw.println("");
+	}
+	
 	private String name;
 	private ParamList paramList;
 	private LocalVariableList localVariableList;

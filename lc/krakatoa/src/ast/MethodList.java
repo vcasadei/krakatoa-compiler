@@ -44,6 +44,26 @@ public class MethodList {
 		}
 	}
 	
+	public void genC(PW pw, String kraClass) {
+		for (Method method : methodList) {
+			if (method != null) {
+				method.genC(pw, kraClass);
+			}
+		}
+	}
+	
+	public ArrayList<String> getNames() {
+		ArrayList<String> methodNames = new ArrayList<String>();
+		
+		for (Method method : methodList) {
+			if (method != null) {
+				methodNames.add(method.getName());
+			}
+		}
+		
+		return methodNames;
+	}
+	
 	private ArrayList<Method> methodList;
 
 }
