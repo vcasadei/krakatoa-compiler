@@ -37,6 +37,16 @@ public class StatementList {
 		
 	}
 	
+	public void genC(PW pw) {
+		if (!statementList.isEmpty()) {
+			for (Statement stmt : statementList) {
+				if (stmt != null) {
+					stmt.genC(pw);
+				}
+			}
+		}
+	}
+	
 	private ArrayList<Statement> statementList;
 
 }

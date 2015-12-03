@@ -114,12 +114,12 @@ Fase 2 - Geração de código em C
 * InstanceVariableList ✔
 * InstanceVariable ✔
 * MethodList ✔
-* Method [not finished]
+* Method ✔
 * ParamList ✔
 * Parameter ✔
 * LocalVariableList ✔
-*
-*
+* .
+* .
 * Type ✔
 * TypeBoolean ✔
 * TypeInt ✔
