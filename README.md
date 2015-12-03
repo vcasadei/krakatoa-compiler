@@ -118,11 +118,11 @@ Fase 2 - Geração de código em C
 * ParamList ✔
 * Parameter ✔
 * LocalVariableList ✔
-* .
-* .
-* Type ✔
-* TypeBoolean ✔
-* TypeInt ✔
+* StatementList ✔
+* CompositeExpr ✔ *
+* Type ✔ *
+* TypeBoolean ✔ *
+* TypeInt ✔ *
 * TypeString ✔
-* TypeUndefined ✔
-* TypeVoid ✔
+* TypeUndefined ✔ *
+* TypeVoid ✔ *
