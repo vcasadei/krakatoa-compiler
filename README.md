@@ -110,4 +110,19 @@ Fase 2 - Geração de código em C
 ================================
 
 * Program ✔
-* KraClass
+* KraClass ✔
+* InstanceVariableList ✔
+* InstanceVariable ✔
+* MethodList ✔
+* Method [not finished]
+* ParamList ✔
+* Parameter ✔
+* LocalVariableList ✔
+*
+*
+* Type ✔
+* TypeBoolean ✔
+* TypeInt ✔
+* TypeString ✔
+* TypeUndefined ✔
+* TypeVoid ✔
