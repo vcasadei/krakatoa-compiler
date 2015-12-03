@@ -143,6 +143,38 @@ public class KraClass extends Type {
 		pw.println("}");
 	}
 	
+	public void genC(PW pw) {
+		pw.println("typedef");
+		pw.add();
+		pw.printlnIdent("struct _St_" + getName() + " {");
+		pw.add();
+		pw.printlnIdent("Func *vt;");
+		
+		/* TODO todas as variáveis declaradas em A */
+		
+		pw.sub();
+		pw.printIdent("}");
+		pw.println(" _class_" + getName() + ";");
+		pw.sub();
+		pw.println("");
+		
+		//staticPublicMethodList.genC(pw);
+		//staticPrivateMethodList.genC(pw);
+		//publicMethodList.genC(pw);
+		//privateMethodList.genC(pw);
+		
+		pw.println("Func VTclass_" + getName() + "[] = {");
+		pw.add();
+		
+		/* TODO todos os nomes de métodos públicos concatenados:
+		 * "_" + getName() + "_" + <nome_método>
+		 * possívelmente seguidos de "," */
+		
+		pw.sub();
+		pw.println("};");
+		pw.println("");
+	}
+	
 	private KraClass superclass;
 	private InstanceVariableList instanceVariableList;
 	private MethodList publicMethodList, privateMethodList;

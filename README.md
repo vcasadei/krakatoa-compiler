@@ -109,5 +109,5 @@ OK-CHK06.KRA	(está ausente a classe Program)
 Fase 2 - Geração de código em C
 ================================
 
-Program ✔
-KraClass
+* Program ✔
+* KraClass

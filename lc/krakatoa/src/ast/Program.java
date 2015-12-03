@@ -54,7 +54,7 @@ public class Program {
 		pw.println("");
 		KraClass program = null;
 		for (KraClass kraClass : classList) {
-			//kraClass.genC(pw);
+			kraClass.genC(pw);
 			pw.printlnIdent("");	
 			if (kraClass.getName().equals("Program"))
 				program = kraClass;
@@ -74,6 +74,7 @@ public class Program {
 		pw.printlnIdent("return 0");
 		pw.sub();
 		pw.println("}");
+		pw.println("");
 	}
 
 	public ArrayList<KraClass> getClassList() {
