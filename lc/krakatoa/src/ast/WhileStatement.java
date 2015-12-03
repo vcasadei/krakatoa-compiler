@@ -13,6 +13,16 @@ package ast;
 public class WhileStatement extends Statement {
 	@Override
 	public void genC(PW pw) {
+		pw.printIdent("while (");
+		expr.genC(pw, false);
+		pw.println(") {");
+		
+		pw.add();
+		statement.genC(pw);
+		pw.sub();
+		
+		pw.println("}");
+		
 	}
 
 	public WhileStatement(Expr expr, Statement statement) {

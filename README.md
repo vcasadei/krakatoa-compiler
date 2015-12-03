@@ -139,6 +139,9 @@ Fase 2 - Geração de código em C
 * TypeString ✔
 * TypeUndefined ✔ *
 * TypeVoid ✔ *
-
+* UnaryExpr ✔ *
+* Variable ✔
+* VariableExpr ✔
+* WhileStatement ✔
 * Write ✔
 * WriteLn ✔
