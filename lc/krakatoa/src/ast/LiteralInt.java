@@ -21,7 +21,7 @@ public class LiteralInt extends Expr {
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {
-		pw.printIdent("" + value);
+		pw.printIdent(String.valueOf(value));
 	}
 
 	public Type getType() {

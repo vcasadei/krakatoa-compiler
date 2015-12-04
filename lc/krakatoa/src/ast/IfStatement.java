@@ -14,9 +14,9 @@ public class IfStatement extends Statement {
 
 	@Override
 	public void genC(PW pw) {
-		pw.printIdent("if (");
+		pw.printIdent("if ( ");
 		expr.genC(pw, false);
-		pw.println(") {");
+		pw.println(" ) {");
 		
 		pw.add();
 		statementIf.genC(pw);
