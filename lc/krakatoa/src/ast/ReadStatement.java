@@ -20,7 +20,44 @@ public class ReadStatement extends Statement {
 
 	@Override
 	public void genC(PW pw) {
-		// TODO Auto-generated method stub
+		int i = ReadStmt.size();
+		for (Variable v : ReadStmt) {
+			if (v.getType() == Type.intType) {
+				pw.printlnIdent("{");
+				
+				pw.add();
+				pw.printlnIdent("char __s[512];");
+				pw.printlnIdent("gets(__s);");
+				pw.printIdent("sscanf(__s, \"%d\", ");
+				
+				// If is a variable of the class (instance variable)
+				if (v instanceof InstanceVariable) {
+					pw.print("&this->");
+					pw.println("_" + v.getType().getCname() + "_" + v.getName() + ");");
+				} else {
+					// If it's simply a variable of the method
+					pw.println("&_" + v.getName() + ");");
+				}
+				pw.sub();
+				pw.printlnIdent("}");
+			} else {
+				if (v.getType() == Type.stringType) {
+					pw.printlnIdent("{");
+					
+					pw.add();
+					pw.printlnIdent("char __s[512];");
+					pw.printlnIdent("gets(__s);");
+					pw.printlnIdent("_" + v.getName() + " = malloc(strlen(__s) + 1);");
+					pw.println("strcpy(_" + v.getName() + ", __s);");
+					pw.sub();
+					
+					pw.printlnIdent("}");
+				}
+			}
+			
+			
+			
+		}
 
 	}
 
