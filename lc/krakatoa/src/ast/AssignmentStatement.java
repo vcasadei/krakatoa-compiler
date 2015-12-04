@@ -19,7 +19,13 @@ public class AssignmentStatement extends Statement {
 
 	@Override
 	public void genC(PW pw) {
-		// TODO Auto-generated method stub
+		pw.printIdent("");
+		esq.genC(pw, false);
+		if (dir != null) {
+			pw.print(" = ");
+			dir.genC(pw, false);
+		}
+		pw.println(";");
 
 	}
 

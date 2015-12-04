@@ -14,7 +14,22 @@ public class IfStatement extends Statement {
 
 	@Override
 	public void genC(PW pw) {
-		// TODO Auto-generated method stub
+		pw.printIdent("if (");
+		expr.genC(pw, false);
+		pw.println(") {");
+		
+		pw.add();
+		statementIf.genC(pw);
+		pw.sub();
+		
+		if (statementElse != null) {
+			pw.printlnIdent("} else {");
+			
+			pw.add();
+			statementElse.genC(pw);
+			pw.sub();
+		}
+		pw.printlnIdent("}");
 	}
 
 	public IfStatement(Expr expr, Statement statementIf, Statement statementElse) {
