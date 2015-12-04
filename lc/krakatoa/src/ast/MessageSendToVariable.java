@@ -10,6 +10,8 @@
 
 package ast;
 
+import java.util.ArrayList;
+
 public class MessageSendToVariable extends MessageSend {
 
 	public MessageSendToVariable(Variable inLocal, Method method,
@@ -28,7 +30,33 @@ public class MessageSendToVariable extends MessageSend {
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {
-
+		pw.print("((" + method.getReturnType().getCname() + " (*) ");
+		pw.print("(_class_" + var.getType().getCname() + " *");
+		
+		int size = exprList.getSize();
+		if (size > 0) {
+			pw.print(", ");
+		}
+		
+		ArrayList<Expr> localExprList = exprList.getExprList();
+		for (Expr expr : localExprList) {
+			pw.print(expr.getType().getCname());
+			if (--size > 1) {
+				pw.print(", ");
+			}
+		}
+		
+		KraClass localClass = (KraClass) var.getType();
+		int i = localClass.getPosition(method.getName());
+		pw.print(")) _" + var.getName());
+		pw.print("->vt[" + i + "]) (_" + var.getName());
+    	
+    	if (exprList.getSize() > 0) {
+    		pw.print(", ");
+    	}
+    	
+    	exprList.genC(pw);
+    	pw.print(")");
 	}
 
 	public Variable getVar() {

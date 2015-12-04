@@ -10,6 +10,8 @@
 
 package ast;
 
+import java.util.ArrayList;
+
 public class MessageSendToSelf extends MessageSend {
 
 	public MessageSendToSelf(KraClass currentClass, InstanceVariable instVar,
@@ -59,6 +61,68 @@ public class MessageSendToSelf extends MessageSend {
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {
+		if (instanceVariable == null && method == null)
+			pw.print("this");
+		else {
+			if (instanceVariable != null && method == null)
+				pw.print("this->_" + kraClass.getName() + "_" + instanceVariable.getName());
+			else {
+				if (instanceVariable == null && method != null) {
+					if (kraClass.containsPrivateMethod(method.getName())) {
+						pw.print("_" + kraClass.getName() + "_" + method.getName() + "(this");
+						if (exprList.getSize() > 0)
+							pw.print(", ");
+						exprList.genC(pw);
+						pw.print(")");
+					} else {
+						pw.print("((" + method.getReturnType().getCname() + " (*) ");
+						pw.print("(_class_" + kraClass.getName() + " *");
+						if (exprList.getSize() > 0)
+							pw.print(", ");
+						
+						ArrayList<Expr> localExprList = exprList.getExprList();
+						int size = exprList.getSize();
+						for (Expr expr : localExprList) {
+							pw.print(expr.getType().getCname());
+							if (--size > 1)
+								pw.print(", ");
+						}
+						
+						int i = kraClass.getPosition(method.getName());
+						pw.print(")) this->vt[" + i + "]) ((_class_" + kraClass.getName() + " *) this");
+						if (exprList.getSize() > 0)
+							pw.print(", ");
+						
+						exprList.genC(pw);
+						pw.print(")");
+					}
+				}
+				else {
+		    		pw.print("((" + method.getReturnType().getCname() + " (*) ");
+		    		pw.print("(" + instanceVariable.getType().getCname() + " *");
+		    		if (exprList.getSize() > 0)
+		    			pw.print(", ");
+		    		
+		    		ArrayList<Expr> localExprList = exprList.getExprList();
+					int size = exprList.getSize();
+					for (Expr expr : localExprList) {
+						pw.print(expr.getType().getCname());
+						if (--size > 1)
+							pw.print(", ");
+					}
+		    		
+					int i = kraClass.getPosition(method.getName());
+		    		pw.print(")) this->_" + kraClass.getName() + "_" + instanceVariable.getName());
+		    		pw.print(".vt[" + i + "]) (&this->_");
+		    		pw.print(kraClass.getName() + "_" + instanceVariable.getName());
+		    		if (exprList.getSize() > 0)
+		    			pw.print(", ");
+		    		
+		    		exprList.genC(pw);
+		    		pw.print(")");
+		    	}
+			}
+		}	
 	}
 
 	@Override

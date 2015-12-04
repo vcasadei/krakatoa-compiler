@@ -22,8 +22,7 @@ public class CompositeStatement extends Statement {
 
 	@Override
 	public void genC(PW pw) {
-		statementList.genC(pw); // ??
-
+		statementList.genC(pw);
 	}
 
 	@Override

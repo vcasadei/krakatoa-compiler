@@ -32,8 +32,8 @@ public class Program {
 
 	public void genC(PW pw) {
 		pw.println("/*");
-		pw.println(" * Deve-se incluir alguns headers porque algumas funções");
-		pw.println(" * da biblioteca padrão de C são utilizadas na tradução.");
+		pw.println(" * Deve-se incluir alguns headers porque algumas funï¿½ï¿½es");
+		pw.println(" * da biblioteca padrï¿½o de C sï¿½o utilizadas na traduï¿½ï¿½o.");
 		pw.println("*/");
 		pw.println("#include <malloc.h>");
 		pw.println("#include <stdlib.h>");
@@ -46,7 +46,7 @@ public class Program {
 		pw.println("#define false 0");
 		
 		pw.println("");
-		pw.println("/* Define um tipo Func, um ponteiro para função */");
+		pw.println("/* Define um tipo Func, um ponteiro para funï¿½ï¿½o */");
 		pw.println("typedef");
 		pw.add();
 		pw.printlnIdent("void (*Func)();");
@@ -69,12 +69,12 @@ public class Program {
 		pw.printlnIdent("/*");
 		pw.printlnIdent(" * Crie objeto da classe Program e envie a mensagem"
 				+ " run para ele.");
-		pw.printlnIdent(" * Nem sempre o número de run no vetor é 0.");
+		pw.printlnIdent(" * Nem sempre o nï¿½mero de run no vetor ï¿½ 0.");
 		pw.printlnIdent("*/");
 		pw.printlnIdent("program = new_Program();");
 		pw.printlnIdent("( ( void (*)(_class_Program *) ) program->vt[0] )"
 				+ "(program);");
-		pw.printlnIdent("return 0");
+		pw.printlnIdent("return 0;");
 		pw.sub();
 		pw.println("}");
 		pw.println("");

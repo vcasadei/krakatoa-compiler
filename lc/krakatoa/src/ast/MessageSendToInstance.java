@@ -19,8 +19,7 @@ public class MessageSendToInstance extends Expr {
 
 	@Override
 	public void genC(PW pw, boolean putParenthesis) {
-		// TODO Auto-generated method stub
-
+		pw.print(var.getName() + "." + instanceVariable.getName());
 	}
 
 	@Override

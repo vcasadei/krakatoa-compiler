@@ -15,7 +15,14 @@ public class IfStatement extends Statement {
 	@Override
 	public void genC(PW pw) {
 		pw.printIdent("if ( ");
-		expr.genC(pw, false);
+		
+		if (expr.getType() == Type.booleanType) {
+			expr.genC(pw, false);
+			pw.print(" != false");
+		}
+		else {
+			expr.genC(pw, false);
+		}
 		pw.println(" ) {");
 		
 		pw.add();

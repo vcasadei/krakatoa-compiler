@@ -17,7 +17,24 @@ public class MessageSendToSuper extends MessageSend {
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {
-		// To do ....
+		
+		KraClass superclass = kraClassSender.getSuperclass();
+		
+		while (superclass != null) {
+			if (superclass.containsPublicMethod(methodMessage.getName()))
+				break;
+			superclass = superclass.getSuperclass();
+		}
+		
+		pw.print("_" + superclass.getName() + "_" + methodMessage.getName());
+		pw.print("((_class_" + superclass.getCname() + " * ) this");
+		
+		if (exprList.getSize() > 0) {
+			pw.print(", ");
+		}
+		exprList.genC(pw);
+		pw.println(")");
+		
 	}
 
 	public MessageSendToSuper(Method methodMessage, ExprList exprList,

@@ -66,4 +66,14 @@ public class MethodList {
 	
 	private ArrayList<Method> methodList;
 
+	public int getPosition(String name) {
+		int pos = 0;
+		for (Method method : methodList)
+			if (method.getName().equals(name))
+				return pos;
+			else 
+				pos++;
+		return -1;
+	}
+
 }

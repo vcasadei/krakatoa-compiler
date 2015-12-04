@@ -11,6 +11,7 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /*
  * Krakatoa Class
@@ -146,8 +147,8 @@ public class KraClass extends Type {
 	}
 
 	/*
-	 * Permite recurs„o para varrer classes superiores e gerar cÛdigo para
-	 * as respectivas vari·veis de inst‚ncia
+	 * Permite recursÔøΩo para varrer classes superiores e gerar cÔøΩdigo para
+	 * as respectivas variÔøΩveis de instÔøΩncia
 	 */
 	private void varC(PW pw) {
 		if (superclass != null)
@@ -175,7 +176,6 @@ public class KraClass extends Type {
 		staticPrivateMethodList.genC(pw, getName());
 		publicMethodList.genC(pw, getName());
 		privateMethodList.genC(pw, getName());
-		pw.println("");
 		
 		pw.println("Func VTclass_" + getName() + "[] = {");
 		pw.add();
@@ -184,7 +184,7 @@ public class KraClass extends Type {
 		int size = publicMethodNames.size();
 				
 		for (String name : publicMethodNames) {
-			pw.printIdent("_" + getName() + "_" + name);
+			pw.printIdent("(void (*) ()) _" + getName() + "_" + name);
 			if (--size > 0) {
 				pw.println(",");
 			}
@@ -196,6 +196,19 @@ public class KraClass extends Type {
 		pw.sub();
 		pw.println("};");
 		pw.println("");
+		
+		pw.println("_class_" + getName() +" *new_" + getName() + "() {");
+		pw.add();
+		pw.printlnIdent("_class_" + getName() + " *t;");
+		pw.printlnIdent("if ((t = malloc(sizeof(_class_" + getName() + "))) != NULL) {");
+		pw.add();
+		pw.printlnIdent("t->vt = VTclass_" + getName() + ";");
+		pw.sub();
+		pw.printlnIdent("}");
+		pw.printlnIdent("return t;");
+		pw.sub();
+		pw.print("}");
+		pw.println("");
 	}
 	
 	private KraClass superclass;
@@ -205,5 +218,12 @@ public class KraClass extends Type {
 	private InstanceVariableList staticVariableList;
 	private boolean isFinal;
 	private boolean isStatic;
+	
+	/*
+	 * Permite retornar a posi√ß√£o relativa de um m√©todo no corpo da classe
+	 */
+	public int getPosition(String name) {
+		return this.publicMethodList.getPosition(name);
+	}
 
 }

@@ -29,14 +29,14 @@ public class WriteLnStatement extends Statement {
 			Expr element = it.next();
 			
 			if (element.getType() == Type.intType) {
-				pw.printlnIdent("printf(\"%d\", ");
+				pw.printIdent("printf(\"%d\", ");
 				element.genC(pw, false);
-				pw.print(");");
+				pw.println(");");
 			} else {
 				if (element.getType() == Type.stringType) {
 					pw.printIdent("puts(");
 					element.genC(pw, false);
-					pw.print(");");
+					pw.println(");");
 				}
 			}	
 		}
