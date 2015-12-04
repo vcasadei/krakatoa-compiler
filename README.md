@@ -155,3 +155,5 @@ Fase 2 - Geração de código em C
 * WhileStatement ✔
 * Write ✔
 * WriteLn ✔
+
+?? Not sure
