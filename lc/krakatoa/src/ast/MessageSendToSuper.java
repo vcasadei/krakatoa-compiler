@@ -27,7 +27,7 @@ public class MessageSendToSuper extends MessageSend {
 		}
 		
 		pw.print("_" + superclass.getName() + "_" + methodMessage.getName());
-		pw.print("((_class_" + superclass.getCname() + " * ) this");
+		pw.print("((" + superclass.getCname() + " *) this");
 		
 		if (exprList.getSize() > 0) {
 			pw.print(", ");

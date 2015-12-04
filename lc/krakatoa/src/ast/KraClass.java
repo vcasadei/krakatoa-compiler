@@ -172,10 +172,10 @@ public class KraClass extends Type {
 		pw.println(getCname() + " *new_" + getName() + "(void);");
 		pw.println("");
 		
-		staticPublicMethodList.genC(pw, getName());
 		staticPrivateMethodList.genC(pw, getName());
-		publicMethodList.genC(pw, getName());
+		staticPublicMethodList.genC(pw, getName());
 		privateMethodList.genC(pw, getName());
+		publicMethodList.genC(pw, getName());
 		
 		pw.println("Func VTclass_" + getName() + "[] = {");
 		pw.add();

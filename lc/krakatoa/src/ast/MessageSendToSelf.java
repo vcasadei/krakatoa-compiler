@@ -84,7 +84,7 @@ public class MessageSendToSelf extends MessageSend {
 						int size = exprList.getSize();
 						for (Expr expr : localExprList) {
 							pw.print(expr.getType().getCname());
-							if (--size > 1)
+							if (--size > 0)
 								pw.print(", ");
 						}
 						
@@ -107,7 +107,7 @@ public class MessageSendToSelf extends MessageSend {
 					int size = exprList.getSize();
 					for (Expr expr : localExprList) {
 						pw.print(expr.getType().getCname());
-						if (--size > 1)
+						if (--size > 0)
 							pw.print(", ");
 					}
 		    		

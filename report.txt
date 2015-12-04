@@ -177,7 +177,7 @@ The 'ce' message is:      "Method 'p' was not found in the public interface of '
 
 
 ER-SEM39.KRA
-The compiler message was: "=> Method type not convertible to return type. The method type is ast.KraClass@73a83205 and the return type is ast.KraClass@276c2195"
+The compiler message was: "=> Method type not convertible to return type. The method type is ast.KraClass@1b286c71 and the return type is ast.KraClass@7ae77ca4"
 The 'ce' message is:      "Type error: type of the expression returned is not subclass of the method return type"
 
 
@@ -297,7 +297,7 @@ The 'ce' message is:      "'.' or '=' expected after an identifier OR statement 
 
 
 ER-SEM15.KRA
-The compiler message was: "=> Expected type to be boolean, but got ast.TypeInt@2c10d16b instead. Not (!) operator accepts only boolean values."
+The compiler message was: "=> Expected type to be boolean, but got ast.TypeInt@73a83205 instead. Not (!) operator accepts only boolean values."
 The 'ce' message is:      "Operator '!' does not accepts 'int' values"
 
 
@@ -602,7 +602,7 @@ The 'ce' message is:      "Expression expected"
 
 
 ER-SEM40.KRA
-The compiler message was: "=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@424de67 and the return type is ast.KraClass@10853e51"
+The compiler message was: "=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@276c2195 and the return type is ast.KraClass@2c10d16b"
 The 'ce' message is:      "Type error: the type of the real parameter is not subclass of the type of the formal parameter"
 
 

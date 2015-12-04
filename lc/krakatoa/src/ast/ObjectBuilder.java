@@ -21,7 +21,7 @@ public class ObjectBuilder extends Expr {
 		// If cast is needed
 		if (castObject != null && obj != null) {
 			if (castObject.getName() != obj.getName()) {
-				pw.print("(" + castObject.getName() + " *) ");
+				pw.print("(" + castObject.getCname() + " *) ");
 			}
 		}
 		
