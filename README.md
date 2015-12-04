@@ -21,12 +21,12 @@ Fase 2 - Geração de código em C
 * LiteralInt ✔ *
 * LiteralString ✔ *
 * LocalVariableList ✔
-* MessageSend
-* MessageSendStatement **
-* MessageSendToInstance **
-* MessageSendToSelf
-* MessageSendToSuper **
-* MessageSendToVariable	**
+* MessageSend ✔
+* MessageSendStatement ✔ **
+* MessageSendToInstance ✔ **
+* MessageSendToSelf ✔
+* MessageSendToSuper  ✔ **
+* MessageSendToVariable	 ✔ **
 * Method ✔
 * MethodList ✔
 * NullExpr ✔ *
