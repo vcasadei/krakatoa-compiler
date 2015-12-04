@@ -157,3 +157,19 @@ Fase 2 - Geração de código em C
 * WriteLn ✔
 
 ?? Not sure
+
+=====
+Dúvidas
+=====
+Não sei como fazer isso (abaixo), tem ideia?
+O código
+	if ( expr ) statement;
+em Krakatoa, onde o tipo de expr  é boolean, deve ser traduzido para 
+	if ( (expr) != false ) statement;
+em C. 
+E o código
+	if ( ! expr ) statement;
+deve ser traduzido para
+	if ( (expr) == false ) statement;
+          
+Apostila (Geração de Krakatoa para C) pág 15, no final da página.
