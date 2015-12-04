@@ -84,4 +84,41 @@ getPosition(). Como fazer?
 Lista de problemas
 ================================
 
-
+* OK-CHK04
+* OK-CHK06
+* OK-CHK07
+* OK-GER05
+* OK-GER09
+* OK-GER10
+* OK-GER11
+* OK-GER12
+* OK-GER13
+* OK-GER14
+* OK-GER15
+* OK-GER16
+* OK-GER17
+* OK-GER18
+* OK-GER19
+* OK-GER20
+* OK-GER21
+* OK-SEM01
+* OK-SEM03
+* OK-SEM05
+* OK-SEM08
+* OK-SEM09
+* OK-SEM10
+* OK-SEM14
+* OK-SEM15
+* OK-SEM17
+* OK-SEM18
+* OK-SEM19
+* OK-SEM20
+* OK-SIN02
+* OK-SIN05
+* OK-SIN07
+* OK-SIN08
+* OK-SIN09
+* OK-SIN10
+* OK-SIN14
+* OK-SIN15
+* 38/71 arquivo(s) com erros.
