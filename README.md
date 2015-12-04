@@ -109,13 +109,13 @@ OK-CHK06.KRA	(está ausente a classe Program)
 Fase 2 - Geração de código em C
 ================================
 
-* AssignStatement *
-* BreakStatement *
+* AssignStatement ✔
+* BreakStatement ✔
 * CompositeExpr  ✔ *
-* CompositeStatement * ??
+* CompositeStatement ✔ ??
 * Expr ✔ *
 * ExprList ✔ *
-* IfStatement *
+* IfStatement ✔
 * InstanceVariable ✔
 * InstanceVariableList ✔
 * KraClass ✔
@@ -138,10 +138,10 @@ Fase 2 - Geração de código em C
 * ParamList ✔
 * ParenthesisExpr ✔
 * Program ✔
-* ReadStatement
-* ReturnStatement *
+* ReadStatement ✔
+* ReturnStatement ✔
 * SignalExpr ✔
-* Statement
+* Statement ✔ *
 * StatementList ✔
 * Type ✔ *
 * TypeBoolean ✔ *
