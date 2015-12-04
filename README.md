@@ -109,30 +109,40 @@ OK-CHK06.KRA	(está ausente a classe Program)
 Fase 2 - Geração de código em C
 ================================
 
-* Program ✔
-* KraClass ✔
-* InstanceVariableList ✔
-* InstanceVariable ✔
-* MethodList ✔
-* Method ✔
-* ParamList ✔
-* Parameter ✔
-* LocalVariableList ✔
-* StatementList ✔
-* CompositeExpr ✔ *
+* AssignStatement
+* BreakStatement
+* CompositeExpr  ✔ *
+* CompositeStatement
 * Expr ✔ *
 * ExprList ✔ *
+* IfStatement
+* InstanceVariable ✔
+* InstanceVariableList ✔
+* KraClass ✔
 * LiteralBoolean ✔ *
 * LiteralInt ✔ *
 * LiteralString ✔ *
+* LocalVariableList ✔
+* MessageSend
+* MessageSendStatement
+* MessageSendToInstance
+* MessageSendToSelf
+* MessageSendToSuper
+* MessageSendToVariable
+* Method ✔
+* MethodList ✔
 * NullExpr ✔ *
 * NullStatement ✔ 
 * ObjectBuilder ✔
+* Parameter ✔
+* ParamList ✔
 * ParenthesisExpr ✔
+* Program ✔
+* ReadStatement
+* ReturnStatement
 * SignalExpr ✔
-* UnaryExpr ✔ *
-* Variable ✔
-* VariableExpr ✔ *
+* Statement
+* StatementList ✔
 * Type ✔ *
 * TypeBoolean ✔ *
 * TypeInt ✔ *
@@ -141,7 +151,7 @@ Fase 2 - Geração de código em C
 * TypeVoid ✔ *
 * UnaryExpr ✔ *
 * Variable ✔
-* VariableExpr ✔
+* VariableExpr ✔ *
 * WhileStatement ✔
 * Write ✔
 * WriteLn ✔
