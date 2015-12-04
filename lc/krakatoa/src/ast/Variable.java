@@ -21,10 +21,6 @@ public class Variable {
     public Type getType() {
         return type;
     }
-
-    //public void genC(PW pw) {
-    	//pw.print(name);
-	//}
     
     public void genKra(PW pw) {
     	pw.print(name);

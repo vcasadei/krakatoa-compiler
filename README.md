@@ -58,9 +58,9 @@ Fase 2 - Geração de código em C
 ?? Not sure
 ** To be reviewed
 
-=====
+================================
 Dúvidas
-=====
+================================
   
 Dúvida 1:
 Não sei como fazer isso (abaixo), tem ideia?  
@@ -79,3 +79,9 @@ Apostila (Geração de Krakatoa para C) pág 15, no final da página.
 Dúvida 2:
 Precisa varrer as superclasses em busca do método, na função
 getPosition(). Como fazer?
+
+================================
+Lista de problemas
+================================
+
+

@@ -31,7 +31,7 @@ public class MessageSendToVariable extends MessageSend {
 
 	public void genC(PW pw, boolean putParenthesis) {
 		pw.print("((" + method.getReturnType().getCname() + " (*) ");
-		pw.print("(_class_" + var.getType().getCname() + " *");
+		pw.print("(" + var.getType().getCname() + " *");
 		
 		int size = exprList.getSize();
 		if (size > 0) {

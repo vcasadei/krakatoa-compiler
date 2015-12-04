@@ -32,7 +32,7 @@ public class KraClass extends Type {
 	}
 
 	public String getCname() {
-		return getName();
+		return "_class_" + getName();
 	}
 
 	public KraClass getSuperclass() {
@@ -165,11 +165,11 @@ public class KraClass extends Type {
 		varC(pw);
 		pw.sub();
 		pw.printIdent("}");
-		pw.println(" _class_" + getName() + ";");
+		pw.println(" " + getCname() + ";");
 		pw.sub();
 		pw.println("");
 		
-		pw.println("_class_" + getName() + " *new_" + getName() + "(void);");
+		pw.println(getCname() + " *new_" + getName() + "(void);");
 		pw.println("");
 		
 		staticPublicMethodList.genC(pw, getName());
@@ -197,10 +197,10 @@ public class KraClass extends Type {
 		pw.println("};");
 		pw.println("");
 		
-		pw.println("_class_" + getName() +" *new_" + getName() + "() {");
+		pw.println(getCname() +" *new_" + getName() + "() {");
 		pw.add();
-		pw.printlnIdent("_class_" + getName() + " *t;");
-		pw.printlnIdent("if ((t = malloc(sizeof(_class_" + getName() + "))) != NULL) {");
+		pw.printlnIdent(getCname() + " *t;");
+		pw.printlnIdent("if ((t = malloc(sizeof(" + getCname() + "))) != NULL) {");
 		pw.add();
 		pw.printlnIdent("t->vt = VTclass_" + getName() + ";");
 		pw.sub();

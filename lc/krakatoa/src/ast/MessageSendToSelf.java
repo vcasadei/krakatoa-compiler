@@ -76,7 +76,7 @@ public class MessageSendToSelf extends MessageSend {
 						pw.print(")");
 					} else {
 						pw.print("((" + method.getReturnType().getCname() + " (*) ");
-						pw.print("(_class_" + kraClass.getName() + " *");
+						pw.print("(" + kraClass.getCname() + " *");
 						if (exprList.getSize() > 0)
 							pw.print(", ");
 						
@@ -89,7 +89,7 @@ public class MessageSendToSelf extends MessageSend {
 						}
 						
 						int i = kraClass.getPosition(method.getName());
-						pw.print(")) this->vt[" + i + "]) ((_class_" + kraClass.getName() + " *) this");
+						pw.print(")) this->vt[" + i + "]) ((" + kraClass.getCname() + " *) this");
 						if (exprList.getSize() > 0)
 							pw.print(", ");
 						
