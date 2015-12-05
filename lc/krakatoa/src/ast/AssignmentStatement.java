@@ -18,7 +18,7 @@ public class AssignmentStatement extends Statement {
 	}
 
 	@Override
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 		pw.printIdent("");
 		esq.genC(pw, false);
 		if (dir != null) {

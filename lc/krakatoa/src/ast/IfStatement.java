@@ -13,7 +13,7 @@ package ast;
 public class IfStatement extends Statement {
 
 	@Override
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 		pw.printIdent("if ( ");
 		
 		if (expr.getType() == Type.booleanType) {
@@ -26,14 +26,14 @@ public class IfStatement extends Statement {
 		pw.println(" ) {");
 		
 		pw.add();
-		statementIf.genC(pw);
+		statementIf.genC(pw, className);
 		pw.sub();
 		
 		if (statementElse != null) {
 			pw.printlnIdent("} else {");
 			
 			pw.add();
-			statementElse.genC(pw);
+			statementElse.genC(pw, className);
 			pw.sub();
 		}
 		pw.printlnIdent("}");

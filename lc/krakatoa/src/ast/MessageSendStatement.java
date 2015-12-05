@@ -16,7 +16,7 @@ public class MessageSendStatement extends Statement {
 		this.messageSend = messageSend;
 	}
 
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 		pw.printIdent("");
 		messageSend.genC(pw, false);
 		pw.println(";");

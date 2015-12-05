@@ -117,7 +117,7 @@ public class Method {
 		pw.println(") {");
 		pw.add();
 		localVariableList.genC(pw);
-		stmtList.genC(pw);
+		stmtList.genC(pw, kraClass);
 		pw.sub();
 		pw.printlnIdent("}");
 		pw.println("");

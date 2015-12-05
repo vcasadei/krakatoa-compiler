@@ -19,7 +19,7 @@ public class ReadStatement extends Statement {
 	}
 
 	@Override
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 		int i = ReadStmt.size();
 		for (Variable v : ReadStmt) {
 			if (v.getType() == Type.intType) {
@@ -33,7 +33,7 @@ public class ReadStatement extends Statement {
 				// If is a variable of the class (instance variable)
 				if (v instanceof InstanceVariable) {
 					pw.print("&this->");
-					pw.println("_" + v.getType().getCname() + "_" + v.getName() + ");");
+					pw.println("_" + className + "_" + v.getName() + ");");
 				} else {
 					// If it's simply a variable of the method
 					pw.println("&_" + v.getName() + ");");

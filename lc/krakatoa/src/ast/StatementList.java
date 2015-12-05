@@ -37,11 +37,11 @@ public class StatementList {
 		
 	}
 	
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 		if (!statementList.isEmpty()) {
 			for (Statement stmt : statementList) {
 				if (stmt != null) {
-					stmt.genC(pw);
+					stmt.genC(pw, className);
 				}
 			}
 		}

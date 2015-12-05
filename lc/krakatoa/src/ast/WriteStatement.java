@@ -25,7 +25,7 @@ public class WriteStatement extends Statement {
 	}
 
 	@Override
-	public void genC(PW pw) {
+	public void genC(PW pw, String className) {
 		Iterator<Expr> it = this.writeStmt.getElements();
 		
 		while (it.hasNext()) {
