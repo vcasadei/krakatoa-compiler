@@ -10,10 +10,10 @@ Fase 2 - Geração de código em C
 * AssignStatement ✔ 
 * BreakStatement ✔
 * CompositeExpr  ✔ * 
-* CompositeStatement ✔ ?? **
+* CompositeStatement ✔
 * Expr ✔ *
 * ExprList ✔ * 
-* IfStatement ✔ **
+* IfStatement ✔
 * InstanceVariable ✔
 * InstanceVariableList ✔
 * KraClass ✔
@@ -22,11 +22,11 @@ Fase 2 - Geração de código em C
 * LiteralString ✔ *
 * LocalVariableList ✔
 * MessageSend ✔
-* MessageSendStatement ✔ **
-* MessageSendToInstance ✔ **
+* MessageSendStatement ✔
+* MessageSendToInstance ✔
 * MessageSendToSelf ✔
-* MessageSendToSuper  ✔ **
-* MessageSendToVariable	 ✔ **
+* MessageSendToSuper  ✔
+* MessageSendToVariable	 ✔
 * Method ✔
 * MethodList ✔
 * NullExpr ✔ *
@@ -48,15 +48,11 @@ Fase 2 - Geração de código em C
 * TypeUndefined ✔ *
 * TypeVoid ✔ *
 * UnaryExpr ✔ *
-* Variable ✔ **
+* Variable ✔
 * VariableExpr ✔ *
 * WhileStatement ✔
 * Write ✔
 * WriteLn ✔
-
-* * by Zé
-* ?? Not sure
-* ** To be reviewed
 
 ================================
 Dúvidas
