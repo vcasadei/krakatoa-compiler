@@ -602,7 +602,7 @@ The 'ce' message is:      "Expression expected"
 
 
 ER-SEM40.KRA
-The compiler message was: "=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@276c2195 and the return type is ast.KraClass@2c10d16b"
+The compiler message was: "=> Expected expression type to be convertible to parameter 1 type. The expression type is ast.KraClass@2c10d16b and the return type is ast.KraClass@424de67"
 The 'ce' message is:      "Type error: the type of the real parameter is not subclass of the type of the formal parameter"
 
 
