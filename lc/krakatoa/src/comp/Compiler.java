@@ -126,8 +126,8 @@ public class Compiler {
 				signalError.show("End of file expected");
 			}
 		} catch (RuntimeException e) {
-			//e.printStackTrace();
-			//System.out.println(e);
+			e.printStackTrace();
+			System.out.println(e);
 			// if there was an exception, there is a compilation signalError
 		}
 		return program;
@@ -1960,13 +1960,15 @@ public class Compiler {
 
 					String identIdent = lexer.getStringValue();
 					lexer.nextToken();
+					System.out.println(currentClass.containsInstanceVariable(ident));
+					System.out.println(currentClass.getInstanceVariable(ident) != null);
+					System.out.println(lexer.getCurrentLine());
 					
-					if (symbolTable.getInLocal(ident) == null){
-						signalError.show("Instance Variable " + ident + " not declared");
+					
+					InstanceVariable instVar = (InstanceVariable) symbolTable.getInLocal(ident);
+					if (instVar == null) {
+						instVar = (InstanceVariable) currentClass.getInstanceVariable(ident);
 					}
-					
-					InstanceVariable instVar = (InstanceVariable) 
-							symbolTable.getInLocal(ident);
 					
 					if (instVar != null) {
 						

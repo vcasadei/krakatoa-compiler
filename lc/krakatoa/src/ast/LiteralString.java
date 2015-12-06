@@ -17,6 +17,7 @@ public class LiteralString extends Expr {
 	}
 
 	public void genC(PW pw, boolean putParenthesis) {
+		literalString = literalString.replace(" \\ ", " \\\\ ");
 		pw.print("\"" + literalString + "\"");
 	}
 

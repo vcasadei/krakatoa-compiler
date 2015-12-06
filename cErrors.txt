@@ -1,16 +1,10 @@
-OK-CHK07.c: In function 'main':
-OK-CHK07.c:86:4: error: unknown type name '_class_Program'
-    _class_Program *program;
+OK-CHK07.c: In function '_Program_run':
+OK-CHK07.c:190:4: error: incompatible type for argument 2 of '(void (*)(struct _class_Group *, struct _class_Person,  struct _class_Person))*_g->vt'
+    ((void (*) (_class_Group *, _class_Person, _class_Person)) _g->vt[0]) (_g, _joao, _maria);
     ^
-OK-CHK07.c:92:12: warning: assignment makes pointer from integer without a cast [enabled by default]
-    program = new_Program();
-            ^
-OK-CHK07.c:93:17: error: unknown type name '_class_Program'
-    ( ( void (*)(_class_Program *) ) program->vt[0] )(program);
-                 ^
-OK-CHK07.c:93:37: error: expected ')' before 'program'
-    ( ( void (*)(_class_Program *) ) program->vt[0] )(program);
-                                     ^
+OK-CHK07.c:190:4: note: expected '_class_Person' but argument is of type 'struct _class_Person *'
+OK-CHK07.c:190:4: error: incompatible type for argument 3 of '(void (*)(struct _class_Group *, struct _class_Person,  struct _class_Person))*_g->vt'
+OK-CHK07.c:190:4: note: expected '_class_Person' but argument is of type 'struct _class_Person *'
 OK-GER14.c: In function '_Program_run':
 OK-GER14.c:170:7: warning: assignment from incompatible pointer type [enabled by default]
     _c = _d;
@@ -253,7 +247,3 @@ OK-SIN14.c: In function '_Program_run':
 OK-SIN14.c:64:21: error: incompatible types when assigning to type '_class_Point' from type 'struct _class_Point *'
     this->_Program_p = new_Point();
                      ^
-OK-SIN15.c: In function '_Program_run':
-OK-SIN15.c:66:9: warning: unknown escape sequence: '\040' [enabled by default]
-    puts("barra no final  \ ");
-         ^
