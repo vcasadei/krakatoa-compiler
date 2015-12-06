@@ -51,6 +51,7 @@ public class Compiler {
 			while (lexer.token == Symbol.MOCall) {
 				metaobjectCallList.add(metaobjectCall());
 			}
+			
 			boolean isStatic = false, isFinal = false;
 			// Getting static and final (if exists) on all classes and calling classDec
 			while (lexer.token == Symbol.FINAL || lexer.token == Symbol.STATIC) {
@@ -125,6 +126,8 @@ public class Compiler {
 				signalError.show("End of file expected");
 			}
 		} catch (RuntimeException e) {
+			//e.printStackTrace();
+			//System.out.println(e);
 			// if there was an exception, there is a compilation signalError
 		}
 		return program;
@@ -1868,7 +1871,7 @@ public class Compiler {
 
 		case THIS:
 			Method thisMethod = null;
-
+			
 			if (currentMethod.isStatic()) {
 				signalError.show("Cant use 'this' in a 'static' method");
 			}
@@ -1953,18 +1956,27 @@ public class Compiler {
 
 					if (lexer.token != Symbol.IDENT)
 						signalError.show("Identifier expected");
-					lexer.nextToken();
+					//lexer.nextToken();
 
 					String identIdent = lexer.getStringValue();
 					lexer.nextToken();
-
-					InstanceVariable instVar = (InstanceVariable) currentClass
-							.getInstanceVariable(identIdent);
-
-					if (!isType(instVar.getType().getName()))
-						signalError
-								.show("Variable is not an object of any class or basic type");
-
+					
+					if (symbolTable.getInLocal(ident) == null){
+						signalError.show("Instance Variable " + ident + " not declared");
+					}
+					
+					InstanceVariable instVar = (InstanceVariable) 
+							symbolTable.getInLocal(ident);
+					
+					if (instVar != null) {
+						
+						if (!isType(instVar.getType().getName())) {
+							signalError
+							.show("Variable is not an object of any class or basic type");
+						}	
+					} else{
+						System.out.println("NUlo bostas");
+					}
 					KraClass thisClass = symbolTable.getInGlobal(instVar
 							.getType().getName());
 

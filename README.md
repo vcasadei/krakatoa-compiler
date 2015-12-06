@@ -77,7 +77,6 @@ getPosition()?
 Lista de problemas
 ================================
 
-* OK-CHK06
 * OK-CHK07
 * OK-GER14
 * OK-GER16
@@ -85,7 +84,6 @@ Lista de problemas
 * OK-GER18
 * OK-GER19
 * OK-GER20
-* OK-GER21
 * OK-GER22
 * OK-SEM01 
 * OK-SEM05
@@ -98,4 +96,4 @@ Lista de problemas
 * OK-SEM19
 * OK-SIN07
 * OK-SIN14
-* 21/71 erros
+* 19/71 erros
