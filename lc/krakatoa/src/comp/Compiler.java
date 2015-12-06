@@ -126,8 +126,6 @@ public class Compiler {
 				signalError.show("End of file expected");
 			}
 		} catch (RuntimeException e) {
-			e.printStackTrace();
-			System.out.println(e);
 			// if there was an exception, there is a compilation signalError
 		}
 		return program;
@@ -1960,9 +1958,6 @@ public class Compiler {
 
 					String identIdent = lexer.getStringValue();
 					lexer.nextToken();
-					System.out.println(currentClass.containsInstanceVariable(ident));
-					System.out.println(currentClass.getInstanceVariable(ident) != null);
-					System.out.println(lexer.getCurrentLine());
 					
 					
 					InstanceVariable instVar = (InstanceVariable) symbolTable.getInLocal(ident);
@@ -1976,8 +1971,6 @@ public class Compiler {
 							signalError
 							.show("Variable is not an object of any class or basic type");
 						}	
-					} else{
-						System.out.println("NUlo bostas");
 					}
 					KraClass thisClass = symbolTable.getInGlobal(instVar
 							.getType().getName());

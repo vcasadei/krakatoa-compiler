@@ -80,22 +80,22 @@ Lista de problemas
 * OK-CHK07
 * OK-GER14 --> Only warning
 * OK-GER16 --> Only warning
-* OK-GER17
-* OK-GER18
-* OK-GER19
-* OK-GER20
+* OK-GER17 -- Static
+* OK-GER18 -- Static
+* OK-GER19 -- Static
+* OK-GER20 -- Static
 * OK-GER22 --> Only warning
-* OK-SEM01 
-* OK-SEM05
-* OK-SEM09
+* OK-SEM01 -- Static
+* OK-SEM05 -- This
+* OK-SEM09 -- This
 * OK-SEM10 --> Only warning
 * OK-SEM14 --> Only warning
-* OK-SEM15 
-* OK-SEM17
-* OK-SEM18
-* OK-SEM19
-* OK-SIN07
-* OK-SIN14
+* OK-SEM15  -- This
+* OK-SEM17 -- Static
+* OK-SEM18 -- Static
+* OK-SEM19 -- Static
+* OK-SIN07 -- This
+* OK-SIN14 -- This
 
 * 19/71 com erro e warning
 * 14/71 com erro
